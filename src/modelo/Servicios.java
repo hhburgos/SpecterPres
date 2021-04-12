@@ -1,8 +1,15 @@
 package modelo;
 
-public class Servicios {
+import java.io.Serializable;
+
+public class Servicios implements Serializable {
+	
+	private static final String fich_servicios_blue = "ServiciosBlue.obj";
+	private static final String fich_servicios_agency = "ServiciosAgency.obj";
+	private static final String fich_servicios_1824 = "Servicio1824.obj";
 	
 	private static int count = 0;
+	
 	private int id_servicio;
 	private String nombre;
 	private String descripcion;
@@ -45,6 +52,24 @@ public class Servicios {
 
 	public void setPrecio(double precio) {
 		this.precio = precio;
+	}
+	
+	public static String getFichServiciosBlue() {
+		return fich_servicios_blue;
+	}
+
+	public static String getFichServiciosAgency() {
+		return fich_servicios_agency;
+	}
+
+	public static String getFichServicios1824() {
+		return fich_servicios_1824;
+	}
+	
+	@Override
+	public String toString() {
+		return "Servicios [id_servicio=" + id_servicio + ", nombre=" + nombre + ", descripcion=" + descripcion
+				+ ", precio=" + precio + "]";
 	}
 	
 }

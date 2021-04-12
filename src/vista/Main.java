@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 
 public class Main extends JFrame implements ActionListener {
 
@@ -62,6 +63,5 @@ public class Main extends JFrame implements ActionListener {
 		btnSpecterAgency.setBounds(400, 0, 200, 292);
 		contentPane.add(btnSpecterAgency);
 	}
-
 	
 }
