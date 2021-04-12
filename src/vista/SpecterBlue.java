@@ -25,16 +25,23 @@ import java.awt.Image;
 
 import javax.swing.JTextField;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.border.BevelBorder;
+import javax.swing.JScrollPane;
+import java.awt.SystemColor;
 
-public class SpecterBlue extends JDialog {
+public class SpecterBlue extends JDialog implements ActionListener {
+	private int tableColumn = 4;
+	
 	private JTextField textField;
 	private JList listServicios = new JList();
 	private DefaultListModel modeloServicios = new DefaultListModel();
-	private DefaultListModel modeloSeleccion = new DefaultListModel();
 	private DefaultTableModel modeloTabla;
+	private JButton btnAdd;
+	private JButton btnLess;
 	
 	private ArrayList<Servicios> aServicios;
 	private JTable table;
@@ -52,9 +59,35 @@ public class SpecterBlue extends JDialog {
 		}
 	}
 	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnAdd) {
+			mueveServicio();
+		} 
+		else if (e.getSource() == btnLess) {
+			quitaServicio();
+		}
+	}
+	
+	public void quitaServicio () {
+		try {
+			DefaultTableModel dtm = (DefaultTableModel) table.getModel(); //TableProducto es el nombre de mi tabla ;)
+			dtm.removeRow(table.getSelectedRow());
+		}
+		catch (Exception e) {
+//			System.out.println("no se ha seleccionado ninguna fila");
+		}
+	}
+	
 	public void mueveServicio () {
 		int servicio_seleccionado = listServicios.getSelectedIndex();
 		
+		Object [] fila = new Object[tableColumn];
+		fila[0] = aServicios.get(servicio_seleccionado).get_id();
+		fila[1] = aServicios.get(servicio_seleccionado).getNombre();
+		fila[2] = aServicios.get(servicio_seleccionado).getDescripcion();
+		fila[3] = aServicios.get(servicio_seleccionado).getPrecio();
+		modeloTabla.addRow ( fila ); // Añade una fila al final
 	}
 	
 	/**
@@ -110,42 +143,48 @@ public class SpecterBlue extends JDialog {
 		btnGenera.setBounds(1274, 126, 97, 114);
 		getContentPane().add(btnGenera);
 		
-		JButton btnAdd = new JButton("<");
+		btnAdd = new JButton("<");
 		btnAdd.setFont(new Font("Tahoma", Font.BOLD, 26));
 		btnAdd.setBounds(803, 351, 90, 80);
 		getContentPane().add(btnAdd);
+		btnAdd.addActionListener(this);
 		
-		JButton btnLess = new JButton(">");
+		btnLess = new JButton(">");
 		btnLess.setFont(new Font("Tahoma", Font.BOLD, 26));
 		btnLess.setBounds(803, 456, 90, 80);
 		getContentPane().add(btnLess);
+		btnLess.addActionListener(this);
 		
-		modeloTabla = new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"n","Nombre"
-			}
-		);
-		Object [] fila = new Object[2];
-		fila[0] = "dato columna 1";
-		fila[1] = "dato columna 3";
-		modeloTabla.addRow ( fila ); // Añade una fila al final
-		
-		table = new JTable(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"wdd", "n", "Nombre"
-			}
-		));
-		table.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		table.setBounds(25, 292, 739, 419);
-		getContentPane().add(table);
+		creaTabla();
 		
 		//LOGICA
 		aServicios = new ArrayList<Servicios>();
 		cargarLista();
 		
 	}
+	
+	public void creaTabla() {
+		modeloTabla = new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"ID","Nombre","Descripción","Precio"
+			}
+		);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(37, 292, 739, 419);
+		getContentPane().add(scrollPane);
+		
+		table = new JTable(modeloTabla);
+		table.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 120, 215), new Color(50, 205, 50), new Color(250, 128, 114), new Color(255, 20, 147)));
+		table.setBackground(Color.WHITE);
+		table.getColumnModel().getColumn(0).setPreferredWidth(30);
+		table.getColumnModel().getColumn(1).setPreferredWidth(100);
+		table.getColumnModel().getColumn(2).setPreferredWidth(300);
+		
+		scrollPane.setViewportView(table);
+	}
+
+	
 }
