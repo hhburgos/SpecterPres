@@ -6,51 +6,61 @@
 	</queryString>
 	<field name="nombre" class="java.lang.String"/>
 	<field name="apellido" class="java.lang.String"/>
+	<field name="precio" class="java.lang.Double"/>
 	<background>
-		<band splitType="Stretch"/>
+		<band height="555" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-20" y="-42" width="842" height="597" backcolor="#1F1F1F" uuid="606631ad-63bb-457d-a347-2a3722d673ba">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="42.0" lineStyle="Solid" lineColor="#1F1F1F"/>
+				</graphicElement>
+			</rectangle>
+		</band>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="332" splitType="Stretch">
+			<image>
+				<reportElement x="440" y="207" width="362" height="121" uuid="67df8f16-1122-4f0f-9815-22fc1d8a1307"/>
+				<imageExpression><![CDATA["/specter1824.png"]]></imageExpression>
+			</image>
+		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="54" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="65" splitType="Stretch">
-			<staticText>
-				<reportElement x="110" y="20" width="100" height="30" uuid="b68363da-f0ae-462a-84d2-7b67a4b8b68e"/>
-				<text><![CDATA[Nombre]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="240" y="20" width="100" height="30" uuid="6e9dc910-17fc-4894-8feb-7feacbf4d1c5"/>
-				<text><![CDATA[Apellido]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="295" y="0" width="100" height="30" uuid="9842f107-55b1-4859-a6ed-e694f037aefd">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e4fbdedb-39d5-42aa-a72f-b0e1a187f173"/>
-				</reportElement>
-				<text><![CDATA[apellido]]></text>
-			</staticText>
-		</band>
+		<band height="68" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch">
+		<band height="115" splitType="Stretch">
 			<textField>
-				<reportElement x="110" y="30" width="100" height="30" uuid="fd841210-8425-4c99-932a-2acbb3ce2ceb">
+				<reportElement x="110" y="30" width="100" height="30" forecolor="#F7F7F7" uuid="fd841210-8425-4c99-932a-2acbb3ce2ceb">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="09ebf9eb-1126-477a-94dc-297938e26d05"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="240" y="30" width="100" height="30" uuid="dd4c999c-3d10-4809-aa1e-64ea004c0cb6">
+				<reportElement x="240" y="30" width="100" height="30" forecolor="#F7F7F7" uuid="dd4c999c-3d10-4809-aa1e-64ea004c0cb6">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e4fbdedb-39d5-42aa-a72f-b0e1a187f173"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="400" y="30" width="100" height="30" forecolor="#F7F7F7" uuid="c04d4d96-6e8c-4a0d-9e8a-ea5a3712aab1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6fcbf6a1-d4df-4259-8c79-e298a067fffb"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-10" y="10" width="50" height="30" uuid="9a67faee-c97f-46f3-9ca4-b434a56ac4f1"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band height="47" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
 		<band height="54" splitType="Stretch"/>

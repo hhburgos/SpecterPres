@@ -65,6 +65,7 @@ public class SpecterBlue extends JDialog implements ActionListener {
 	private JButton btn1824;
 	private JButton btnAgency;
 	private JButton btnGenera;
+	private JButton btnVer;
 	
 	private String archivo_activo = Servicios.getFichServiciosBlue();
 	private int modo = 0; //0.Blue 1.1824 2.Agency
@@ -82,6 +83,7 @@ public class SpecterBlue extends JDialog implements ActionListener {
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
+//			JOptionPane.showMessageDialog( null, e.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
 		}
 	}
 	
@@ -112,44 +114,68 @@ public class SpecterBlue extends JDialog implements ActionListener {
 			System.out.println("modo: " + modo);
 		}
 		else if (e.getSource() == btnGenera) {
+			generaInforme2();
+		}
+		else if (e.getSource() == btnVer) {
 			generaInforme();
 		}
 		
 	}
 	
+	/**
+	 * Imprime el informe directamente en el directorio raiz del proyecto, por lo que hay que
+	 * hacer algo con el nombre del doc que se generará si es el mismo siempre se cargará el anterior siempre
+	 */
 	public void generaInforme2 () {
-		JasperPrint jasperPrint = null; 
-		try { 
-		 jasperPrint = JasperFillManager.fillReport("C:\\Users\\sburg\\eclipse-workspace\\SpecterGroup\\src\\vista\\presupuestos.jasper", null,new JRBeanCollectionDataSource(aServicios)); 
-		 } catch (JRException e1) { 
-		// TODO Auto-generated catch block
-		e1.printStackTrace(); 
-		} 
-		JRPdfExporter exp = new JRPdfExporter(); 
-		exp.setExporterInput(new SimpleExporterInput(jasperPrint)); 
-		exp.setExporterOutput(new
-		SimpleOutputStreamExporterOutput("InformeEmpleados.pdf")); 
-		JOptionPane.showMessageDialog( null, "Informe generado y almacenado", "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
-		try { 
-		exp.exportReport(); 
-		} catch (JRException e1) { // TODO Auto-generated catch block
-		e1.printStackTrace(); 
-		}
-		 
-	}
-	
-	public void generaInforme () {
 		String nombre, apellido;
+		Double precio;
 		List<Prueba> lista = new ArrayList<Prueba>();
 		for (int i = 0; i < aServicios.size(); i++) {
 			nombre = aServicios.get(i).getNombre();
 			apellido = aServicios.get(i).getDescripcion();
-			lista.add(new Prueba(nombre,apellido));
+			precio = aServicios.get(i).getPrecio();
+			lista.add(new Prueba(nombre,apellido,precio));
+		}
+		
+		JasperPrint jasperPrint = null; 
+		try { 
+			jasperPrint = JasperFillManager.fillReport("src\\\\vista\\\\presupuestos.jasper", null,new JRBeanCollectionDataSource(lista)); 
+		} catch (JRException e1) { 
+			// TODO Auto-generated catch block
+			e1.printStackTrace(); 
+//			JOptionPane.showMessageDialog( null, e1.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
+		} 
+		JRPdfExporter exp = new JRPdfExporter(); 
+		exp.setExporterInput(new SimpleExporterInput(jasperPrint)); 
+		exp.setExporterOutput(new
+		SimpleOutputStreamExporterOutput("InformeEmpleados2.pdf")); 
+		JOptionPane.showMessageDialog( null, "Informe generado y almacenado", "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
+		try { 
+			exp.exportReport(); 
+		} catch (JRException e1) { // TODO Auto-generated catch block
+			e1.printStackTrace(); 
+//			JOptionPane.showMessageDialog( null, e1.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
+		}
+		 
+	}
+	
+	/**
+	 * Muestra la vista previa del informe y da la opcion a imprirlo y donde
+	 */
+	public void generaInforme () { 
+		String nombre, apellido;
+		Double precio;
+		List<Prueba> lista = new ArrayList<Prueba>();
+		for (int i = 0; i < aServicios.size(); i++) {
+			nombre = aServicios.get(i).getNombre();
+			apellido = aServicios.get(i).getDescripcion();
+			precio = aServicios.get(i).getPrecio();
+			lista.add(new Prueba(nombre,apellido,precio));
 		}
 		
 		System.out.println("Count aServicios: " + aServicios.size());
 		JasperReport reporte;
-		String path = "C:\\\\Users\\\\sburg\\\\eclipse-workspace\\\\SpecterGroup\\\\src\\\\vista\\\\presupuestos.jasper";
+		String path = "src\\\\vista\\\\presupuestos.jasper";
 		try { 
 			reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
 			JasperPrint jprint = JasperFillManager.fillReport(reporte, null, new JRBeanCollectionDataSource(lista));
@@ -157,8 +183,8 @@ public class SpecterBlue extends JDialog implements ActionListener {
 			viewer.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 			viewer.setVisible(true);
 		} catch (JRException e1) { 
-			// TODO Auto-generated catch block
 			e1.printStackTrace(); 
+//			JOptionPane.showMessageDialog( null, e1.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
 		} 
 	}
 	
@@ -198,6 +224,7 @@ public class SpecterBlue extends JDialog implements ActionListener {
 		}
 		catch (Exception e) {
 //			System.out.println("no se ha seleccionado ninguna fila");
+//			JOptionPane.showMessageDialog( null, e.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
 		}
 	}
 	
@@ -300,6 +327,13 @@ public class SpecterBlue extends JDialog implements ActionListener {
 		getContentPane().add(btnLess);
 		btnLess.addActionListener(this);
 		
+		btnVer = new JButton("Ver");
+		btnVer.setFont(new Font("Tahoma", Font.BOLD, 22));
+		btnVer.setBounds(1106, 181, 127, 80);
+		getContentPane().add(btnVer);
+		btnVer.addActionListener(this);
+	
+		
 		creaTabla();
 		cambiaLogo();
 		
@@ -351,6 +385,7 @@ public class SpecterBlue extends JDialog implements ActionListener {
 		btnAgency.setBounds(1216, 30, 155, 52);
 		getContentPane().add(btnAgency);
 		btnAgency.addActionListener(this);
+		
 	}
 	
 	/**

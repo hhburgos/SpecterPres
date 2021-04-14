@@ -10,6 +10,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 public class ModeloBlue {
 	
 	private static ArrayList<Servicios> serviciosBlue;
@@ -42,14 +44,19 @@ public class ModeloBlue {
 			
 		}catch (EOFException eof) {
 			System.out.println("\n****** FIN DE FICHERO *******");
+			// AQUI NO SE PUEDE PONER NINGUN MENSAJE DE ERRROR, ES UN EXCEPTION QUE VA A SALTAR SIEMPRE
+//			JOptionPane.showMessageDialog( null, eof.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
 		}catch (FileNotFoundException fnf) {
 			System.err.println("Fichero no encontrado " + fnf);
+			JOptionPane.showMessageDialog( null, fnf.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
 		}catch(IOException e){
 			System.err.println("Se ha producido una IOException");
 			e.printStackTrace();
+			JOptionPane.showMessageDialog( null, e.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
 		}catch (Exception e) {
 			System.err.println("Error de programa: " + e);
 			e.printStackTrace();
+			JOptionPane.showMessageDialog( null, e.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
 		}
 	}
 	
@@ -62,6 +69,7 @@ public class ModeloBlue {
 				
 		} catch (IOException e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog( null, e.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
 		}
 	}
 }

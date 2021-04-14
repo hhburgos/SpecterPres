@@ -5,10 +5,13 @@ import java.util.ArrayList;
 public class Prueba {
 	
 	String nombre, apellido;
+	Double precio;
 	
-	public Prueba (String nombre, String apellido) {
+	public Prueba(String nombre, String apellido, Double precio) {
+		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
+		this.precio = precio;
 	}
 
 	public String getNombre() {
@@ -27,10 +30,13 @@ public class Prueba {
 		this.apellido = apellido;
 	}
 
-	@Override
-	public String toString() {
-		return "Prueba [nombre=" + nombre + ", apellido=" + apellido + "]";
+	public Double getPrecio() {
+		return precio;
 	}
-	
+
+	public void setPrecio(Double precio) {
+		this.precio = precio;
+	}
+
 	
 }
