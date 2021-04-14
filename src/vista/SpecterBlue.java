@@ -139,14 +139,17 @@ public class SpecterBlue extends JDialog implements ActionListener {
 	}
 	
 	public void generaInforme () {
-		List<Servicios> lista = new ArrayList<Servicios>();
+		String nombre, apellido;
+		List<Prueba> lista = new ArrayList<Prueba>();
 		for (int i = 0; i < aServicios.size(); i++) {
-			lista.add(aServicios.get(i));
+			nombre = aServicios.get(i).getNombre();
+			apellido = aServicios.get(i).getDescripcion();
+			lista.add(new Prueba(nombre,apellido));
 		}
 		
 		System.out.println("Count aServicios: " + aServicios.size());
 		JasperReport reporte;
-		String path = "C:\\\\Users\\\\sburg\\\\eclipse-workspace\\\\SpecterGroup\\\\src\\\\vista\\\\prueba.jasper";
+		String path = "C:\\\\Users\\\\sburg\\\\eclipse-workspace\\\\SpecterGroup\\\\src\\\\vista\\\\presupuestos.jasper";
 		try { 
 			reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
 			JasperPrint jprint = JasperFillManager.fillReport(reporte, null, new JRBeanCollectionDataSource(lista));
