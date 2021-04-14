@@ -22,9 +22,9 @@ public class ModeloBlue {
 //		guardaArrayServicios(serviciosBlue);
 //	}
 	
-	public static void leeFichero (ArrayList<Servicios> lista) {
+	public static void leeFichero (ArrayList<Servicios> lista, String archivo) {
 		//Creamos un objeto de tipo File a partir de la ruta absoluta o relativa al fichero
-		File fich = new File("ServiciosBlue.obj");
+		File fich = new File(archivo);
 		//Cargamos el fichero de árboles en el ArrayList
 		try {
 			if (fich.exists()){
@@ -53,9 +53,9 @@ public class ModeloBlue {
 		}
 	}
 	
-	public static void guardaArrayServicios (ArrayList<Servicios> lista) {
+	public static void guardaArrayServicios (ArrayList<Servicios> lista, String archivo) {
 		try {
-			FileOutputStream fos = new FileOutputStream("ServiciosBlue.obj");
+			FileOutputStream fos = new FileOutputStream(archivo);
 			ObjectOutputStream oos=new ObjectOutputStream(fos);
 			for (Servicios a : lista) oos.writeObject(a);
 				oos.close();
