@@ -1,11 +1,31 @@
 package vista;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.DefaultListModel;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -23,33 +43,10 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.view.JasperViewer;
+import vista.SpecterBlue.MyRenderer;
 
-import javax.swing.JLabel;
-import java.awt.Color;
-import java.awt.Component;
+public class SpecterMain extends JFrame implements ActionListener {
 
-import javax.swing.DefaultListModel;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel;
-import java.awt.Font;
-import java.awt.Image;
-
-import javax.swing.JTextField;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JTable;
-import javax.swing.border.BevelBorder;
-import javax.swing.JScrollPane;
-import java.awt.SystemColor;
-
-public class SpecterBlue extends JDialog implements ActionListener {
 	private static final String [] logos = {"specterBLUENEGRO.png","specter1824.png"};
 	private static final String nombre_pdf = "InformePresupuesto.pdf";
 	private static final String ruta_jasperreport = "src\\\\vista\\\\presupuestos.jasper";
@@ -58,6 +55,7 @@ public class SpecterBlue extends JDialog implements ActionListener {
 	private String archivo_activo = Servicios.getFichServiciosBlue();
 	private int modo = 0; //0.Blue 1.1824 2.Agency
 	
+	private JPanel contentPane;
 	private JTextField textField;
 	private JList listServicios = new JList();
 	private DefaultListModel modeloServicios = new DefaultListModel();
@@ -79,14 +77,16 @@ public class SpecterBlue extends JDialog implements ActionListener {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		try {
-			SpecterBlue dialog = new SpecterBlue();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-//			JOptionPane.showMessageDialog( null, e.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
-		}
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					SpecterMain frame = new SpecterMain();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 	
 	@Override
@@ -120,8 +120,7 @@ public class SpecterBlue extends JDialog implements ActionListener {
 		}
 	}
 	
-	/**
-	 * Imprime el informe directamente en el directorio raiz del proyecto, por lo que hay que
+	/** Imprime el informe directamente en el directorio raiz del proyecto, por lo que hay que
 	 * hacer algo con el nombre del doc que se generará si es el mismo siempre se cargará el anterior siempre
 	 */
 	public void generaInforme2 () {
@@ -241,12 +240,13 @@ public class SpecterBlue extends JDialog implements ActionListener {
 		listServicios.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		listServicios.setModel(modeloServicios);
 	}
+	 
 
 	/**
-	 * Create the dialog.
+	 * Create the frame.
 	 */
-	public SpecterBlue() {
-		
+	public SpecterMain() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(SpecterBlue.class.getResource("/img/icon.png")));
 		getContentPane().setBackground(Color.WHITE);
 		setBounds(100, 100, 1426, 795);
@@ -330,7 +330,6 @@ public class SpecterBlue extends JDialog implements ActionListener {
 		//LOGICA
 		aServicios = new ArrayList<Servicios>();
 		cargarLista();
-		
 	}
 	
 	public void creaTabla() {
@@ -398,4 +397,6 @@ public class SpecterBlue extends JDialog implements ActionListener {
 			return comp;
 		}
 	}
+
+
 }

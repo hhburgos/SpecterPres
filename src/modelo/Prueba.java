@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class Prueba {
 	
-	String nombre, apellido;
+	String nombre, descripcion;
 	Double precio;
 	
-	public Prueba(String nombre, String apellido, Double precio) {
+	public Prueba(String nombre, String descripcion, Double precio) {
 		super();
 		this.nombre = nombre;
-		this.apellido = apellido;
+		this.descripcion = descripcion;
 		this.precio = precio;
 	}
 
@@ -23,11 +23,11 @@ public class Prueba {
 	}
 
 	public String getApellido() {
-		return apellido;
+		return descripcion;
 	}
 
 	public void setApellido(String apellido) {
-		this.apellido = apellido;
+		this.descripcion = apellido;
 	}
 
 	public Double getPrecio() {
@@ -37,6 +37,8 @@ public class Prueba {
 	public void setPrecio(Double precio) {
 		this.precio = precio;
 	}
+	
+	
 
 	
 }

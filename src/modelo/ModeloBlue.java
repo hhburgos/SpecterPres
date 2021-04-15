@@ -15,14 +15,20 @@ import javax.swing.JOptionPane;
 public class ModeloBlue {
 	
 	private static ArrayList<Servicios> serviciosBlue;
+	private static ArrayList<Servicios> servicios1824;
 	
-//	public static void main (String [] args) {
-//		serviciosBlue = new ArrayList<Servicios>();
-//		
-//		leeFichero(serviciosBlue);
-//		
-//		guardaArrayServicios(serviciosBlue);
-//	}
+	public static void main (String [] args) {
+		servicios1824 = new ArrayList<Servicios>();
+		
+		leeFichero(servicios1824, Servicios.getFichServicios1824());
+		
+//		servicios1824.add(new Servicios("Redes Sociales", "Lorem Ipsum", 2342));
+//		servicios1824.add(new Servicios("SEO", "Lorem Ipsum", 142));
+//		servicios1824.add(new Servicios("Marketing", "Lorem Ipsum", 2222));
+		System.out.println(servicios1824.get(1).toString());
+		
+		guardaArrayServicios(servicios1824, Servicios.getFichServicios1824());
+	}
 	
 	public static void leeFichero (ArrayList<Servicios> lista, String archivo) {
 		//Creamos un objeto de tipo File a partir de la ruta absoluta o relativa al fichero

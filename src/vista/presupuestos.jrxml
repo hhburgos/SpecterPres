@@ -5,8 +5,8 @@
 		<![CDATA[]]>
 	</queryString>
 	<field name="nombre" class="java.lang.String"/>
-	<field name="apellido" class="java.lang.String"/>
 	<field name="precio" class="java.lang.Double"/>
+	<field name="apellido" class="java.lang.String"/>
 	<background>
 		<band height="555" splitType="Stretch">
 			<rectangle>
@@ -31,31 +31,34 @@
 		<band height="54" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="68" splitType="Stretch"/>
+		<band height="31" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="115" splitType="Stretch">
+		<band height="369" splitType="Stretch">
 			<textField>
-				<reportElement x="110" y="30" width="100" height="30" forecolor="#F7F7F7" uuid="fd841210-8425-4c99-932a-2acbb3ce2ceb">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="09ebf9eb-1126-477a-94dc-297938e26d05"/>
+				<reportElement x="-10" y="10" width="50" height="30" uuid="9a67faee-c97f-46f3-9ca4-b434a56ac4f1"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<rectangle radius="20">
+				<reportElement x="220" y="50" width="561" height="297" forecolor="#3B3B3B" backcolor="#3B3B3B" uuid="5c91c042-a3b7-4963-a2fc-3d70f3794ea7"/>
+			</rectangle>
+			<textField>
+				<reportElement x="250" y="90" width="100" height="30" forecolor="#F2F2F2" uuid="0c93c519-c666-41b7-b5be-f39b39efd3b5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d0eef0bd-c177-4b2e-b0bc-f7dc9f4bbae0"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="240" y="30" width="100" height="30" forecolor="#F7F7F7" uuid="dd4c999c-3d10-4809-aa1e-64ea004c0cb6">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e4fbdedb-39d5-42aa-a72f-b0e1a187f173"/>
-				</reportElement>
-				<textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="400" y="30" width="100" height="30" forecolor="#F7F7F7" uuid="c04d4d96-6e8c-4a0d-9e8a-ea5a3712aab1">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6fcbf6a1-d4df-4259-8c79-e298a067fffb"/>
+				<reportElement x="480" y="90" width="100" height="30" forecolor="#F2F2F2" uuid="aaee94fb-2415-4c34-87cd-bcf79545eeb3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ea2de58c-da5e-4afa-b482-4a5547ab8170"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="-10" y="10" width="50" height="30" uuid="9a67faee-c97f-46f3-9ca4-b434a56ac4f1"/>
-				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				<reportElement x="372" y="90" width="100" height="30" forecolor="#FAFAFA" uuid="4b866fd8-f7e7-41a0-b46a-63337d017a68">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="20b8bfaf-4de0-4789-aa08-196004104767"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
