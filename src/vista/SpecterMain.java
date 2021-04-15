@@ -5,10 +5,16 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Insets;
+import java.awt.Shape;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +32,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -47,7 +54,7 @@ import vista.SpecterBlue.MyRenderer;
 
 public class SpecterMain extends JFrame implements ActionListener {
 
-	private static final String [] logos = {"specterBLUENEGRO.png","specter1824.png"};
+	private static final String [] logos = {"specterBLUENEGRO.png","specter1824.png","specterAgency.png"};
 	private static final String nombre_pdf = "InformePresupuesto.pdf";
 	private static final String ruta_jasperreport = "src\\\\vista\\\\presupuestos.jasper";
 	
@@ -56,12 +63,13 @@ public class SpecterMain extends JFrame implements ActionListener {
 	private int modo = 0; //0.Blue 1.1824 2.Agency
 	
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField tfCliente;
 	private JList listServicios = new JList();
 	private DefaultListModel modeloServicios = new DefaultListModel();
 	private DefaultTableModel modeloTabla;
 	private JLabel lblLogoBlue;
 	private JLabel lblLogo1824;
+	private JLabel lblLogoAgency;
 	private JButton btnAdd;
 	private JButton btnLess;
 	private JButton btnBlue;
@@ -71,7 +79,9 @@ public class SpecterMain extends JFrame implements ActionListener {
 	private JButton btnVer;
 	
 	private ArrayList<Servicios> aServicios;
+	private ArrayList<Servicios> aTableService;
 	private JTable table;
+	private JScrollPane scrollPane_1;
 
 	/**
 	 * Launch the application.
@@ -127,12 +137,21 @@ public class SpecterMain extends JFrame implements ActionListener {
 		String nombre, descripcion;
 		Double precio;
 		List<Prueba> lista = new ArrayList<Prueba>();
-		for (int i = 0; i < aServicios.size(); i++) {
-			nombre = aServicios.get(i).getNombre();
-			descripcion = aServicios.get(i).getDescripcion();
-			precio = aServicios.get(i).getPrecio();
+		
+		for (int i = 0; i < aTableService.size(); i++) {
+			nombre = aTableService.get(i).getNombre();
+			descripcion = aTableService.get(i).getDescripcion();
+			precio = aTableService.get(i).getPrecio();
 			lista.add(new Prueba(nombre,descripcion,precio));
 		}
+		
+		//esto funciona, la replica de arriba aun no lose
+//		for (int i = 0; i < aServicios.size(); i++) {
+//			nombre = aServicios.get(i).getNombre();
+//			descripcion = aServicios.get(i).getDescripcion();
+//			precio = aServicios.get(i).getPrecio();
+//			lista.add(new Prueba(nombre,descripcion,precio));
+//		}
 		
 		JasperPrint jasperPrint = null; 
 		try { 
@@ -158,11 +177,13 @@ public class SpecterMain extends JFrame implements ActionListener {
 	
 	/**
 	 * Muestra la vista previa del informe y da la opcion a imprirlo y donde
+	 * tiene que coger el arraylist correcto. falta cambiar eso en caso de implementarlo
 	 */
 	public void generaInforme () { 
 		String nombre, apellido;
 		Double precio;
 		List<Prueba> lista = new ArrayList<Prueba>();
+		
 		for (int i = 0; i < aServicios.size(); i++) {
 			nombre = aServicios.get(i).getNombre();
 			apellido = aServicios.get(i).getDescripcion();
@@ -172,7 +193,7 @@ public class SpecterMain extends JFrame implements ActionListener {
 		
 		System.out.println("Count aServicios: " + aServicios.size());
 		JasperReport reporte;
-		String path = "src\\\\vista\\\\presupuestos.jasper";
+		String path = ruta_jasperreport;
 		try { 
 			reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
 			JasperPrint jprint = JasperFillManager.fillReport(reporte, null, new JRBeanCollectionDataSource(lista));
@@ -193,11 +214,18 @@ public class SpecterMain extends JFrame implements ActionListener {
 	public void cambiaLogo () {
 		lblLogoBlue.setVisible(false);
 		lblLogo1824.setVisible(false);
+		lblLogoAgency.setVisible(false);
 		
 		switch (modo) {
-		case 0: lblLogoBlue.setVisible(true); break;
-		case 1: lblLogo1824.setVisible(true); break;
-		case 2: lblLogo1824.setVisible(true); break; //cambiar por SpecterAgency
+		case 0: lblLogoBlue.setVisible(true);
+				getContentPane().setBackground(Color.WHITE);
+				break;
+		case 1: lblLogo1824.setVisible(true); 
+				getContentPane().setBackground(Color.BLACK);
+				break;
+		case 2: lblLogoAgency.setVisible(true); 
+				getContentPane().setBackground(Color.WHITE);
+				break;
 		default: System.out.println("fallo en cambiaLogo()"); break;
 		}
 	}
@@ -223,7 +251,11 @@ public class SpecterMain extends JFrame implements ActionListener {
 		fila[2] = aServicios.get(servicio_seleccionado).getDescripcion();
 		fila[3] = aServicios.get(servicio_seleccionado).getPrecio();
 		modeloTabla.addRow ( fila ); // Añade una fila al final
+		
+		aTableService.add(aServicios.get(servicio_seleccionado));
+		
 	}
+	
 	
 	/**
 	 * Recoge del fichero obj correspondiente los distintos servicios del sector Blue y coloca los nombres de cada objeto servicio a la lista listServicios
@@ -237,6 +269,7 @@ public class SpecterMain extends JFrame implements ActionListener {
 			modeloServicios.add(i, aServicios.get(i).getNombre());
 //			System.out.println("buc:"  + i);
 		}
+		scrollPane_1.setViewportView(listServicios);
 		listServicios.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		listServicios.setModel(modeloServicios);
 	}
@@ -261,8 +294,12 @@ public class SpecterMain extends JFrame implements ActionListener {
 		lblLogo1824 = new JLabel("LOGO");
 		lblLogo1824.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblLogo1824.setBackground(Color.RED);
-		lblLogo1824.setBounds(37, 9, 235, 107);
+		lblLogo1824.setBounds(37, 13, 235, 103);
 		getContentPane().add(lblLogo1824);
+		
+		lblLogoAgency = new JLabel("logoAgency");
+		lblLogoAgency.setBounds(37, 30, 235, 65);
+		getContentPane().add(lblLogoAgency);
 		
 		ImageIcon imgIcon = new ImageIcon("specterBLUENEGRO.png");
         Image imgEscalada = imgIcon.getImage().getScaledInstance(lblLogoBlue.getWidth(),
@@ -275,30 +312,53 @@ public class SpecterMain extends JFrame implements ActionListener {
                 lblLogo1824.getHeight(), Image.SCALE_SMOOTH);
         Icon iconoEscalado8 = new ImageIcon(imgEscalada8);
         lblLogo1824.setIcon(iconoEscalado8);
+        
+        ImageIcon imgIcon4 = new ImageIcon("specterAgency.png");
+        Image imgEscalada4 = imgIcon4.getImage().getScaledInstance(lblLogoAgency.getWidth(),
+        lblLogoAgency.getHeight(), Image.SCALE_SMOOTH);
+        Icon iconoEscalado4 = new ImageIcon(imgEscalada4);
+        lblLogoAgency.setIcon(iconoEscalado4);
+		
+		scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(925, 290, 446, 419);
+		getContentPane().add(scrollPane_1);
 		
 		listServicios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listServicios.setBackground(Color.GRAY);
-		listServicios.setBounds(925, 290, 446, 419);
-		getContentPane().add(listServicios);
+		listServicios.addMouseListener(new MouseAdapter() { 
+			public void mouseClicked(MouseEvent evt) { 
+				JList list = (JList)evt.getSource(); 
+				if (evt.getClickCount() == 2) { 
+					int index = list.locationToIndex(evt.getPoint());
+					System.out.println("doble click "+index);
+					mueveServicio();
+				}
+//				else if (evt.getClickCount() == 3) { 
+//					int index = list.locationToIndex(evt.getPoint());
+//					System.out.println("Triple click "+index);
+//				}	
+			}
+		});
+
 		
 		JLabel lblCliente = new JLabel("Cliente:");
 		lblCliente.setFont(new Font("Tahoma", Font.BOLD, 19));
 		lblCliente.setBounds(55, 179, 97, 44);
 		getContentPane().add(lblCliente);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		textField.setBounds(164, 179, 242, 45);
-		getContentPane().add(textField);
-		textField.setColumns(10);
+		tfCliente = new RoundJTextField(15);
+		tfCliente.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		tfCliente.setBounds(164, 179, 242, 45);
+		getContentPane().add(tfCliente);
+		tfCliente.setColumns(10);
 		
 		btnGenera = new JButton("OKEY");
 		btnGenera.setFont(new Font("Tahoma", Font.BOLD, 18));
 //		btnGenera.setIcon(new ImageIcon(SpecterBlue.class.getResource("/img/check-icon.png")));
 		getContentPane().add(btnGenera);
 		btnGenera.addActionListener(this);
-		
 		btnGenera.setBounds(1256, 183, 115, 80);
+		
 		ImageIcon imgIcon2 = new ImageIcon("/img/check-icon.png");
         Image imgEscalada2 = imgIcon2.getImage().getScaledInstance(btnGenera.getWidth(),
                 btnGenera.getHeight(), Image.SCALE_SMOOTH);
@@ -328,6 +388,7 @@ public class SpecterMain extends JFrame implements ActionListener {
 		cambiaLogo();
 		
 		//LOGICA
+		aTableService = new ArrayList<Servicios>();
 		aServicios = new ArrayList<Servicios>();
 		cargarLista();
 	}
@@ -377,6 +438,9 @@ public class SpecterMain extends JFrame implements ActionListener {
 		
 	}
 	
+	
+
+	
 	/**
 	 * Su método colorea las cabeceras de una jtable
 	 * @author sburg
@@ -397,6 +461,27 @@ public class SpecterMain extends JFrame implements ActionListener {
 			return comp;
 		}
 	}
-
-
+	
+	public class RoundJTextField extends JTextField {
+	    private Shape shape;
+	    public RoundJTextField(int size) {
+	        super(size);
+	        setOpaque(false); // As suggested by @AVD in comment.
+	    }
+	    protected void paintComponent(Graphics g) {
+	         g.setColor(getBackground());
+	         g.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 15, 15);
+	         super.paintComponent(g);
+	    }
+	    protected void paintBorder(Graphics g) {
+	         g.setColor(getForeground());
+	         g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 15, 15);
+	    }
+	    public boolean contains(int x, int y) {
+	         if (shape == null || !shape.getBounds().equals(getBounds())) {
+	             shape = new RoundRectangle2D.Float(0, 0, getWidth()-1, getHeight()-1, 15, 15);
+	         }
+	         return shape.contains(x, y);
+	    }
+	}
 }
