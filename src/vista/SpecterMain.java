@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,16 +52,18 @@ import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.view.JasperViewer;
 import vista.SpecterBlue.MyRenderer;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 
 public class SpecterMain extends JFrame implements ActionListener {
 
-	private static final String [] logos = {"specterBLUENEGRO.png","specter1824.png","specterAgency.png"};
+//	private static final String [] logos = {"specterBLUENEGRO.png","specter1824.png","specterAgency.png"};
 	private static final String nombre_pdf = "InformePresupuesto.pdf";
-	private static final String ruta_jasperreport = "src\\\\vista\\\\presupuestos.jasper";
+	String ruta_jasperreport = "src/vista/presupuestos.jasper";
 	
 	private int tableColumn = 4;
 	private String archivo_activo = Servicios.getFichServiciosBlue();
-	private int modo = 0; //0.Blue 1.1824 2.Agency
+	private int modo = 1; // 1: borrar   5: edita
 	
 	private JPanel contentPane;
 	private JTextField tfCliente;
@@ -68,8 +71,6 @@ public class SpecterMain extends JFrame implements ActionListener {
 	private DefaultListModel modeloServicios = new DefaultListModel();
 	private DefaultTableModel modeloTabla;
 	private JLabel lblLogoBlue;
-	private JLabel lblLogo1824;
-	private JLabel lblLogoAgency;
 	private JButton btnAdd;
 	private JButton btnLess;
 	private JButton btnBlue;
@@ -77,11 +78,14 @@ public class SpecterMain extends JFrame implements ActionListener {
 	private JButton btnAgency;
 	private JButton btnGenera;
 	private JButton btnVer;
+	private JRadioButton rbEditar;
+	private JRadioButton rbBorrar;
 	
 	private ArrayList<Servicios> aServicios;
 	private ArrayList<Servicios> aTableService;
 	private JTable table;
 	private JScrollPane scrollPane_1;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	/**
 	 * Launch the application.
@@ -94,6 +98,7 @@ public class SpecterMain extends JFrame implements ActionListener {
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
+					JOptionPane.showMessageDialog( null, e.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
 				}
 			}
 		});
@@ -126,7 +131,52 @@ public class SpecterMain extends JFrame implements ActionListener {
 			generaInforme2();
 		}
 		else if (e.getSource() == btnVer) {
-			generaInforme();
+//			generaInforme();
+			claseRuina();
+		}
+		else if (e.getSource() == rbBorrar) {
+			System.out.println("rbBorrar presionado");
+			modo = 1;
+		}
+		else if (e.getSource() == rbEditar) {
+			System.out.println("rbEditar presionado");
+			modo = 5;
+		}
+	}
+	
+	public void claseRuina () {
+		String nombre, descripcion;
+		Double precio;
+		List<Prueba> lista = new ArrayList<Prueba>();
+		
+		for (int i = 0; i < 3; i++) {
+			
+			lista.add(new Prueba("hola","asas",232323.2));
+			lista.add(new Prueba("dfdfdf","sdlalalalalla",666.2));
+			lista.add(new Prueba("aaaaa","asas",723.2));
+		}
+		
+		//esto funciona, la replica de arriba aun no lose
+		//en genera informe2() está el codigo que eestaba comentado aquí
+		
+		JasperPrint jasperPrint = null; 
+		try { 
+			jasperPrint = JasperFillManager.fillReport(ruta_jasperreport, null,new JRBeanCollectionDataSource(lista)); 
+		} catch (JRException e1) { 
+			// TODO Auto-generated catch block
+			e1.printStackTrace(); 
+			JOptionPane.showMessageDialog( null, e1.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
+		} 
+		JRPdfExporter exp = new JRPdfExporter(); 
+		exp.setExporterInput(new SimpleExporterInput(jasperPrint)); 
+		exp.setExporterOutput(new
+		SimpleOutputStreamExporterOutput(nombre_pdf)); 
+		JOptionPane.showMessageDialog( null, "Informe generado y almacenado", "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
+		try { 
+			exp.exportReport(); 
+		} catch (JRException e1) { // TODO Auto-generated catch block
+			e1.printStackTrace(); 
+			JOptionPane.showMessageDialog( null, e1.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
 		}
 	}
 	
@@ -159,7 +209,7 @@ public class SpecterMain extends JFrame implements ActionListener {
 		} catch (JRException e1) { 
 			// TODO Auto-generated catch block
 			e1.printStackTrace(); 
-//			JOptionPane.showMessageDialog( null, e1.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
+			JOptionPane.showMessageDialog( null, e1.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
 		} 
 		JRPdfExporter exp = new JRPdfExporter(); 
 		exp.setExporterInput(new SimpleExporterInput(jasperPrint)); 
@@ -170,7 +220,7 @@ public class SpecterMain extends JFrame implements ActionListener {
 			exp.exportReport(); 
 		} catch (JRException e1) { // TODO Auto-generated catch block
 			e1.printStackTrace(); 
-//			JOptionPane.showMessageDialog( null, e1.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
+			JOptionPane.showMessageDialog( null, e1.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
 		}
 		 
 	}
@@ -202,32 +252,13 @@ public class SpecterMain extends JFrame implements ActionListener {
 			viewer.setVisible(true);
 		} catch (JRException e1) { 
 			e1.printStackTrace(); 
-//			JOptionPane.showMessageDialog( null, e1.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
+			JOptionPane.showMessageDialog( null, e1.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
 		} 
 	}
 	
 	public void cambiaSector () {
-		cambiaLogo();
+		//cambiaLogo();
 		cargarLista();
-	}
-	
-	public void cambiaLogo () {
-		lblLogoBlue.setVisible(false);
-		lblLogo1824.setVisible(false);
-		lblLogoAgency.setVisible(false);
-		
-		switch (modo) {
-		case 0: lblLogoBlue.setVisible(true);
-				getContentPane().setBackground(Color.WHITE);
-				break;
-		case 1: lblLogo1824.setVisible(true); 
-				getContentPane().setBackground(Color.BLACK);
-				break;
-		case 2: lblLogoAgency.setVisible(true); 
-				getContentPane().setBackground(Color.WHITE);
-				break;
-		default: System.out.println("fallo en cambiaLogo()"); break;
-		}
 	}
 	
 	public void quitaServicio () {
@@ -238,7 +269,7 @@ public class SpecterMain extends JFrame implements ActionListener {
 		catch (Exception e) {
 			e.printStackTrace();
 //			System.out.println("no se ha seleccionado ninguna fila");
-//			JOptionPane.showMessageDialog( null, e.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
+			JOptionPane.showMessageDialog( null, e.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
 		}
 	}
 	
@@ -256,7 +287,6 @@ public class SpecterMain extends JFrame implements ActionListener {
 		
 	}
 	
-	
 	/**
 	 * Recoge del fichero obj correspondiente los distintos servicios del sector Blue y coloca los nombres de cada objeto servicio a la lista listServicios
 	 */
@@ -264,13 +294,13 @@ public class SpecterMain extends JFrame implements ActionListener {
 		aServicios.clear();
 		modeloServicios.clear();
 		
-		ModeloBlue.leeFichero(aServicios,archivo_activo);
+		ModeloBlue.leeFicheroServicios(aServicios,archivo_activo);
 		for (int i = 0; i < aServicios.size(); i++) {
 			modeloServicios.add(i, aServicios.get(i).getNombre());
 //			System.out.println("buc:"  + i);
 		}
 		scrollPane_1.setViewportView(listServicios);
-		listServicios.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		listServicios.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		listServicios.setModel(modeloServicios);
 	}
 	 
@@ -279,6 +309,8 @@ public class SpecterMain extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public SpecterMain() {
+		ruta_jasperreport.replace('/', File.separatorChar);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(SpecterBlue.class.getResource("/img/icon.png")));
 		getContentPane().setBackground(Color.WHITE);
@@ -288,36 +320,14 @@ public class SpecterMain extends JFrame implements ActionListener {
 		lblLogoBlue = new JLabel("LOGO");
 		lblLogoBlue.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblLogoBlue.setBackground(Color.RED);
-		lblLogoBlue.setBounds(37, 30, 235, 65);
+		lblLogoBlue.setBounds(-17, -60, 256, 208);
 		getContentPane().add(lblLogoBlue);
 		
-		lblLogo1824 = new JLabel("LOGO");
-		lblLogo1824.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblLogo1824.setBackground(Color.RED);
-		lblLogo1824.setBounds(37, 13, 235, 103);
-		getContentPane().add(lblLogo1824);
-		
-		lblLogoAgency = new JLabel("logoAgency");
-		lblLogoAgency.setBounds(37, 30, 235, 65);
-		getContentPane().add(lblLogoAgency);
-		
-		ImageIcon imgIcon = new ImageIcon("specterBLUENEGRO.png");
+		ImageIcon imgIcon = new ImageIcon("spectergroup.png");
         Image imgEscalada = imgIcon.getImage().getScaledInstance(lblLogoBlue.getWidth(),
                 lblLogoBlue.getHeight(), Image.SCALE_SMOOTH);
         Icon iconoEscalado = new ImageIcon(imgEscalada);
         lblLogoBlue.setIcon(iconoEscalado);
-        
-        ImageIcon imgIcon8 = new ImageIcon("specter1824.png");
-        Image imgEscalada8 = imgIcon8.getImage().getScaledInstance(lblLogo1824.getWidth(),
-                lblLogo1824.getHeight(), Image.SCALE_SMOOTH);
-        Icon iconoEscalado8 = new ImageIcon(imgEscalada8);
-        lblLogo1824.setIcon(iconoEscalado8);
-        
-        ImageIcon imgIcon4 = new ImageIcon("specterAgency.png");
-        Image imgEscalada4 = imgIcon4.getImage().getScaledInstance(lblLogoAgency.getWidth(),
-        lblLogoAgency.getHeight(), Image.SCALE_SMOOTH);
-        Icon iconoEscalado4 = new ImageIcon(imgEscalada4);
-        lblLogoAgency.setIcon(iconoEscalado4);
 		
 		scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(925, 290, 446, 419);
@@ -328,18 +338,13 @@ public class SpecterMain extends JFrame implements ActionListener {
 		listServicios.addMouseListener(new MouseAdapter() { 
 			public void mouseClicked(MouseEvent evt) { 
 				JList list = (JList)evt.getSource(); 
-				if (evt.getClickCount() == 2) { 
+				if (evt.getClickCount() == 1) { 
 					int index = list.locationToIndex(evt.getPoint());
-					System.out.println("doble click "+index);
+//					System.out.println("doble click "+index);
 					mueveServicio();
 				}
-//				else if (evt.getClickCount() == 3) { 
-//					int index = list.locationToIndex(evt.getPoint());
-//					System.out.println("Triple click "+index);
-//				}	
 			}
 		});
-
 		
 		JLabel lblCliente = new JLabel("Cliente:");
 		lblCliente.setFont(new Font("Tahoma", Font.BOLD, 19));
@@ -351,20 +356,77 @@ public class SpecterMain extends JFrame implements ActionListener {
 		tfCliente.setBounds(164, 179, 242, 45);
 		getContentPane().add(tfCliente);
 		tfCliente.setColumns(10);
+        
+        creaRadioButtons();
+		creaBotones();
+		creaTabla();
+//		cambiaLogo();
 		
-		btnGenera = new JButton("OKEY");
-		btnGenera.setFont(new Font("Tahoma", Font.BOLD, 18));
-//		btnGenera.setIcon(new ImageIcon(SpecterBlue.class.getResource("/img/check-icon.png")));
-		getContentPane().add(btnGenera);
-		btnGenera.addActionListener(this);
-		btnGenera.setBounds(1256, 183, 115, 80);
+		//LOGICA
+		aTableService = new ArrayList<Servicios>();
+		aServicios = new ArrayList<Servicios>();
+		rbBorrar.setSelected(true);
+		cargarLista();
+	}
+	
+	public void creaRadioButtons () {
+		rbEditar = new JRadioButton("Editar");
+		rbEditar.setBackground(Color.WHITE);
+		buttonGroup.add(rbEditar);
+		rbEditar.setBounds(187, 249, 127, 25);
+		getContentPane().add(rbEditar);
+		rbEditar.addActionListener(this);
 		
-		ImageIcon imgIcon2 = new ImageIcon("/img/check-icon.png");
-        Image imgEscalada2 = imgIcon2.getImage().getScaledInstance(btnGenera.getWidth(),
-                btnGenera.getHeight(), Image.SCALE_SMOOTH);
-        Icon iconoEscalado2 = new ImageIcon(imgEscalada2);
+		rbBorrar = new JRadioButton("Borrar");
+		rbBorrar.setBackground(Color.WHITE);
+		buttonGroup.add(rbBorrar);
+		rbBorrar.setBounds(37, 249, 127, 25);
+		getContentPane().add(rbBorrar);
+		rbBorrar.addActionListener(this);
+	}
+	
+	public void creaTabla() {
+		modeloTabla = new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"ID","Nombre","Descripción","Precio"
+			}
+		);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(37, 292, 739, 419);
+		getContentPane().add(scrollPane);
 		
+		modeloTabla.isCellEditable(1, 1);
 		
+		table = new JTable(modeloTabla);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.getColumnModel().getColumn(0).setHeaderRenderer(new MyRenderer(new Color(49, 198, 191),Color.black));
+		table.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		table.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		table.setBackground(Color.WHITE);
+		table.getColumnModel().getColumn(0).setPreferredWidth(10);
+		table.getColumnModel().getColumn(1).setPreferredWidth(100);
+		table.getColumnModel().getColumn(2).setPreferredWidth(370);
+		table.setRowHeight(30);
+		table.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent e) {
+				if(e.getClickCount()== modo){
+					System.out.println("Se ha hecho click: " + table.getSelectedRow());
+					quitaServicio();
+		        }
+				if(e.getClickCount()==2){
+					System.out.println("Se ha hecho doble click: " + table.getSelectedRow());
+//					quitaServicio();
+				}
+			}});
+		
+		scrollPane.setViewportView(table);
+		
+	}
+	
+	public void creaBotones () {
 		btnAdd = new JButton("<");
 		btnAdd.setFont(new Font("Tahoma", Font.BOLD, 26));
 		btnAdd.setBounds(803, 391, 90, 80);
@@ -382,41 +444,13 @@ public class SpecterMain extends JFrame implements ActionListener {
 		btnVer.setBounds(1106, 181, 127, 80);
 		getContentPane().add(btnVer);
 		btnVer.addActionListener(this);
-	
 		
-		creaTabla();
-		cambiaLogo();
-		
-		//LOGICA
-		aTableService = new ArrayList<Servicios>();
-		aServicios = new ArrayList<Servicios>();
-		cargarLista();
-	}
-	
-	public void creaTabla() {
-		modeloTabla = new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"ID","Nombre","Descripción","Precio"
-			}
-		);
-
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(37, 292, 739, 419);
-		getContentPane().add(scrollPane);
-		
-		table = new JTable(modeloTabla);
-		table.getColumnModel().getColumn(0).setHeaderRenderer(new MyRenderer(new Color(49, 198, 191),Color.black));
-		table.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		table.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		table.setBackground(Color.WHITE);
-		table.getColumnModel().getColumn(0).setPreferredWidth(10);
-		table.getColumnModel().getColumn(1).setPreferredWidth(100);
-		table.getColumnModel().getColumn(2).setPreferredWidth(370);
-		table.setRowHeight(30);
-		
-		scrollPane.setViewportView(table);
+		btnGenera = new JButton("OKEY");
+		btnGenera.setFont(new Font("Tahoma", Font.BOLD, 18));
+//		btnGenera.setIcon(new ImageIcon(SpecterBlue.class.getResource("/img/check-icon.png")));
+		getContentPane().add(btnGenera);
+		btnGenera.addActionListener(this);
+		btnGenera.setBounds(1256, 183, 115, 80);
 		
 		btnBlue = new JButton("SPECTER BLUE");
 		btnBlue.setBackground(new Color(135, 206, 250));
@@ -435,11 +469,7 @@ public class SpecterMain extends JFrame implements ActionListener {
 		btnAgency.setBounds(1216, 30, 155, 52);
 		getContentPane().add(btnAgency);
 		btnAgency.addActionListener(this);
-		
 	}
-	
-	
-
 	
 	/**
 	 * Su método colorea las cabeceras de una jtable
@@ -484,4 +514,23 @@ public class SpecterMain extends JFrame implements ActionListener {
 	         return shape.contains(x, y);
 	    }
 	}
+	
+//	public void cambiaLogo () {
+//	lblLogoBlue.setVisible(false);
+//	lblLogo1824.setVisible(false);
+//	lblLogoAgency.setVisible(false);
+//	
+//	switch (modo) {
+//	case 0: lblLogoBlue.setVisible(true);
+//			getContentPane().setBackground(Color.WHITE);
+//			break;
+//	case 1: lblLogo1824.setVisible(true); 
+//			getContentPane().setBackground(Color.WHITE);
+//			break;
+//	case 2: lblLogoAgency.setVisible(true); 
+//			getContentPane().setBackground(Color.WHITE);
+//			break;
+//	default: System.out.println("fallo en cambiaLogo()"); break;
+//	}
+//}
 }

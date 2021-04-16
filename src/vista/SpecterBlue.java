@@ -233,7 +233,7 @@ public class SpecterBlue extends JDialog implements ActionListener {
 		aServicios.clear();
 		modeloServicios.clear();
 		
-		ModeloBlue.leeFichero(aServicios,archivo_activo);
+		ModeloBlue.leeFicheroServicios(aServicios,archivo_activo);
 		for (int i = 0; i < aServicios.size(); i++) {
 			modeloServicios.add(i, aServicios.get(i).getNombre());
 //			System.out.println("buc:"  + i);
