@@ -20,10 +20,10 @@
 		</band>
 	</background>
 	<title>
-		<band height="332" splitType="Stretch">
+		<band height="369" splitType="Stretch">
 			<image>
-				<reportElement x="440" y="207" width="362" height="121" uuid="67df8f16-1122-4f0f-9815-22fc1d8a1307"/>
-				<imageExpression><![CDATA["/specter1824.png"]]></imageExpression>
+				<reportElement x="191" y="182" width="421" height="171" uuid="c5b10f33-6a74-4fea-8a2e-9fc389e22879"/>
+				<imageExpression><![CDATA["/logoPortadaPDF.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>

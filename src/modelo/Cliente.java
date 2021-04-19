@@ -1,6 +1,8 @@
 package modelo;
 
-public class Cliente {
+import java.io.Serializable;
+
+public class Cliente implements Serializable {
 	
 	private static final String fich_clientes = "clientes.obj";
 	private static int count = 1000;
@@ -73,6 +75,11 @@ public class Cliente {
 	public static String getFichClientes() {
 		return fich_clientes;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Cliente [id=" + id + ", codigoPostal=" + codigoPostal + ", telefono=" + telefono + ", nombre=" + nombre
+				+ ", direccion=" + direccion + ", cif=" + cif + "]";
+	}
 	
 }

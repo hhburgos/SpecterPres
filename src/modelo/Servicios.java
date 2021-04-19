@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class Servicios implements Serializable {
 	
+	/**
+	 * Como pete algo la serialVersionUID será la responsable, pero es para la serializacion
+	 */
+	private static final long serialVersionUID = -2703872979850240336L;
 	private static final String fich_servicios_blue = "ServiciosBlue.obj";
 	private static final String fich_servicios_agency = "ServiciosAgency.obj";
 	private static final String fich_servicios_1824 = "Servicio1824.obj";

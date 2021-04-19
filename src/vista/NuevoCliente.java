@@ -30,36 +30,106 @@ public class NuevoCliente extends JDialog implements ActionListener {
 	private JTextField tfCP;
 	private JTextField tfBuscar;
 	private JButton btnNuevo;
-
+	private JButton btnBuscar;
+	private JButton btnSeleccionar;
+	
+	private SpecterMain sm;
+	private Cliente clienteSeleccionado;
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnNuevo) {
 			creaCliente();
+		} 
+		else if (e.getSource() == btnBuscar) {
+			buscarCliente();
+		}
+		else if (e.getSource() == btnSeleccionar) {
+			sm.setCliente(clienteSeleccionado);
+			sm.colocarCliente();
+			this.dispose();
 		}
 	}
 	
 	public void creaCliente () {
-		if (verificaTFNombre()) {
+		if (tfRellenado(tfNombre)) {
 			String nombre = tfNombre.getText();
 			Cliente nuevoCliente = new Cliente(nombre);
 			if (masCamposRellenados()) {
-				
+				addAtributosExtra(nuevoCliente);
 			}
 			aClientes.add(nuevoCliente);
+			ModeloBlue.guardaArrayCliente(aClientes, Cliente.getFichClientes());
 			ModeloBlue.mensaje(this, "Cliente creado correctamente", "Nota");
+			limpiarCampos();
 		}
 		else { 
 			ModeloBlue.mensajeError(this, "El campo 'nombre' no puede estar vacío", "Error al crear cliente");
 		}
 	}
 	
-	public boolean masCamposRellenados () {
-		//falta verificar si han escrito en mas campos e introducirlos al objeto antes de que se almacene en el arrayList
-		return false;
+	public void addAtributosExtra (Cliente c) {
+		String direccion, cif;
+		int cp, tel;
+		
+		if (tfRellenado(tfCP)) {
+			cp = Integer.valueOf(tfCP.getText());
+			c.setCodigoPostal(cp);
+		}
+		if (tfRellenado(tfTel)) {
+			tel = Integer.valueOf(tfTel.getText());
+			c.setCodigoPostal(tel);
+		}
+		if (tfRellenado(tfCIF)) {
+			cif = tfCIF.getText();
+			c.setCif(cif);
+		}
+		if (tfRellenado(tfDireccion)) {
+			direccion = tfDireccion.getText();
+			c.setDireccion(direccion);
+		}
 	}
 	
-	public boolean verificaTFNombre () {
-		if (tfNombre.getText().length() == 0) {
+	public void buscarCliente () {
+		if (tfRellenado(tfBuscar)) {
+			String nombre = tfBuscar.getText().toUpperCase().trim();
+		
+			for (int i = 0; i < aClientes.size(); i++) {
+				if (nombre.equals(aClientes.get(i).getNombre().toUpperCase().trim())) {
+					clienteSeleccionado = aClientes.get(i);
+					
+					tfNombre.setText(aClientes.get(i).getNombre().toString());
+					tfCP.setText(String.valueOf(aClientes.get(i).getCodigoPostal()));
+					tfCIF.setText(aClientes.get(i).getCif());
+					tfDireccion.setText(aClientes.get(i).getDireccion());
+					tfTel.setText(String.valueOf(aClientes.get(i).getTelefono()));
+					return;
+				}
+			}
+			ModeloBlue.mensajeError(this, "No se ha encontrado ningún cliente con ese nombre", "Error");
+		}
+		else { ModeloBlue.mensajeError(this, "Debes introducir un nombre en el campo 'Buscar'", "Error"); }
+	}
+
+	public boolean masCamposRellenados () {
+		if (tfRellenado(tfCP)) {
+			return (true);
+		}
+		else if (tfRellenado(tfTel)) {
+			return (true);
+		}
+		else if (tfRellenado(tfCIF)) {
+			return (true);
+		}
+		else if (tfRellenado(tfDireccion)) {
+			return (true);
+		}
+		
+		return (false);
+	}
+	
+	public boolean tfRellenado (JTextField tf) {
+		if (tf.getText().length() == 0) {
 			return (false);
 		} else {
 			return (true);
@@ -69,17 +139,24 @@ public class NuevoCliente extends JDialog implements ActionListener {
 	public void logicaInicial () {
 		aClientes = new ArrayList<Cliente>();
 		ModeloBlue.leeFicheroCliente(aClientes, Cliente.getFichClientes());
-		
-	}
+		limpiarCampos();
+	}	
 	
-	public void logicaFinal () {
-		ModeloBlue.guardaArrayCliente(aClientes, Cliente.getFichClientes());
+	public void limpiarCampos () {
+		tfNombre.setText("");
+		tfDireccion.setText("");
+		tfTel.setText("");
+		tfCP.setText("");
+		tfCIF.setText("");
+		tfBuscar.setText("");
 	}
 	
 	/**
 	 * Create the dialog.
 	 */
-	public NuevoCliente() {
+	public NuevoCliente(SpecterMain sm) {
+		this.sm = sm;
+		
 		setResizable(false);
 		setBounds(100, 100, 756, 322);
 		getContentPane().setLayout(null);
@@ -140,10 +217,11 @@ public class NuevoCliente extends JDialog implements ActionListener {
 		getContentPane().add(btnNuevo);
 		btnNuevo.addActionListener(this);
 		
-		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar = new JButton("Buscar");
 		btnBuscar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnBuscar.setBounds(596, 67, 108, 33);
 		getContentPane().add(btnBuscar);
+		btnBuscar.addActionListener(this);
 		
 		tfBuscar = new JTextField();
 		tfBuscar.setColumns(10);
@@ -155,34 +233,22 @@ public class NuevoCliente extends JDialog implements ActionListener {
 		lblNewLabel.setBounds(405, 33, 286, 33);
 		getContentPane().add(lblNewLabel);
 		
-		JButton btnVolver = new JButton("Volver");
-		btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnVolver.setBounds(574, 201, 130, 42);
-		getContentPane().add(btnVolver);
+		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnGuardar.setBounds(574, 201, 130, 42);
+		getContentPane().add(btnGuardar);
 		
-		JButton btnNewButton_1 = new JButton("Seleccionar");
-		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 23));
-		btnNewButton_1.setBounds(405, 125, 303, 58);
-		getContentPane().add(btnNewButton_1);
+		btnSeleccionar = new JButton("Seleccionar");
+		btnSeleccionar.setFont(new Font("Tahoma", Font.BOLD, 23));
+		btnSeleccionar.setBounds(405, 125, 303, 58);
+		getContentPane().add(btnSeleccionar);
+		btnSeleccionar.addActionListener(this);
 		
 		///
 		
 		logicaInicial();
 	}
-	
 
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			NuevoCliente dialog = new NuevoCliente();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+
 
 }

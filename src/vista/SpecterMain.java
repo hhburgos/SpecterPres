@@ -18,6 +18,7 @@ import java.awt.geom.RoundRectangle2D;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
@@ -38,6 +39,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import modelo.Cliente;
 import modelo.ModeloBlue;
 import modelo.Prueba;
 import modelo.Servicios;
@@ -57,27 +59,25 @@ import javax.swing.ButtonGroup;
 
 public class SpecterMain extends JFrame implements ActionListener {
 
-//	private static final String [] logos = {"specterBLUENEGRO.png","specter1824.png","specterAgency.png"};
 	private static final String nombre_pdf = "InformePresupuesto.pdf";
 	String ruta_jasperreport = "src/vista/presupuestos.jasper";
 	
 	private int tableColumn = 4;
 	private String archivo_activo = Servicios.getFichServiciosBlue();
 	private int modo = 1; // 1: borrar   5: edita
+	private Cliente cliente;
 	
 	private JPanel contentPane;
-	private JTextField tfCliente;
 	private JList listServicios = new JList();
 	private DefaultListModel modeloServicios = new DefaultListModel();
 	private DefaultTableModel modeloTabla;
 	private JLabel lblLogoBlue;
-	private JButton btnAdd;
-	private JButton btnLess;
 	private JButton btnBlue;
 	private JButton btn1824;
 	private JButton btnAgency;
 	private JButton btnGenera;
 	private JButton btnVer;
+	private JButton btnCliente;
 	private JRadioButton rbEditar;
 	private JRadioButton rbBorrar;
 	
@@ -86,6 +86,7 @@ public class SpecterMain extends JFrame implements ActionListener {
 	private JTable table;
 	private JScrollPane scrollPane_1;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JTextField tfCliente;
 
 	/**
 	 * Launch the application.
@@ -106,26 +107,18 @@ public class SpecterMain extends JFrame implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnAdd) {
-			mueveServicio();
-		} 
-		else if (e.getSource() == btnLess) {
-			quitaServicio();
-		}
-		else if (e.getSource() == btnBlue) {
-			modo = 0;
+		if (e.getSource() == btnBlue) {
 			archivo_activo = Servicios.getFichServiciosBlue();
 			cambiaSector();
 		}
 		else if (e.getSource() == btn1824) {
-			modo = 1;
 			archivo_activo = Servicios.getFichServicios1824();
 			cambiaSector();
 		}
 		else if (e.getSource() == btnAgency) {
-			modo = 2;
-			archivo_activo = Servicios.getFichServiciosAgency();
-			cambiaSector();
+//			archivo_activo = Servicios.getFichServiciosAgency();
+//			cambiaSector();
+			imprimeTabla();
 		}
 		else if (e.getSource() == btnGenera) {
 			generaInforme2();
@@ -133,6 +126,10 @@ public class SpecterMain extends JFrame implements ActionListener {
 		else if (e.getSource() == btnVer) {
 //			generaInforme();
 			claseRuina();
+		}
+		else if (e.getSource() == btnCliente) {
+			NuevoCliente ventana = new NuevoCliente(this);
+			ventana.setVisible(true);
 		}
 		else if (e.getSource() == rbBorrar) {
 			System.out.println("rbBorrar presionado");
@@ -144,6 +141,30 @@ public class SpecterMain extends JFrame implements ActionListener {
 		}
 	}
 	
+	public void imprimeTabla ()  {
+		String nombre, descripcion;
+		Double precio;
+		List<Prueba> lista = new ArrayList<Prueba>();		
+
+		for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+			nombre = ((Vector) modeloTabla.getDataVector().elementAt(i)).get(1).toString();
+			descripcion = ((Vector) modeloTabla.getDataVector().elementAt(i)).get(2).toString();
+			precio = Double.valueOf(((Vector) modeloTabla.getDataVector().elementAt(i)).get(1).toString());
+			
+			lista.add(new Prueba(nombre,descripcion,precio));
+		}
+	}
+	
+	public void colocarCliente () {
+		// queda verificar que hay cliente. seguridad
+		String nameCli = cliente.getNombre();
+		tfCliente.setText(nameCli);
+	}
+	
+	/**
+	 * Ejecuta el JasperReport sin necesidad de que se lean archivos obj en el dispositivo.
+	 * Sirve para comprobar que funciona El jasper en caso de que fallen las rutas de los obj
+	 */
 	public void claseRuina () {
 		String nombre, descripcion;
 		Double precio;
@@ -186,22 +207,15 @@ public class SpecterMain extends JFrame implements ActionListener {
 	public void generaInforme2 () {
 		String nombre, descripcion;
 		Double precio;
-		List<Prueba> lista = new ArrayList<Prueba>();
-		
-		for (int i = 0; i < aTableService.size(); i++) {
-			nombre = aTableService.get(i).getNombre();
-			descripcion = aTableService.get(i).getDescripcion();
-			precio = aTableService.get(i).getPrecio();
+		List<Prueba> lista = new ArrayList<Prueba>();		
+
+		for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+			nombre = ((Vector) modeloTabla.getDataVector().elementAt(i)).get(1).toString();
+			descripcion = ((Vector) modeloTabla.getDataVector().elementAt(i)).get(2).toString();
+			precio = (Double)((Vector) modeloTabla.getDataVector().elementAt(i)).get(3);
+			
 			lista.add(new Prueba(nombre,descripcion,precio));
 		}
-		
-		//esto funciona, la replica de arriba aun no lose
-//		for (int i = 0; i < aServicios.size(); i++) {
-//			nombre = aServicios.get(i).getNombre();
-//			descripcion = aServicios.get(i).getDescripcion();
-//			precio = aServicios.get(i).getPrecio();
-//			lista.add(new Prueba(nombre,descripcion,precio));
-//		}
 		
 		JasperPrint jasperPrint = null; 
 		try { 
@@ -213,8 +227,7 @@ public class SpecterMain extends JFrame implements ActionListener {
 		} 
 		JRPdfExporter exp = new JRPdfExporter(); 
 		exp.setExporterInput(new SimpleExporterInput(jasperPrint)); 
-		exp.setExporterOutput(new
-		SimpleOutputStreamExporterOutput(nombre_pdf)); 
+		exp.setExporterOutput(new SimpleOutputStreamExporterOutput(nombre_pdf)); 
 		JOptionPane.showMessageDialog( null, "Informe generado y almacenado", "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
 		try { 
 			exp.exportReport(); 
@@ -257,7 +270,6 @@ public class SpecterMain extends JFrame implements ActionListener {
 	}
 	
 	public void cambiaSector () {
-		//cambiaLogo();
 		cargarLista();
 	}
 	
@@ -350,12 +362,6 @@ public class SpecterMain extends JFrame implements ActionListener {
 		lblCliente.setFont(new Font("Tahoma", Font.BOLD, 19));
 		lblCliente.setBounds(55, 179, 97, 44);
 		getContentPane().add(lblCliente);
-		
-		tfCliente = new RoundJTextField(15);
-		tfCliente.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		tfCliente.setBounds(164, 179, 242, 45);
-		getContentPane().add(tfCliente);
-		tfCliente.setColumns(10);
         
         creaRadioButtons();
 		creaBotones();
@@ -366,6 +372,13 @@ public class SpecterMain extends JFrame implements ActionListener {
 		aTableService = new ArrayList<Servicios>();
 		aServicios = new ArrayList<Servicios>();
 		rbBorrar.setSelected(true);
+		
+		tfCliente = new JTextField();
+		tfCliente.setEditable(false);
+		tfCliente.setBounds(149, 192, 145, 25);
+		getContentPane().add(tfCliente);
+		tfCliente.setColumns(10);
+		
 		cargarLista();
 	}
 	
@@ -427,17 +440,6 @@ public class SpecterMain extends JFrame implements ActionListener {
 	}
 	
 	public void creaBotones () {
-		btnAdd = new JButton("<");
-		btnAdd.setFont(new Font("Tahoma", Font.BOLD, 26));
-		btnAdd.setBounds(803, 391, 90, 80);
-		getContentPane().add(btnAdd);
-		btnAdd.addActionListener(this);
-		
-		btnLess = new JButton(">");
-		btnLess.setFont(new Font("Tahoma", Font.BOLD, 26));
-		btnLess.setBounds(803, 496, 90, 80);
-		getContentPane().add(btnLess);
-		btnLess.addActionListener(this);
 		
 		btnVer = new JButton("Ver");
 		btnVer.setFont(new Font("Tahoma", Font.BOLD, 22));
@@ -469,12 +471,24 @@ public class SpecterMain extends JFrame implements ActionListener {
 		btnAgency.setBounds(1216, 30, 155, 52);
 		getContentPane().add(btnAgency);
 		btnAgency.addActionListener(this);
+		
+		btnCliente = new JButton("add");
+		btnCliente.setBounds(306, 192, 60, 25);
+		getContentPane().add(btnCliente);
+		btnCliente.addActionListener(this);
 	}
 	
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
 	/**
 	 * Su método colorea las cabeceras de una jtable
 	 * @author sburg
-	 *
 	 */
 	public class MyRenderer extends DefaultTableCellRenderer {
 		Color background;
@@ -514,23 +528,4 @@ public class SpecterMain extends JFrame implements ActionListener {
 	         return shape.contains(x, y);
 	    }
 	}
-	
-//	public void cambiaLogo () {
-//	lblLogoBlue.setVisible(false);
-//	lblLogo1824.setVisible(false);
-//	lblLogoAgency.setVisible(false);
-//	
-//	switch (modo) {
-//	case 0: lblLogoBlue.setVisible(true);
-//			getContentPane().setBackground(Color.WHITE);
-//			break;
-//	case 1: lblLogo1824.setVisible(true); 
-//			getContentPane().setBackground(Color.WHITE);
-//			break;
-//	case 2: lblLogoAgency.setVisible(true); 
-//			getContentPane().setBackground(Color.WHITE);
-//			break;
-//	default: System.out.println("fallo en cambiaLogo()"); break;
-//	}
-//}
 }
