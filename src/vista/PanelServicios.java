@@ -1,8 +1,6 @@
 package vista;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -26,14 +24,15 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import java.awt.Color;
 import javax.swing.JComboBox;
-import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
+import javax.swing.JToggleButton;
 
 public class PanelServicios extends JDialog implements ActionListener {
 	
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private String archivo_activo = Servicios.getFichServiciosBlue();
-	private DefaultListModel<String> modeloServicios = new DefaultListModel();
+	private DefaultListModel<String> modeloServicios = new DefaultListModel<String>();
 	
 	private JTextField tfID;
 	private JTextField tfNombre;
@@ -50,6 +49,8 @@ public class PanelServicios extends JDialog implements ActionListener {
 	private ArrayList<Servicios> aServicios;
 	private JScrollPane scrollPane_1;
 	private boolean modoNuevo; //si está en false es que va a modificar los campos de un servicio existente
+	private int sector = 0; //0:Blue  1:1824  2:Agency
+	private int index = -1; //index del servicio activo en cada momento
 	
 	/**
 	 * Launch the application.
@@ -75,19 +76,109 @@ public class PanelServicios extends JDialog implements ActionListener {
 			cargarLista();
 		}
 		else if (e.getSource() == btnGuardar) {
-			
+			clickGuardar();
 		}
 		else if (e.getSource() == btnBorrar) {
-			
+			clickBorrar();
 		}
 		else if (e.getSource() == chbNuevo) {
-			if (modoNuevo) {
-				System.out.println("modificar");
-				modoNuevo = false;
-			} else {
-				modoNuevo = true;
-				System.out.println("Crear");
-			}
+			modificaOCrea();
+		}
+		else if (e.getSource() == cbSector) {
+			//Mantiene actualizado que sector está seleccionado en el comboBox
+			sector = cbSector.getSelectedIndex();
+		}
+	}
+	
+	public void clickBorrar () {
+		if (index != -1) {
+			aServicios.remove(index);
+			actualizaFichero();
+			cargarLista();
+			ModeloBlue.mensaje(this, "Servicio borrado corractamente", "");
+		}
+	}
+	
+	public void clickGuardar () {
+		if (modoNuevo) {
+			creaNuevoServicio();
+		} else {
+			actualizarServicio();
+		}
+	}
+	
+	public void modificaOCrea() {
+		if (modoNuevo) {
+			System.out.println("modificar");
+			modoNuevo = false;
+		} else {
+			System.out.println("Crear");
+			modoNuevo = true;
+		}
+	}
+	
+	public void actualizarServicio() {
+		if (tfRellenado(tfNombre) || tfRellenado(tfPrecio) || taRellenado(taDescripcion)) {
+			String nombre = tfNombre.getText();
+			String descripcion = taDescripcion.getText();
+			double precio = Double.valueOf(tfPrecio.getText()); //captar exception
+
+			aServicios.get(index).setNombre(nombre);
+			aServicios.get(index).setDescripcion(descripcion);
+			aServicios.get(index).setPrecio(precio);
+			
+			actualizaFichero();
+			limpiaCampos();
+			cargarLista();
+		}
+		else { ModeloBlue.mensajeError(this, "Debes rellenar todos los campos", "ERROR"); }
+	}
+	
+	public void creaNuevoServicio() {
+		//camposLlenos()
+		//suponiendo que todos los campos estan llenos
+		if (tfRellenado(tfNombre) || tfRellenado(tfPrecio) || taRellenado(taDescripcion)) {
+			String nombre = tfNombre.getText();
+			String descripcion = taDescripcion.getText();
+			double precio = Double.valueOf(tfPrecio.getText());
+			
+			Servicios nuevo_servicio = new Servicios(nombre, descripcion, precio);
+			actualizaArrayServicios();
+			aServicios.add(nuevo_servicio);
+			
+			actualizaFichero();
+			limpiaCampos();
+			cargarLista();
+		}
+		else { ModeloBlue.mensajeError(this, "Debes rellenar todos los campos", "ERROR"); }
+	}
+	
+	public boolean taRellenado (JTextArea ta) {
+		if (ta.getText().length() == 0) {
+			return (false);
+		} else {
+			return (true);
+		}
+	}
+	
+	public boolean tfRellenado (JTextField tf) {
+		if (tf.getText().length() == 0) {
+			return (false);
+		} else {
+			return (true);
+		}
+	}
+	
+	public void actualizaFichero() {
+		ModeloBlue.guardaArrayServicios(aServicios, archivo_activo);
+	}
+	
+	public void actualizaArrayServicios() {
+		switch (sector) {
+		case 0: Servicios.getFichServiciosBlue(); break;
+		case 1: Servicios.getFichServicios1824(); break;
+		case 2: Servicios.getFichServiciosAgency(); break;
+		default: //mensaje de error;
 		}
 	}
 	
@@ -105,7 +196,7 @@ public class PanelServicios extends JDialog implements ActionListener {
 		listServicios.setModel(modeloServicios);
 	}
 	
-	public void mueveServicio (int index) {
+	public void mueveServicio () {
 		int id = aServicios.get(index).get_id();
 		String nombre = aServicios.get(index).getNombre();
 		String descripcion = aServicios.get(index).getDescripcion();
@@ -126,10 +217,12 @@ public class PanelServicios extends JDialog implements ActionListener {
 		tfPrecio.setText("");
 	}
 
+// ------------ VISUAL ------------- //
 	/**
 	 * Create the dialog.
 	 */
 	public PanelServicios() {
+		setModal(true);
 		setBounds(100, 100, 808, 468);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -145,7 +238,7 @@ public class PanelServicios extends JDialog implements ActionListener {
 		modoNuevo = true;
 		aServicios = new ArrayList<Servicios>();
 		chbNuevo.setSelected(true);
-		
+
 		cargarLista();
 	}
 	
@@ -239,9 +332,8 @@ public class PanelServicios extends JDialog implements ActionListener {
 			public void mouseClicked(MouseEvent evt) { 
 				JList list = (JList)evt.getSource(); 
 				if (evt.getClickCount() == 1) { 
-					int index = list.locationToIndex(evt.getPoint());
-//					System.out.println("lista click "+index);
-					mueveServicio(index);
+					index = list.locationToIndex(evt.getPoint());
+					mueveServicio();
 				}
 			}
 		});
@@ -252,5 +344,6 @@ public class PanelServicios extends JDialog implements ActionListener {
 		cbSector.addItem("BLUE");
 		cbSector.addItem("1824");
 		cbSector.addItem("AGENCY");
+		cbSector.addActionListener(this);
 	}
 }

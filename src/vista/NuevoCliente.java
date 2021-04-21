@@ -32,6 +32,7 @@ public class NuevoCliente extends JDialog implements ActionListener {
 	private JButton btnNuevo;
 	private JButton btnBuscar;
 	private JButton btnSeleccionar;
+	private JButton btnGuardar;
 	
 	private SpecterMain sm;
 	private Cliente clienteSeleccionado;
@@ -49,6 +50,49 @@ public class NuevoCliente extends JDialog implements ActionListener {
 			sm.colocarCliente();
 			this.dispose();
 		}
+		else if (e.getSource() == btnGuardar) {
+			guardarCliente();
+			ModeloBlue.mensaje(this, "Se ha guardado las modificaciones correctamente", "");
+		}
+	}
+	
+	public void guardarCliente () {
+		try {
+			int id = clienteSeleccionado.getId();
+			int codigoPostal = Integer.valueOf(tfCP.getText());
+			int telefono = Integer.valueOf(tfTel.getText());
+			String nombre = tfNombre.getText();
+			String direccion = tfDireccion.getText();
+			String cif = tfCIF.getText();
+			
+			clienteSeleccionado.setCodigoPostal(codigoPostal);
+			clienteSeleccionado.setTelefono(telefono);
+			clienteSeleccionado.setNombre(nombre);
+			clienteSeleccionado.setDireccion(direccion);
+			clienteSeleccionado.setCif(cif);
+			
+			int index = buscarPorID(id);
+			aClientes.set(index, clienteSeleccionado);
+			ModeloBlue.guardaArrayCliente(aClientes, Cliente.getFichClientes());
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Deuvelve la posicion del objeto con id pasa por parametro en el arrayClientes
+	 * Si devuelve -1 es que no se encontró el objeto, esto no deberia pasar
+	 */
+	public int buscarPorID (int id) {
+		int dev = -1;
+		for (int i = 0; i < aClientes.size(); i++) {
+			if (aClientes.get(i).getId() == id) {
+				dev = i;
+				return dev;
+			}
+		}
+		return dev;
 	}
 	
 	public void creaCliente () {
@@ -151,65 +195,37 @@ public class NuevoCliente extends JDialog implements ActionListener {
 		tfBuscar.setText("");
 	}
 	
+// --- VISUAL --- //
 	/**
 	 * Create the dialog.
 	 */
 	public NuevoCliente(SpecterMain sm) {
+		setModal(true);
 		this.sm = sm;
 		
 		setResizable(false);
 		setBounds(100, 100, 756, 322);
 		getContentPane().setLayout(null);
 		
-		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNombre.setBounds(27, 33, 91, 33);
-		getContentPane().add(lblNombre);
+		creaLBL();
+		creaTF();
+		creaBTN();
 		
-		tfNombre = new JTextField();
-		tfNombre.setBounds(99, 39, 220, 22);
-		getContentPane().add(tfNombre);
-		tfNombre.setColumns(10);
+		logicaInicial();
+	}
+
+	public void creaBTN() {
+		btnGuardar = new JButton("Guardar");
+		btnGuardar.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnGuardar.setBounds(574, 201, 130, 42);
+		getContentPane().add(btnGuardar);
+		btnGuardar.addActionListener(this);
 		
-		tfDireccion = new JTextField();
-		tfDireccion.setColumns(10);
-		tfDireccion.setBounds(99, 85, 220, 22);
-		getContentPane().add(tfDireccion);
-		
-		JLabel lblDireccion = new JLabel("Direcci\u00F3n");
-		lblDireccion.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblDireccion.setBounds(27, 79, 91, 33);
-		getContentPane().add(lblDireccion);
-		
-		JLabel lblTelfono = new JLabel("Tel\u00E9fono:");
-		lblTelfono.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblTelfono.setBounds(27, 125, 91, 33);
-		getContentPane().add(lblTelfono);
-		
-		tfTel = new JTextField();
-		tfTel.setColumns(10);
-		tfTel.setBounds(99, 131, 160, 22);
-		getContentPane().add(tfTel);
-		
-		tfCIF = new JTextField();
-		tfCIF.setColumns(10);
-		tfCIF.setBounds(99, 177, 130, 22);
-		getContentPane().add(tfCIF);
-		
-		JLabel lblCif = new JLabel("CIF");
-		lblCif.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblCif.setBounds(27, 171, 91, 33);
-		getContentPane().add(lblCif);
-		
-		tfCP = new JTextField();
-		tfCP.setColumns(10);
-		tfCP.setBounds(99, 221, 130, 22);
-		getContentPane().add(tfCP);
-		
-		JLabel lblCif_1 = new JLabel("CP");
-		lblCif_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblCif_1.setBounds(27, 215, 91, 33);
-		getContentPane().add(lblCif_1);
+		btnSeleccionar = new JButton("Seleccionar");
+		btnSeleccionar.setFont(new Font("Tahoma", Font.BOLD, 23));
+		btnSeleccionar.setBounds(405, 125, 303, 58);
+		getContentPane().add(btnSeleccionar);
+		btnSeleccionar.addActionListener(this);
 		
 		btnNuevo = new JButton("Nuevo");
 		btnNuevo.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -222,33 +238,69 @@ public class NuevoCliente extends JDialog implements ActionListener {
 		btnBuscar.setBounds(596, 67, 108, 33);
 		getContentPane().add(btnBuscar);
 		btnBuscar.addActionListener(this);
-		
+	}
+	
+	public void creaTF () {
 		tfBuscar = new JTextField();
 		tfBuscar.setColumns(10);
 		tfBuscar.setBounds(405, 68, 179, 33);
 		getContentPane().add(tfBuscar);
 		
+		tfCP = new JTextField();
+		tfCP.setColumns(10);
+		tfCP.setBounds(99, 221, 130, 22);
+		getContentPane().add(tfCP);
+		
+		tfTel = new JTextField();
+		tfTel.setColumns(10);
+		tfTel.setBounds(99, 131, 160, 22);
+		getContentPane().add(tfTel);
+		
+		tfCIF = new JTextField();
+		tfCIF.setColumns(10);
+		tfCIF.setBounds(99, 177, 130, 22);
+		getContentPane().add(tfCIF);
+		
+		tfNombre = new JTextField();
+		tfNombre.setBounds(99, 39, 220, 22);
+		getContentPane().add(tfNombre);
+		tfNombre.setColumns(10);
+		
+		tfDireccion = new JTextField();
+		tfDireccion.setColumns(10);
+		tfDireccion.setBounds(99, 85, 220, 22);
+		getContentPane().add(tfDireccion);
+	}
+
+	public void creaLBL () {
+		JLabel lblNombre = new JLabel("Nombre");
+		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNombre.setBounds(27, 33, 91, 33);
+		getContentPane().add(lblNombre);
+		
+		JLabel lblDireccion = new JLabel("Direcci\u00F3n");
+		lblDireccion.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblDireccion.setBounds(27, 79, 91, 33);
+		getContentPane().add(lblDireccion);
+		
+		JLabel lblTelfono = new JLabel("Tel\u00E9fono:");
+		lblTelfono.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblTelfono.setBounds(27, 125, 91, 33);
+		getContentPane().add(lblTelfono);
+		
+		JLabel lblCif = new JLabel("CIF");
+		lblCif.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblCif.setBounds(27, 171, 91, 33);
+		getContentPane().add(lblCif);
+		
+		JLabel lblCif_1 = new JLabel("CP");
+		lblCif_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblCif_1.setBounds(27, 215, 91, 33);
+		getContentPane().add(lblCif_1);
+		
 		JLabel lblNewLabel = new JLabel("Introduce el nombre de la empresa");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel.setBounds(405, 33, 286, 33);
 		getContentPane().add(lblNewLabel);
-		
-		JButton btnGuardar = new JButton("Guardar");
-		btnGuardar.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnGuardar.setBounds(574, 201, 130, 42);
-		getContentPane().add(btnGuardar);
-		
-		btnSeleccionar = new JButton("Seleccionar");
-		btnSeleccionar.setFont(new Font("Tahoma", Font.BOLD, 23));
-		btnSeleccionar.setBounds(405, 125, 303, 58);
-		getContentPane().add(btnSeleccionar);
-		btnSeleccionar.addActionListener(this);
-		
-		///
-		
-		logicaInicial();
 	}
-
-
-
 }

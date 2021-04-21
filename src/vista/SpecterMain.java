@@ -43,19 +43,22 @@ import modelo.Cliente;
 import modelo.ModeloBlue;
 import modelo.Prueba;
 import modelo.Servicios;
+
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperReport;//fgf
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.engine.util.JRLoader;//fgf
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-import net.sf.jasperreports.view.JasperViewer;
+import net.sf.jasperreports.view.JasperViewer;//dsd
+
 import vista.SpecterBlue.MyRenderer;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
+import java.awt.SystemColor;
 
 public class SpecterMain extends JFrame implements ActionListener {
 
@@ -72,21 +75,22 @@ public class SpecterMain extends JFrame implements ActionListener {
 	private DefaultListModel modeloServicios = new DefaultListModel();
 	private DefaultTableModel modeloTabla;
 	private JLabel lblLogoBlue;
+	private JButton btnVer;
 	private JButton btnBlue;
 	private JButton btn1824;
 	private JButton btnAgency;
 	private JButton btnGenera;
-	private JButton btnVer;
 	private JButton btnCliente;
+	private JButton btnAdminServicios;
 	private JRadioButton rbEditar;
 	private JRadioButton rbBorrar;
+	private JTextField tfCliente;
 	
-	private ArrayList<Servicios> aServicios;
-	private ArrayList<Servicios> aTableService;
 	private JTable table;
 	private JScrollPane scrollPane_1;
+	private ArrayList<Servicios> aServicios;
+	private ArrayList<Servicios> aTableService;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private JTextField tfCliente;
 
 	/**
 	 * Launch the application.
@@ -138,6 +142,10 @@ public class SpecterMain extends JFrame implements ActionListener {
 		else if (e.getSource() == rbEditar) {
 			System.out.println("rbEditar presionado");
 			modo = 5;
+		} 
+		else if (e.getSource() == btnAdminServicios) {
+			PanelServicios ps = new PanelServicios();
+			ps.setVisible(true);
 		}
 	}
 	
@@ -235,6 +243,7 @@ public class SpecterMain extends JFrame implements ActionListener {
 			e1.printStackTrace(); 
 			JOptionPane.showMessageDialog( null, e1.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
 		}
+		
 		 
 	}
 	
@@ -346,7 +355,7 @@ public class SpecterMain extends JFrame implements ActionListener {
 		getContentPane().add(scrollPane_1);
 		
 		listServicios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		listServicios.setBackground(Color.GRAY);
+		listServicios.setBackground(SystemColor.inactiveCaption);
 		listServicios.addMouseListener(new MouseAdapter() { 
 			public void mouseClicked(MouseEvent evt) { 
 				JList list = (JList)evt.getSource(); 
@@ -443,7 +452,7 @@ public class SpecterMain extends JFrame implements ActionListener {
 		
 		btnVer = new JButton("Ver");
 		btnVer.setFont(new Font("Tahoma", Font.BOLD, 22));
-		btnVer.setBounds(1106, 181, 127, 80);
+		btnVer.setBounds(1131, 37, 114, 80);
 		getContentPane().add(btnVer);
 		btnVer.addActionListener(this);
 		
@@ -452,23 +461,26 @@ public class SpecterMain extends JFrame implements ActionListener {
 //		btnGenera.setIcon(new ImageIcon(SpecterBlue.class.getResource("/img/check-icon.png")));
 		getContentPane().add(btnGenera);
 		btnGenera.addActionListener(this);
-		btnGenera.setBounds(1256, 183, 115, 80);
+		btnGenera.setBounds(1257, 37, 115, 80);
 		
-		btnBlue = new JButton("SPECTER BLUE");
+		btnBlue = new JButton("BLUE");
+		btnBlue.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnBlue.setBackground(new Color(135, 206, 250));
-		btnBlue.setBounds(882, 30, 155, 52);
+		btnBlue.setBounds(925, 233, 145, 44);
 		getContentPane().add(btnBlue);
 		btnBlue.addActionListener(this);
 		
-		btn1824 = new JButton("SPECTER 1824");
+		btn1824 = new JButton("1824");
+		btn1824.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btn1824.setBackground(new Color(218, 165, 32));
-		btn1824.setBounds(1049, 30, 155, 52);
+		btn1824.setBounds(1073, 233, 151, 44);
 		getContentPane().add(btn1824);
 		btn1824.addActionListener(this);
 		
-		btnAgency = new JButton("SPECTER AGENCY");
+		btnAgency = new JButton("AGENCY");
+		btnAgency.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnAgency.setBackground(new Color(240, 255, 255));
-		btnAgency.setBounds(1216, 30, 155, 52);
+		btnAgency.setBounds(1226, 233, 145, 44);
 		getContentPane().add(btnAgency);
 		btnAgency.addActionListener(this);
 		
@@ -476,6 +488,12 @@ public class SpecterMain extends JFrame implements ActionListener {
 		btnCliente.setBounds(306, 192, 60, 25);
 		getContentPane().add(btnCliente);
 		btnCliente.addActionListener(this);
+		
+		btnAdminServicios = new JButton("Administrar Servicios");
+		btnAdminServicios.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnAdminServicios.setBounds(589, 239, 187, 35);
+		getContentPane().add(btnAdminServicios);
+		btnAdminServicios.addActionListener(this);
 	}
 	
 	public Cliente getCliente() {
