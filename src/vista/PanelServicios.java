@@ -7,7 +7,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import modelo.ModeloBlue;
+import eventos.Ficheros;
 import modelo.Servicios;
 
 import javax.swing.JLabel;
@@ -27,25 +27,25 @@ import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 import javax.swing.JToggleButton;
 
-public class PanelServicios extends JDialog implements ActionListener {
+public class PanelServicios extends JDialog {
 	
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private String archivo_activo = Servicios.getFichServiciosBlue();
 	private DefaultListModel<String> modeloServicios = new DefaultListModel<String>();
 	
-	private JTextField tfID;
-	private JTextField tfNombre;
-	private JTextField tfPrecio;
-	private JTextArea taDescripcion;
-	private JList<String> listServicios;
-	private JComboBox<String> cbSector;
-	private JButton btnBlue;
-	private JButton btn1824;
-	private JButton btnBorrar;
-	private JButton btnGuardar;
-	private JCheckBox chbNuevo;
-	
+	public JTextField tfID;
+	public JTextField tfNombre;
+	public JTextField tfPrecio;
+	public JTextArea taDescripcion;
+	public JList<String> listServicios;
+	public JComboBox<String> cbSector;
+	public JButton btnBlue;
+	public JButton btn1824;
+	public JButton btnBorrar;
+	public JButton btnGuardar;
+	public JCheckBox chbNuevo; //min 21 - https://www.youtube.com/watch?v=6eyMT-Dn1fM
+		
 	private ArrayList<Servicios> aServicios;
 	private JScrollPane scrollPane_1;
 	private boolean modoNuevo; //si está en false es que va a modificar los campos de un servicio existente
@@ -55,47 +55,22 @@ public class PanelServicios extends JDialog implements ActionListener {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			PanelServicios dialog = new PanelServicios();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnBlue) {
-			archivo_activo = Servicios.getFichServiciosBlue();
-			cargarLista();
-		}
-		else if (e.getSource() == btn1824) {
-			archivo_activo = Servicios.getFichServicios1824();
-			cargarLista();
-		}
-		else if (e.getSource() == btnGuardar) {
-			clickGuardar();
-		}
-		else if (e.getSource() == btnBorrar) {
-			clickBorrar();
-		}
-		else if (e.getSource() == chbNuevo) {
-			modificaOCrea();
-		}
-		else if (e.getSource() == cbSector) {
-			//Mantiene actualizado que sector está seleccionado en el comboBox
-			sector = cbSector.getSelectedIndex();
-		}
-	}
+//	public static void main(String[] args) {
+//		try {
+//			PanelServicios dialog = new PanelServicios();
+//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//			dialog.setVisible(true);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 	
 	public void clickBorrar () {
 		if (index != -1) {
 			aServicios.remove(index);
 			actualizaFichero();
 			cargarLista();
-			ModeloBlue.mensaje(this, "Servicio borrado corractamente", "");
+			Ficheros.mensaje(this, "Servicio borrado corractamente", "");
 		}
 	}
 	
@@ -131,7 +106,7 @@ public class PanelServicios extends JDialog implements ActionListener {
 			limpiaCampos();
 			cargarLista();
 		}
-		else { ModeloBlue.mensajeError(this, "Debes rellenar todos los campos", "ERROR"); }
+		else { Ficheros.mensajeError(this, "Debes rellenar todos los campos", "ERROR"); }
 	}
 	
 	public void creaNuevoServicio() {
@@ -150,7 +125,7 @@ public class PanelServicios extends JDialog implements ActionListener {
 			limpiaCampos();
 			cargarLista();
 		}
-		else { ModeloBlue.mensajeError(this, "Debes rellenar todos los campos", "ERROR"); }
+		else { Ficheros.mensajeError(this, "Debes rellenar todos los campos", "ERROR"); }
 	}
 	
 	public boolean taRellenado (JTextArea ta) {
@@ -170,7 +145,7 @@ public class PanelServicios extends JDialog implements ActionListener {
 	}
 	
 	public void actualizaFichero() {
-		ModeloBlue.guardaArrayServicios(aServicios, archivo_activo);
+		Ficheros.guardaArrayServicios(aServicios, archivo_activo);
 	}
 	
 	public void actualizaArrayServicios() {
@@ -186,7 +161,7 @@ public class PanelServicios extends JDialog implements ActionListener {
 		aServicios.clear();
 		modeloServicios.clear();
 		
-		ModeloBlue.leeFicheroServicios(aServicios,archivo_activo);
+		Ficheros.leeFicheroServicios(aServicios,archivo_activo);
 		for (int i = 0; i < aServicios.size(); i++) {
 			modeloServicios.add(i, aServicios.get(i).getNombre());
 //			System.out.println("buc:"  + i);
@@ -247,31 +222,26 @@ public class PanelServicios extends JDialog implements ActionListener {
 		btnBlue.setBackground(new Color(135, 206, 250));
 		btnBlue.setBounds(401, 36, 139, 32);
 		contentPanel.add(btnBlue);
-		btnBlue.addActionListener(this);
 		
 		btn1824 = new JButton("SPECTER 1824");
 		btn1824.setBackground(new Color(218, 165, 32));
 		btn1824.setBounds(553, 36, 139, 32);
 		contentPanel.add(btn1824);
-		btn1824.addActionListener(this);
 		
 		btnBorrar = new JButton("Borrar");
 		btnBorrar.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnBorrar.setBounds(402, 339, 156, 42);
 		contentPanel.add(btnBorrar);
-		btnBorrar.addActionListener(this);
 		
 		btnGuardar = new JButton("Guardar");
 		btnGuardar.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnGuardar.setBounds(603, 339, 156, 42);
 		contentPanel.add(btnGuardar);
-		btnGuardar.addActionListener(this);
 
 		chbNuevo = new JCheckBox("NUEVO");
 		chbNuevo.setFont(new Font("Tahoma", Font.BOLD, 18));
 		chbNuevo.setBounds(29, 366, 145, 25);
 		contentPanel.add(chbNuevo);
-		chbNuevo.addActionListener(this);
 	}
 	
 	public void creaLabels() {
@@ -344,6 +314,5 @@ public class PanelServicios extends JDialog implements ActionListener {
 		cbSector.addItem("BLUE");
 		cbSector.addItem("1824");
 		cbSector.addItem("AGENCY");
-		cbSector.addActionListener(this);
 	}
 }

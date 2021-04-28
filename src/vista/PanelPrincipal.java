@@ -35,7 +35,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import eventos.Ficheros;
+import controlador.ControladorPrincipal;
 import modelo.Cliente;
 import modelo.Prueba;
 import modelo.Servicios;
@@ -43,27 +43,23 @@ import modelo.Servicios;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;//fgf
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.engine.util.JRLoader;//fgf
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-import net.sf.jasperreports.view.JasperViewer;//dsd
 
 //import vista.SpecterBlue.MyRenderer;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import java.awt.SystemColor;
 
-public class PanelPrincipal extends JFrame implements ActionListener {
+public class PanelPrincipal extends JFrame {
 
 	private static final String nombre_pdf = "InformePresupuesto.pdf";
 	String ruta_jasperreport = "src/vista/presupuestos.jasper";
 	
 	private int tableColumn = 4;
-	public String archivo_activo = Servicios.getFichServiciosBlue();
-	private int modo = 1; // 1: borrar   5: edita
+	
 	private Cliente cliente;
 	
 	public JPanel contentPane;
@@ -83,8 +79,8 @@ public class PanelPrincipal extends JFrame implements ActionListener {
 	public JTextField tfCliente;
 	
 	private JTable table;
-	private JScrollPane scrollPane_1;
-	private ArrayList<Servicios> aServicios;
+	public JScrollPane scrollPane_1;
+//	private ArrayList<Servicios> aServicios;
 	private ArrayList<Servicios> aTableService;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 
@@ -103,46 +99,6 @@ public class PanelPrincipal extends JFrame implements ActionListener {
 				}
 			}
 		});
-	}
-	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnBlue) {
-			archivo_activo = Servicios.getFichServiciosBlue();
-			cambiaSector();
-		}
-		else if (e.getSource() == btn1824) {
-			archivo_activo = Servicios.getFichServicios1824();
-			cambiaSector();
-		}
-		else if (e.getSource() == btnAgency) {
-//			archivo_activo = Servicios.getFichServiciosAgency();
-//			cambiaSector();
-			imprimeTabla();
-		}
-		else if (e.getSource() == btnGenera) {
-			generaInforme2();
-		}
-		else if (e.getSource() == btnVer) {
-//			generaInforme();
-			claseRuina();
-		}
-		else if (e.getSource() == btnCliente) {
-			NuevoCliente ventana = new NuevoCliente(this);
-			ventana.setVisible(true);
-		}
-		else if (e.getSource() == rbBorrar) {
-			System.out.println("rbBorrar presionado");
-			modo = 1;
-		}
-		else if (e.getSource() == rbEditar) {
-			System.out.println("rbEditar presionado");
-			modo = 5;
-		} 
-		else if (e.getSource() == btnAdminServicios) {
-			PanelServicios ps = new PanelServicios();
-			ps.setVisible(true);
-		}
 	}
 	
 	public void imprimeTabla ()  {
@@ -205,79 +161,38 @@ public class PanelPrincipal extends JFrame implements ActionListener {
 		}
 	}
 	
-	/**
-	 * Imprime el informe directamente en el directorio raiz del proyecto, por lo que hay que
-	 * hacer algo con el nombre del doc que se generará si es el mismo siempre se cargará el anterior siempre
-	 */
-	public void generaInforme2 () {
-		String nombre, descripcion;
-		Double precio;
-		List<Prueba> lista = new ArrayList<Prueba>();		
-
-		for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-			nombre = ((Vector) modeloTabla.getDataVector().elementAt(i)).get(1).toString();
-			descripcion = ((Vector) modeloTabla.getDataVector().elementAt(i)).get(2).toString();
-			precio = (Double)((Vector) modeloTabla.getDataVector().elementAt(i)).get(3);
-			
-			lista.add(new Prueba(nombre,descripcion,precio));
-		}
-		
-		JasperPrint jasperPrint = null; 
-		try { 
-			jasperPrint = JasperFillManager.fillReport(ruta_jasperreport, null,new JRBeanCollectionDataSource(lista)); 
-		} catch (JRException e1) { 
-			// TODO Auto-generated catch block
-			e1.printStackTrace(); 
-			JOptionPane.showMessageDialog( null, e1.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
-		} 
-		JRPdfExporter exp = new JRPdfExporter(); 
-		exp.setExporterInput(new SimpleExporterInput(jasperPrint)); 
-		exp.setExporterOutput(new SimpleOutputStreamExporterOutput(nombre_pdf)); 
-		JOptionPane.showMessageDialog( null, "Informe generado y almacenado", "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
-		try { 
-			exp.exportReport(); 
-		} catch (JRException e1) { // TODO Auto-generated catch block
-			e1.printStackTrace(); 
-			JOptionPane.showMessageDialog( null, e1.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
-		}
-		
-		 
-	}
+	
 	
 	/**
 	 * Muestra la vista previa del informe y da la opcion a imprirlo y donde
 	 * tiene que coger el arraylist correcto. falta cambiar eso en caso de implementarlo
 	 */
-	public void generaInforme () { 
-		String nombre, apellido;
-		Double precio;
-		List<Prueba> lista = new ArrayList<Prueba>();
-		
-		for (int i = 0; i < aServicios.size(); i++) {
-			nombre = aServicios.get(i).getNombre();
-			apellido = aServicios.get(i).getDescripcion();
-			precio = aServicios.get(i).getPrecio();
-			lista.add(new Prueba(nombre,apellido,precio));
-		}
-		
-		System.out.println("Count aServicios: " + aServicios.size());
-		JasperReport reporte;
-		String path = ruta_jasperreport;
-		try { 
-			reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
-			JasperPrint jprint = JasperFillManager.fillReport(reporte, null, new JRBeanCollectionDataSource(lista));
-			JasperViewer viewer = new JasperViewer(jprint, false);
-			viewer.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-			viewer.setVisible(true);
-		} catch (JRException e1) { 
-			e1.printStackTrace(); 
-			JOptionPane.showMessageDialog( null, e1.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
-		} 
-	}
-	
-	public void cambiaSector () {
-		cargarLista();
-	}
+//	public void generaInforme () { 
+//		String nombre, apellido;
+//		Double precio;
+//		List<Prueba> lista = new ArrayList<Prueba>();
+//		
+//		for (int i = 0; i < aServicios.size(); i++) {
+//			nombre = aServicios.get(i).getNombre();
+//			apellido = aServicios.get(i).getDescripcion();
+//			precio = aServicios.get(i).getPrecio();
+//			lista.add(new Prueba(nombre,apellido,precio));
+//		}
+//		
+//		System.out.println("Count aServicios: " + aServicios.size());
+//		JasperReport reporte;
+//		String path = ruta_jasperreport;
+//		try { 
+//			reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
+//			JasperPrint jprint = JasperFillManager.fillReport(reporte, null, new JRBeanCollectionDataSource(lista));
+//			JasperViewer viewer = new JasperViewer(jprint, false);
+//			viewer.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+//			viewer.setVisible(true);
+//		} catch (JRException e1) { 
+//			e1.printStackTrace(); 
+//			JOptionPane.showMessageDialog( null, e1.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
+//		} 
+//	}
 	
 	public void quitaServicio () {
 		try {
@@ -295,32 +210,32 @@ public class PanelPrincipal extends JFrame implements ActionListener {
 		int servicio_seleccionado = listServicios.getSelectedIndex();
 		
 		Object [] fila = new Object[tableColumn];
-		fila[0] = aServicios.get(servicio_seleccionado).get_id();
-		fila[1] = aServicios.get(servicio_seleccionado).getNombre();
-		fila[2] = aServicios.get(servicio_seleccionado).getDescripcion();
-		fila[3] = aServicios.get(servicio_seleccionado).getPrecio();
+		fila[0] = ControladorPrincipal.getaServicios().get(servicio_seleccionado).get_id();
+		fila[1] = ControladorPrincipal.getaServicios().get(servicio_seleccionado).getNombre();
+		fila[2] = ControladorPrincipal.getaServicios().get(servicio_seleccionado).getDescripcion();
+		fila[3] = ControladorPrincipal.getaServicios().get(servicio_seleccionado).getPrecio();
 		modeloTabla.addRow ( fila ); // Añade una fila al final
 		
-		aTableService.add(aServicios.get(servicio_seleccionado));
+		aTableService.add(ControladorPrincipal.getaServicios().get(servicio_seleccionado));
 		
 	}
 	
 	/**
 	 * Recoge del fichero obj correspondiente los distintos servicios del sector Blue y coloca los nombres de cada objeto servicio a la lista listServicios
 	 */
-	public void cargarLista () {
-		aServicios.clear();
-		modeloServicios.clear();
-		
-		Ficheros.leeFicheroServicios(aServicios,archivo_activo);
-		for (int i = 0; i < aServicios.size(); i++) {
-			modeloServicios.add(i, aServicios.get(i).getNombre());
-//			System.out.println("buc:"  + i);
-		}
-		scrollPane_1.setViewportView(listServicios);
-		listServicios.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		listServicios.setModel(modeloServicios);
-	}
+//	public void cargarLista () {
+//		aServicios.clear();
+//		modeloServicios.clear();
+//		
+//		Ficheros.leeFicheroServicios(aServicios,archivo_activo);
+//		for (int i = 0; i < aServicios.size(); i++) {
+//			modeloServicios.add(i, aServicios.get(i).getNombre());
+////			System.out.println("buc:"  + i);
+//		}
+//		scrollPane_1.setViewportView(listServicios);
+//		listServicios.setFont(new Font("Tahoma", Font.PLAIN, 24));
+//		listServicios.setModel(modeloServicios);
+//	}
 	 
 	/**
 	 * Create the frame.
@@ -375,7 +290,7 @@ public class PanelPrincipal extends JFrame implements ActionListener {
 		
 		//LOGICA
 		aTableService = new ArrayList<Servicios>();
-		aServicios = new ArrayList<Servicios>();
+//		aServicios = new ArrayList<Servicios>();
 		rbBorrar.setSelected(true);
 		
 		tfCliente = new JTextField();
@@ -384,7 +299,7 @@ public class PanelPrincipal extends JFrame implements ActionListener {
 		getContentPane().add(tfCliente);
 		tfCliente.setColumns(10);
 		
-		cargarLista();
+//		cargarLista();
 	}
 	
 	public void creaRadioButtons () {
@@ -393,14 +308,12 @@ public class PanelPrincipal extends JFrame implements ActionListener {
 		buttonGroup.add(rbEditar);
 		rbEditar.setBounds(187, 249, 127, 25);
 		getContentPane().add(rbEditar);
-		rbEditar.addActionListener(this);
 		
 		rbBorrar = new JRadioButton("Borrar");
 		rbBorrar.setBackground(Color.WHITE);
 		buttonGroup.add(rbBorrar);
 		rbBorrar.setBounds(37, 249, 127, 25);
 		getContentPane().add(rbBorrar);
-		rbBorrar.addActionListener(this);
 	}
 	
 	public void creaTabla() {
@@ -430,7 +343,7 @@ public class PanelPrincipal extends JFrame implements ActionListener {
 		table.setRowHeight(30);
 		table.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
-				if(e.getClickCount()== modo){
+				if(e.getClickCount()== ControladorPrincipal.getModo()){
 					System.out.println("Se ha hecho click: " + table.getSelectedRow());
 					quitaServicio();
 		        }
@@ -450,13 +363,13 @@ public class PanelPrincipal extends JFrame implements ActionListener {
 		btnVer.setFont(new Font("Tahoma", Font.BOLD, 22));
 		btnVer.setBounds(1131, 37, 114, 80);
 		getContentPane().add(btnVer);
-		btnVer.addActionListener(this);
+		
 		
 		btnGenera = new JButton("OKEY");
 		btnGenera.setFont(new Font("Tahoma", Font.BOLD, 18));
 //		btnGenera.setIcon(new ImageIcon(SpecterBlue.class.getResource("/img/check-icon.png")));
 		getContentPane().add(btnGenera);
-		btnGenera.addActionListener(this);
+		
 		btnGenera.setBounds(1257, 37, 115, 80);
 		
 		btnBlue = new JButton("BLUE");
@@ -471,25 +384,21 @@ public class PanelPrincipal extends JFrame implements ActionListener {
 		btn1824.setBackground(new Color(218, 165, 32));
 		btn1824.setBounds(1073, 233, 151, 44);
 		getContentPane().add(btn1824);
-		btn1824.addActionListener(this);
 		
 		btnAgency = new JButton("AGENCY");
 		btnAgency.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnAgency.setBackground(new Color(240, 255, 255));
 		btnAgency.setBounds(1226, 233, 145, 44);
 		getContentPane().add(btnAgency);
-		btnAgency.addActionListener(this);
 		
 		btnCliente = new JButton("add");
 		btnCliente.setBounds(306, 192, 60, 25);
 		getContentPane().add(btnCliente);
-		btnCliente.addActionListener(this);
 		
 		btnAdminServicios = new JButton("Administrar Servicios");
 		btnAdminServicios.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnAdminServicios.setBounds(589, 239, 187, 35);
 		getContentPane().add(btnAdminServicios);
-		btnAdminServicios.addActionListener(this);
 	}
 	
 	public Cliente getCliente() {

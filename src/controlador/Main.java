@@ -1,14 +1,13 @@
-package mvc;
+package controlador;
 
-import controlador.Controlador;
 import vista.PanelPrincipal;
 
 public class Main {
 	
 	public static void main (String [] args) {
 		PanelPrincipal pp = new PanelPrincipal();
+		ControladorPrincipal ctrl = new ControladorPrincipal(pp);
 		
-		Controlador ctrl = new Controlador(pp);
-		
+		pp.setVisible(true);
 	}
 }

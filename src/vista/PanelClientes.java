@@ -8,6 +8,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controlador.ControladorPrincipal;
 import modelo.Cliente;
 import modelo.ModeloBlue;
 
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 
 import javax.swing.JTextField;
 
-public class NuevoCliente extends JDialog implements ActionListener {
+public class PanelClientes extends JDialog implements ActionListener {
 	private ArrayList<Cliente> aClientes;
 	private JTextField tfNombre;
 	private JTextField tfDireccion;
@@ -34,7 +35,7 @@ public class NuevoCliente extends JDialog implements ActionListener {
 	private JButton btnSeleccionar;
 	private JButton btnGuardar;
 	
-	private PanelPrincipal sm;
+	private ControladorPrincipal sm;
 	private Cliente clienteSeleccionado;
 	
 	@Override
@@ -199,9 +200,9 @@ public class NuevoCliente extends JDialog implements ActionListener {
 	/**
 	 * Create the dialog.
 	 */
-	public NuevoCliente(PanelPrincipal sm) {
+	public PanelClientes(ControladorPrincipal controlador) {
 		setModal(true);
-		this.sm = sm;
+		this.sm = controlador;
 		
 		setResizable(false);
 		setBounds(100, 100, 756, 322);
