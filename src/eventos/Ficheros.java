@@ -1,4 +1,4 @@
-package modelo;
+package eventos;
 
 import java.awt.Component;
 import java.io.EOFException;
@@ -13,7 +13,10 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-public class ModeloBlue {
+import modelo.Cliente;
+import modelo.Servicios;
+
+public class Ficheros {
 	
 	private static ArrayList<Servicios> serviciosBlue;
 	private static ArrayList<Servicios> servicios1824;

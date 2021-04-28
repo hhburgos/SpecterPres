@@ -34,7 +34,7 @@ public class NuevoCliente extends JDialog implements ActionListener {
 	private JButton btnSeleccionar;
 	private JButton btnGuardar;
 	
-	private SpecterMain sm;
+	private PanelPrincipal sm;
 	private Cliente clienteSeleccionado;
 	
 	@Override
@@ -199,7 +199,7 @@ public class NuevoCliente extends JDialog implements ActionListener {
 	/**
 	 * Create the dialog.
 	 */
-	public NuevoCliente(SpecterMain sm) {
+	public NuevoCliente(PanelPrincipal sm) {
 		setModal(true);
 		this.sm = sm;
 		

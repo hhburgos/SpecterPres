@@ -1,13 +1,11 @@
 package vista;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Insets;
 import java.awt.Shape;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -34,13 +32,11 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import eventos.Ficheros;
 import modelo.Cliente;
-import modelo.ModeloBlue;
 import modelo.Prueba;
 import modelo.Servicios;
 
@@ -55,36 +51,36 @@ import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.view.JasperViewer;//dsd
 
-import vista.SpecterBlue.MyRenderer;
+//import vista.SpecterBlue.MyRenderer;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import java.awt.SystemColor;
 
-public class SpecterMain extends JFrame implements ActionListener {
+public class PanelPrincipal extends JFrame implements ActionListener {
 
 	private static final String nombre_pdf = "InformePresupuesto.pdf";
 	String ruta_jasperreport = "src/vista/presupuestos.jasper";
 	
 	private int tableColumn = 4;
-	private String archivo_activo = Servicios.getFichServiciosBlue();
+	public String archivo_activo = Servicios.getFichServiciosBlue();
 	private int modo = 1; // 1: borrar   5: edita
 	private Cliente cliente;
 	
-	private JPanel contentPane;
-	private JList listServicios = new JList();
-	private DefaultListModel modeloServicios = new DefaultListModel();
-	private DefaultTableModel modeloTabla;
-	private JLabel lblLogoBlue;
-	private JButton btnVer;
-	private JButton btnBlue;
-	private JButton btn1824;
-	private JButton btnAgency;
-	private JButton btnGenera;
-	private JButton btnCliente;
-	private JButton btnAdminServicios;
-	private JRadioButton rbEditar;
-	private JRadioButton rbBorrar;
-	private JTextField tfCliente;
+	public JPanel contentPane;
+	public JList listServicios = new JList();
+	public DefaultListModel modeloServicios = new DefaultListModel();
+	public DefaultTableModel modeloTabla;
+	public JLabel lblLogoBlue;
+	public JButton btnVer;
+	public JButton btnBlue;
+	public JButton btn1824;
+	public JButton btnAgency;
+	public JButton btnGenera;
+	public JButton btnCliente;
+	public JButton btnAdminServicios;
+	public JRadioButton rbEditar;
+	public JRadioButton rbBorrar;
+	public JTextField tfCliente;
 	
 	private JTable table;
 	private JScrollPane scrollPane_1;
@@ -99,7 +95,7 @@ public class SpecterMain extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SpecterMain frame = new SpecterMain();
+					PanelPrincipal frame = new PanelPrincipal();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -209,7 +205,8 @@ public class SpecterMain extends JFrame implements ActionListener {
 		}
 	}
 	
-	/** Imprime el informe directamente en el directorio raiz del proyecto, por lo que hay que
+	/**
+	 * Imprime el informe directamente en el directorio raiz del proyecto, por lo que hay que
 	 * hacer algo con el nombre del doc que se generará si es el mismo siempre se cargará el anterior siempre
 	 */
 	public void generaInforme2 () {
@@ -315,7 +312,7 @@ public class SpecterMain extends JFrame implements ActionListener {
 		aServicios.clear();
 		modeloServicios.clear();
 		
-		ModeloBlue.leeFicheroServicios(aServicios,archivo_activo);
+		Ficheros.leeFicheroServicios(aServicios,archivo_activo);
 		for (int i = 0; i < aServicios.size(); i++) {
 			modeloServicios.add(i, aServicios.get(i).getNombre());
 //			System.out.println("buc:"  + i);
@@ -325,15 +322,14 @@ public class SpecterMain extends JFrame implements ActionListener {
 		listServicios.setModel(modeloServicios);
 	}
 	 
-
 	/**
 	 * Create the frame.
 	 */
-	public SpecterMain() {
+	public PanelPrincipal() {
 		ruta_jasperreport.replace('/', File.separatorChar);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(SpecterBlue.class.getResource("/img/icon.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/icon.png")));
 		getContentPane().setBackground(Color.WHITE);
 		setBounds(100, 100, 1426, 795);
 		getContentPane().setLayout(null);
@@ -468,7 +464,7 @@ public class SpecterMain extends JFrame implements ActionListener {
 		btnBlue.setBackground(new Color(135, 206, 250));
 		btnBlue.setBounds(925, 233, 145, 44);
 		getContentPane().add(btnBlue);
-		btnBlue.addActionListener(this);
+//		btnBlue.addActionListener(this);
 		
 		btn1824 = new JButton("1824");
 		btn1824.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -509,6 +505,10 @@ public class SpecterMain extends JFrame implements ActionListener {
 	 * @author sburg
 	 */
 	public class MyRenderer extends DefaultTableCellRenderer {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		Color background;
 		Color foreground;
 		public MyRenderer (Color background,Color foreground) {
@@ -525,7 +525,11 @@ public class SpecterMain extends JFrame implements ActionListener {
 	}
 	
 	public class RoundJTextField extends JTextField {
-	    private Shape shape;
+	    /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		private Shape shape;
 	    public RoundJTextField(int size) {
 	        super(size);
 	        setOpaque(false); // As suggested by @AVD in comment.
