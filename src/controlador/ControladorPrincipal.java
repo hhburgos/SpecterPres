@@ -10,6 +10,7 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 
 import eventos.Ficheros;
+import modelo.Cliente;
 import modelo.Prueba;
 import modelo.Servicios;
 import net.sf.jasperreports.engine.JRException;
@@ -29,6 +30,7 @@ public class ControladorPrincipal implements ActionListener {
 	
 	public String archivo_activo = Servicios.getFichServiciosBlue();
 	private static ArrayList<Servicios> aServicios;
+	private Cliente cliente;
 	
 	private static int modo = 1; // 1: borrar   5: edita
 	private String nombre_pdf = "InformePresupuesto.pdf";
@@ -61,7 +63,9 @@ public class ControladorPrincipal implements ActionListener {
 			System.out.println("funciona");
 		}
 		else if (e.getSource() == mainPanel.btnCliente) {
-			PanelClientes ventana = new PanelClientes(this);
+			PanelClientes ventana = new PanelClientes();
+			ControladorClientes cc = new ControladorClientes(ventana, this);
+			
 			ventana.setVisible(true);
 		}
 		else if (e.getSource() == mainPanel.rbBorrar) {
@@ -159,6 +163,12 @@ public class ControladorPrincipal implements ActionListener {
 		mainPanel.rbBorrar.addActionListener(this);
 	}
 	
+	public void colocarCliente () {
+		// queda verificar que hay cliente. seguridad
+		String nameCli = cliente.getNombre();
+		mainPanel.tfCliente.setText(nameCli);
+	}
+	
 	
 //GETERS Y SETERS
 	public static ArrayList<Servicios> getaServicios() {
@@ -197,5 +207,15 @@ public class ControladorPrincipal implements ActionListener {
 	public static void setModo(int modo) {
 		ControladorPrincipal.modo = modo;
 	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	
+	
 
 }

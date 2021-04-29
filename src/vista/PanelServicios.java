@@ -127,7 +127,7 @@ public class PanelServicios extends JDialog {
 		}
 		else { Ficheros.mensajeError(this, "Debes rellenar todos los campos", "ERROR"); }
 	}
-	
+		
 	public boolean taRellenado (JTextArea ta) {
 		if (ta.getText().length() == 0) {
 			return (false);

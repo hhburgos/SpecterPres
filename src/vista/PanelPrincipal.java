@@ -60,7 +60,7 @@ public class PanelPrincipal extends JFrame {
 	
 	private int tableColumn = 4;
 	
-	private Cliente cliente;
+//	private Cliente cliente;
 	
 	public JPanel contentPane;
 	public JList listServicios = new JList();
@@ -115,11 +115,7 @@ public class PanelPrincipal extends JFrame {
 		}
 	}
 	
-	public void colocarCliente () {
-		// queda verificar que hay cliente. seguridad
-		String nameCli = cliente.getNombre();
-		tfCliente.setText(nameCli);
-	}
+	
 	
 	/**
 	 * Ejecuta el JasperReport sin necesidad de que se lean archivos obj en el dispositivo.
@@ -401,13 +397,6 @@ public class PanelPrincipal extends JFrame {
 		getContentPane().add(btnAdminServicios);
 	}
 	
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
 
 	/**
 	 * Su método colorea las cabeceras de una jtable

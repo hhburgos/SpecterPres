@@ -10,7 +10,6 @@ import javax.swing.border.EmptyBorder;
 
 import controlador.ControladorPrincipal;
 import modelo.Cliente;
-import modelo.ModeloBlue;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,187 +21,125 @@ import java.util.ArrayList;
 
 import javax.swing.JTextField;
 
-public class PanelClientes extends JDialog implements ActionListener {
-	private ArrayList<Cliente> aClientes;
-	private JTextField tfNombre;
-	private JTextField tfDireccion;
-	private JTextField tfTel;
-	private JTextField tfCIF;
-	private JTextField tfCP;
-	private JTextField tfBuscar;
-	private JButton btnNuevo;
-	private JButton btnBuscar;
-	private JButton btnSeleccionar;
-	private JButton btnGuardar;
+public class PanelClientes extends JDialog {
+//	public ArrayList<Cliente> aClientes;
+	public JTextField tfNombre;
+	public JTextField tfDireccion;
+	public JTextField tfTel;
+	public JTextField tfCIF;
+	public JTextField tfCP;
+	public JTextField tfBuscar;
+	public JButton btnNuevo;
+	public JButton btnBuscar;
+	public JButton btnSeleccionar;
+	public JButton btnGuardar;
 	
-	private ControladorPrincipal sm;
-	private Cliente clienteSeleccionado;
+//	private Cliente clienteSeleccionado;
 	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnNuevo) {
-			creaCliente();
-		} 
-		else if (e.getSource() == btnBuscar) {
-			buscarCliente();
-		}
-		else if (e.getSource() == btnSeleccionar) {
-			sm.setCliente(clienteSeleccionado);
-			sm.colocarCliente();
-			this.dispose();
-		}
-		else if (e.getSource() == btnGuardar) {
-			guardarCliente();
-			ModeloBlue.mensaje(this, "Se ha guardado las modificaciones correctamente", "");
-		}
-	}
+//	@Override
+//	public void actionPerformed(ActionEvent e) {
+//		if (e.getSource() == btnNuevo) {
+//			creaCliente();
+//		} 
+//		else if (e.getSource() == btnBuscar) {
+//			buscarCliente();
+//		}
+//		else if (e.getSource() == btnSeleccionar) {
+//			sm.setCliente(clienteSeleccionado);
+//			sm.colocarCliente();
+//			this.dispose();
+//		}
+//		else if (e.getSource() == btnGuardar) {
+//			guardarCliente();
+//			ModeloBlue.mensaje(this, "Se ha guardado las modificaciones correctamente", "");
+//		}
+//	}
 	
-	public void guardarCliente () {
-		try {
-			int id = clienteSeleccionado.getId();
-			int codigoPostal = Integer.valueOf(tfCP.getText());
-			int telefono = Integer.valueOf(tfTel.getText());
-			String nombre = tfNombre.getText();
-			String direccion = tfDireccion.getText();
-			String cif = tfCIF.getText();
-			
-			clienteSeleccionado.setCodigoPostal(codigoPostal);
-			clienteSeleccionado.setTelefono(telefono);
-			clienteSeleccionado.setNombre(nombre);
-			clienteSeleccionado.setDireccion(direccion);
-			clienteSeleccionado.setCif(cif);
-			
-			int index = buscarPorID(id);
-			aClientes.set(index, clienteSeleccionado);
-			ModeloBlue.guardaArrayCliente(aClientes, Cliente.getFichClientes());
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 	
-	/**
-	 * Deuvelve la posicion del objeto con id pasa por parametro en el arrayClientes
-	 * Si devuelve -1 es que no se encontró el objeto, esto no deberia pasar
-	 */
-	public int buscarPorID (int id) {
-		int dev = -1;
-		for (int i = 0; i < aClientes.size(); i++) {
-			if (aClientes.get(i).getId() == id) {
-				dev = i;
-				return dev;
-			}
-		}
-		return dev;
-	}
 	
-	public void creaCliente () {
-		if (tfRellenado(tfNombre)) {
-			String nombre = tfNombre.getText();
-			Cliente nuevoCliente = new Cliente(nombre);
-			if (masCamposRellenados()) {
-				addAtributosExtra(nuevoCliente);
-			}
-			aClientes.add(nuevoCliente);
-			ModeloBlue.guardaArrayCliente(aClientes, Cliente.getFichClientes());
-			ModeloBlue.mensaje(this, "Cliente creado correctamente", "Nota");
-			limpiarCampos();
-		}
-		else { 
-			ModeloBlue.mensajeError(this, "El campo 'nombre' no puede estar vacío", "Error al crear cliente");
-		}
-	}
+//	public void creaCliente () {
+//		if (tfRellenado(tfNombre)) {
+//			String nombre = tfNombre.getText();
+//			Cliente nuevoCliente = new Cliente(nombre);
+//			if (masCamposRellenados()) {
+//				addAtributosExtra(nuevoCliente);
+//			}
+//			aClientes.add(nuevoCliente);
+//			ModeloBlue.guardaArrayCliente(aClientes, Cliente.getFichClientes());
+//			ModeloBlue.mensaje(this, "Cliente creado correctamente", "Nota");
+//			limpiarCampos();
+//		}
+//		else { 
+//			ModeloBlue.mensajeError(this, "El campo 'nombre' no puede estar vacío", "Error al crear cliente");
+//		}
+//	}
 	
-	public void addAtributosExtra (Cliente c) {
-		String direccion, cif;
-		int cp, tel;
-		
-		if (tfRellenado(tfCP)) {
-			cp = Integer.valueOf(tfCP.getText());
-			c.setCodigoPostal(cp);
-		}
-		if (tfRellenado(tfTel)) {
-			tel = Integer.valueOf(tfTel.getText());
-			c.setCodigoPostal(tel);
-		}
-		if (tfRellenado(tfCIF)) {
-			cif = tfCIF.getText();
-			c.setCif(cif);
-		}
-		if (tfRellenado(tfDireccion)) {
-			direccion = tfDireccion.getText();
-			c.setDireccion(direccion);
-		}
-	}
+//	public void addAtributosExtra (Cliente c) {
+//		String direccion, cif;
+//		int cp, tel;
+//		
+//		if (tfRellenado(tfCP)) {
+//			cp = Integer.valueOf(tfCP.getText());
+//			c.setCodigoPostal(cp);
+//		}
+//		if (tfRellenado(tfTel)) {
+//			tel = Integer.valueOf(tfTel.getText());
+//			c.setCodigoPostal(tel);
+//		}
+//		if (tfRellenado(tfCIF)) {
+//			cif = tfCIF.getText();
+//			c.setCif(cif);
+//		}
+//		if (tfRellenado(tfDireccion)) {
+//			direccion = tfDireccion.getText();
+//			c.setDireccion(direccion);
+//		}
+//	}
+//	
 	
-	public void buscarCliente () {
-		if (tfRellenado(tfBuscar)) {
-			String nombre = tfBuscar.getText().toUpperCase().trim();
-		
-			for (int i = 0; i < aClientes.size(); i++) {
-				if (nombre.equals(aClientes.get(i).getNombre().toUpperCase().trim())) {
-					clienteSeleccionado = aClientes.get(i);
-					
-					tfNombre.setText(aClientes.get(i).getNombre().toString());
-					tfCP.setText(String.valueOf(aClientes.get(i).getCodigoPostal()));
-					tfCIF.setText(aClientes.get(i).getCif());
-					tfDireccion.setText(aClientes.get(i).getDireccion());
-					tfTel.setText(String.valueOf(aClientes.get(i).getTelefono()));
-					return;
-				}
-			}
-			ModeloBlue.mensajeError(this, "No se ha encontrado ningún cliente con ese nombre", "Error");
-		}
-		else { ModeloBlue.mensajeError(this, "Debes introducir un nombre en el campo 'Buscar'", "Error"); }
-	}
 
-	public boolean masCamposRellenados () {
-		if (tfRellenado(tfCP)) {
-			return (true);
-		}
-		else if (tfRellenado(tfTel)) {
-			return (true);
-		}
-		else if (tfRellenado(tfCIF)) {
-			return (true);
-		}
-		else if (tfRellenado(tfDireccion)) {
-			return (true);
-		}
-		
-		return (false);
-	}
-	
-	public boolean tfRellenado (JTextField tf) {
-		if (tf.getText().length() == 0) {
-			return (false);
-		} else {
-			return (true);
-		}
-	}
+//	public boolean masCamposRellenados () {
+//		if (tfRellenado(tfCP)) {
+//			return (true);
+//		}
+//		else if (tfRellenado(tfTel)) {
+//			return (true);
+//		}
+//		else if (tfRellenado(tfCIF)) {
+//			return (true);
+//		}
+//		else if (tfRellenado(tfDireccion)) {
+//			return (true);
+//		}
+//		
+//		return (false);
+//	}
+//	
+//	public boolean tfRellenado (JTextField tf) {
+//		if (tf.getText().length() == 0) {
+//			return (false);
+//		} else {
+//			return (true);
+//		}
+//	}
 
-	public void logicaInicial () {
-		aClientes = new ArrayList<Cliente>();
-		ModeloBlue.leeFicheroCliente(aClientes, Cliente.getFichClientes());
-		limpiarCampos();
-	}	
 	
-	public void limpiarCampos () {
-		tfNombre.setText("");
-		tfDireccion.setText("");
-		tfTel.setText("");
-		tfCP.setText("");
-		tfCIF.setText("");
-		tfBuscar.setText("");
-	}
+//	public void limpiarCampos () {
+//		tfNombre.setText("");
+//		tfDireccion.setText("");
+//		tfTel.setText("");
+//		tfCP.setText("");
+//		tfCIF.setText("");
+//		tfBuscar.setText("");
+//	}
 	
 // --- VISUAL --- //
 	/**
 	 * Create the dialog.
 	 */
-	public PanelClientes(ControladorPrincipal controlador) {
+	public PanelClientes(/*ControladorPrincipal controlador*/) {
 		setModal(true);
-		this.sm = controlador;
+//		this.sm = controlador;
 		
 		setResizable(false);
 		setBounds(100, 100, 756, 322);
@@ -212,7 +149,7 @@ public class PanelClientes extends JDialog implements ActionListener {
 		creaTF();
 		creaBTN();
 		
-		logicaInicial();
+//		logicaInicial();
 	}
 
 	public void creaBTN() {
@@ -220,25 +157,21 @@ public class PanelClientes extends JDialog implements ActionListener {
 		btnGuardar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnGuardar.setBounds(574, 201, 130, 42);
 		getContentPane().add(btnGuardar);
-		btnGuardar.addActionListener(this);
 		
 		btnSeleccionar = new JButton("Seleccionar");
 		btnSeleccionar.setFont(new Font("Tahoma", Font.BOLD, 23));
 		btnSeleccionar.setBounds(405, 125, 303, 58);
 		getContentPane().add(btnSeleccionar);
-		btnSeleccionar.addActionListener(this);
 		
 		btnNuevo = new JButton("Nuevo");
 		btnNuevo.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnNuevo.setBounds(405, 201, 130, 42);
 		getContentPane().add(btnNuevo);
-		btnNuevo.addActionListener(this);
 		
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnBuscar.setBounds(596, 67, 108, 33);
 		getContentPane().add(btnBuscar);
-		btnBuscar.addActionListener(this);
 	}
 	
 	public void creaTF () {
