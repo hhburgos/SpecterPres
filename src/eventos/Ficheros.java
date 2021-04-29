@@ -30,7 +30,7 @@ public class Ficheros {
 //		servicios1824.add(new Servicios("Redes Sociales", "Lorem Ipsum", 2342));
 //		servicios1824.add(new Servicios("SEO", "Lorem Ipsum", 142));
 //		servicios1824.add(new Servicios("Marketing", "Lorem Ipsum", 2222));
-		System.out.println(servicios1824.get(1).toString());
+//		System.out.println(servicios1824.get(1).toString());
 		
 		guardaArrayServicios(servicios1824, Servicios.getFichServicios1824());
 	}

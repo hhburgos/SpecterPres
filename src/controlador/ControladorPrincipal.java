@@ -3,10 +3,13 @@ package controlador;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import eventos.Ficheros;
@@ -30,8 +33,10 @@ public class ControladorPrincipal implements ActionListener {
 	
 	public String archivo_activo = Servicios.getFichServiciosBlue();
 	private static ArrayList<Servicios> aServicios;
+	private ArrayList<Servicios> aTableService;
 	private Cliente cliente;
 	
+	private int tableColumn = 4;
 	private static int modo = 1; // 1: borrar   5: edita
 	private String nombre_pdf = "InformePresupuesto.pdf";
 	private String ruta_jasperreport = "src/vista/presupuestos.jasper";
@@ -39,6 +44,8 @@ public class ControladorPrincipal implements ActionListener {
 	public ControladorPrincipal (PanelPrincipal pp) {
 		mainPanel = pp;
 		
+		inicio();
+		mouseListener();
 		addActionListenerToButtons();
 	}
 
@@ -84,12 +91,28 @@ public class ControladorPrincipal implements ActionListener {
 		}
 	}
 	
+	// diciembre pedir cita 
+
 	
 //METODOS PRINCIPALES
 	public void inicio () {
 		aServicios = new ArrayList<Servicios>();
 		
+		aTableService = new ArrayList<Servicios>();
 		cargaLista();
+	}
+	
+	public void mueveServicio () {
+		int servicio_seleccionado = mainPanel.listServicios.getSelectedIndex();
+		
+		Object [] fila = new Object[tableColumn];
+		fila[0] = ControladorPrincipal.getaServicios().get(servicio_seleccionado).get_id();
+		fila[1] = ControladorPrincipal.getaServicios().get(servicio_seleccionado).getNombre();
+		fila[2] = ControladorPrincipal.getaServicios().get(servicio_seleccionado).getDescripcion();
+		fila[3] = ControladorPrincipal.getaServicios().get(servicio_seleccionado).getPrecio();
+		mainPanel.modeloTabla.addRow ( fila ); // Añade una fila al final
+		
+		aTableService.add(ControladorPrincipal.getaServicios().get(servicio_seleccionado));
 	}
 	
 	/**
@@ -167,6 +190,18 @@ public class ControladorPrincipal implements ActionListener {
 		// queda verificar que hay cliente. seguridad
 		String nameCli = cliente.getNombre();
 		mainPanel.tfCliente.setText(nameCli);
+	}
+	
+	public void mouseListener () {
+		mainPanel.listServicios.addMouseListener(new MouseAdapter() { 
+			public void mouseClicked(MouseEvent evt) { 
+				JList list = (JList)evt.getSource(); 
+				if (evt.getClickCount() == 1) { 
+					int index = list.locationToIndex(evt.getPoint());
+					mueveServicio();
+				}
+			}
+		});
 	}
 	
 	

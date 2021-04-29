@@ -31,8 +31,7 @@ public class PanelServicios extends JDialog {
 	
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-	private String archivo_activo = Servicios.getFichServiciosBlue();
-	private DefaultListModel<String> modeloServicios = new DefaultListModel<String>();
+	public DefaultListModel<String> modeloServicios = new DefaultListModel<String>();
 	
 	public JTextField tfID;
 	public JTextField tfNombre;
@@ -46,153 +45,8 @@ public class PanelServicios extends JDialog {
 	public JButton btnGuardar;
 	public JCheckBox chbNuevo; //min 21 - https://www.youtube.com/watch?v=6eyMT-Dn1fM
 		
-	private ArrayList<Servicios> aServicios;
-	private JScrollPane scrollPane_1;
-	private boolean modoNuevo; //si está en false es que va a modificar los campos de un servicio existente
-	private int sector = 0; //0:Blue  1:1824  2:Agency
-	private int index = -1; //index del servicio activo en cada momento
+	public JScrollPane scrollPane_1;
 	
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		try {
-//			PanelServicios dialog = new PanelServicios();
-//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//			dialog.setVisible(true);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
-	
-	public void clickBorrar () {
-		if (index != -1) {
-			aServicios.remove(index);
-			actualizaFichero();
-			cargarLista();
-			Ficheros.mensaje(this, "Servicio borrado corractamente", "");
-		}
-	}
-	
-	public void clickGuardar () {
-		if (modoNuevo) {
-			creaNuevoServicio();
-		} else {
-			actualizarServicio();
-		}
-	}
-	
-	public void modificaOCrea() {
-		if (modoNuevo) {
-			System.out.println("modificar");
-			modoNuevo = false;
-		} else {
-			System.out.println("Crear");
-			modoNuevo = true;
-		}
-	}
-	
-	public void actualizarServicio() {
-		if (tfRellenado(tfNombre) || tfRellenado(tfPrecio) || taRellenado(taDescripcion)) {
-			String nombre = tfNombre.getText();
-			String descripcion = taDescripcion.getText();
-			double precio = Double.valueOf(tfPrecio.getText()); //captar exception
-
-			aServicios.get(index).setNombre(nombre);
-			aServicios.get(index).setDescripcion(descripcion);
-			aServicios.get(index).setPrecio(precio);
-			
-			actualizaFichero();
-			limpiaCampos();
-			cargarLista();
-		}
-		else { Ficheros.mensajeError(this, "Debes rellenar todos los campos", "ERROR"); }
-	}
-	
-	public void creaNuevoServicio() {
-		//camposLlenos()
-		//suponiendo que todos los campos estan llenos
-		if (tfRellenado(tfNombre) || tfRellenado(tfPrecio) || taRellenado(taDescripcion)) {
-			String nombre = tfNombre.getText();
-			String descripcion = taDescripcion.getText();
-			double precio = Double.valueOf(tfPrecio.getText());
-			
-			Servicios nuevo_servicio = new Servicios(nombre, descripcion, precio);
-			actualizaArrayServicios();
-			aServicios.add(nuevo_servicio);
-			
-			actualizaFichero();
-			limpiaCampos();
-			cargarLista();
-		}
-		else { Ficheros.mensajeError(this, "Debes rellenar todos los campos", "ERROR"); }
-	}
-		
-	public boolean taRellenado (JTextArea ta) {
-		if (ta.getText().length() == 0) {
-			return (false);
-		} else {
-			return (true);
-		}
-	}
-	
-	public boolean tfRellenado (JTextField tf) {
-		if (tf.getText().length() == 0) {
-			return (false);
-		} else {
-			return (true);
-		}
-	}
-	
-	public void actualizaFichero() {
-		Ficheros.guardaArrayServicios(aServicios, archivo_activo);
-	}
-	
-	public void actualizaArrayServicios() {
-		switch (sector) {
-		case 0: Servicios.getFichServiciosBlue(); break;
-		case 1: Servicios.getFichServicios1824(); break;
-		case 2: Servicios.getFichServiciosAgency(); break;
-		default: //mensaje de error;
-		}
-	}
-	
-	public void cargarLista () {
-		aServicios.clear();
-		modeloServicios.clear();
-		
-		Ficheros.leeFicheroServicios(aServicios,archivo_activo);
-		for (int i = 0; i < aServicios.size(); i++) {
-			modeloServicios.add(i, aServicios.get(i).getNombre());
-//			System.out.println("buc:"  + i);
-		}
-		scrollPane_1.setViewportView(listServicios);
-		listServicios.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		listServicios.setModel(modeloServicios);
-	}
-	
-	public void mueveServicio () {
-		int id = aServicios.get(index).get_id();
-		String nombre = aServicios.get(index).getNombre();
-		String descripcion = aServicios.get(index).getDescripcion();
-		Double precio = aServicios.get(index).getPrecio();
-		
-		limpiaCampos();
-		
-		tfID.setText(String.valueOf(id));
-		tfNombre.setText(nombre);
-		taDescripcion.setText(descripcion);
-		tfPrecio.setText(String.valueOf(precio));
-	}
-	
-	public void limpiaCampos() {
-		tfID.setText("");
-		tfNombre.setText("");
-		taDescripcion.setText("");
-		tfPrecio.setText("");
-	}
-
-// ------------ VISUAL ------------- //
 	/**
 	 * Create the dialog.
 	 */
@@ -208,15 +62,8 @@ public class PanelServicios extends JDialog {
 		creaCByList();
 		creaTFyTA();
 		creaBotones();
-		
-		//logica
-		modoNuevo = true;
-		aServicios = new ArrayList<Servicios>();
-		chbNuevo.setSelected(true);
-
-		cargarLista();
 	}
-	
+	 
 	public void creaBotones() {
 		btnBlue = new JButton("SPECTER BLUE");
 		btnBlue.setBackground(new Color(135, 206, 250));
@@ -298,15 +145,7 @@ public class PanelServicios extends JDialog {
 		
 		listServicios = new JList();
 		scrollPane_1.setViewportView(listServicios);
-		listServicios.addMouseListener(new MouseAdapter() { 
-			public void mouseClicked(MouseEvent evt) { 
-				JList list = (JList)evt.getSource(); 
-				if (evt.getClickCount() == 1) { 
-					index = list.locationToIndex(evt.getPoint());
-					mueveServicio();
-				}
-			}
-		});
+		
 		
 		cbSector = new JComboBox();
 		cbSector.setBounds(169, 36, 156, 25);

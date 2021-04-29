@@ -58,10 +58,6 @@ public class PanelPrincipal extends JFrame {
 	private static final String nombre_pdf = "InformePresupuesto.pdf";
 	String ruta_jasperreport = "src/vista/presupuestos.jasper";
 	
-	private int tableColumn = 4;
-	
-//	private Cliente cliente;
-	
 	public JPanel contentPane;
 	public JList listServicios = new JList();
 	public DefaultListModel modeloServicios = new DefaultListModel();
@@ -80,8 +76,6 @@ public class PanelPrincipal extends JFrame {
 	
 	private JTable table;
 	public JScrollPane scrollPane_1;
-//	private ArrayList<Servicios> aServicios;
-	private ArrayList<Servicios> aTableService;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	/**
@@ -202,36 +196,7 @@ public class PanelPrincipal extends JFrame {
 		}
 	}
 	
-	public void mueveServicio () {
-		int servicio_seleccionado = listServicios.getSelectedIndex();
-		
-		Object [] fila = new Object[tableColumn];
-		fila[0] = ControladorPrincipal.getaServicios().get(servicio_seleccionado).get_id();
-		fila[1] = ControladorPrincipal.getaServicios().get(servicio_seleccionado).getNombre();
-		fila[2] = ControladorPrincipal.getaServicios().get(servicio_seleccionado).getDescripcion();
-		fila[3] = ControladorPrincipal.getaServicios().get(servicio_seleccionado).getPrecio();
-		modeloTabla.addRow ( fila ); // Añade una fila al final
-		
-		aTableService.add(ControladorPrincipal.getaServicios().get(servicio_seleccionado));
-		
-	}
 	
-	/**
-	 * Recoge del fichero obj correspondiente los distintos servicios del sector Blue y coloca los nombres de cada objeto servicio a la lista listServicios
-	 */
-//	public void cargarLista () {
-//		aServicios.clear();
-//		modeloServicios.clear();
-//		
-//		Ficheros.leeFicheroServicios(aServicios,archivo_activo);
-//		for (int i = 0; i < aServicios.size(); i++) {
-//			modeloServicios.add(i, aServicios.get(i).getNombre());
-////			System.out.println("buc:"  + i);
-//		}
-//		scrollPane_1.setViewportView(listServicios);
-//		listServicios.setFont(new Font("Tahoma", Font.PLAIN, 24));
-//		listServicios.setModel(modeloServicios);
-//	}
 	 
 	/**
 	 * Create the frame.
@@ -263,16 +228,15 @@ public class PanelPrincipal extends JFrame {
 		
 		listServicios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listServicios.setBackground(SystemColor.inactiveCaption);
-		listServicios.addMouseListener(new MouseAdapter() { 
-			public void mouseClicked(MouseEvent evt) { 
-				JList list = (JList)evt.getSource(); 
-				if (evt.getClickCount() == 1) { 
-					int index = list.locationToIndex(evt.getPoint());
-//					System.out.println("doble click "+index);
-					mueveServicio();
-				}
-			}
-		});
+//		listServicios.addMouseListener(new MouseAdapter() { 
+//			public void mouseClicked(MouseEvent evt) { 
+//				JList list = (JList)evt.getSource(); 
+//				if (evt.getClickCount() == 1) { 
+//					int index = list.locationToIndex(evt.getPoint());
+//					mueveServicio();
+//				}
+//			}
+//		});
 		
 		JLabel lblCliente = new JLabel("Cliente:");
 		lblCliente.setFont(new Font("Tahoma", Font.BOLD, 19));
@@ -282,20 +246,14 @@ public class PanelPrincipal extends JFrame {
         creaRadioButtons();
 		creaBotones();
 		creaTabla();
-//		cambiaLogo();
 		
 		//LOGICA
-		aTableService = new ArrayList<Servicios>();
-//		aServicios = new ArrayList<Servicios>();
 		rbBorrar.setSelected(true);
-		
 		tfCliente = new JTextField();
 		tfCliente.setEditable(false);
 		tfCliente.setBounds(149, 192, 145, 25);
 		getContentPane().add(tfCliente);
 		tfCliente.setColumns(10);
-		
-//		cargarLista();
 	}
 	
 	public void creaRadioButtons () {
