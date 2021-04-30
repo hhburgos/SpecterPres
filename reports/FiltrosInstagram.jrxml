@@ -278,7 +278,7 @@
 			</image>
 			<image>
 				<reportElement x="0" y="0" width="1753" height="1241" uuid="1153b895-9418-4560-86d1-dc9a298a6f4c"/>
-				<imageExpression><![CDATA["/src/img/PackCian.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["/src/img/FiltrosInstagram.jpg"]]></imageExpression>
 			</image>
 			<rectangle>
 				<reportElement x="0" y="0" width="1680" height="260" forecolor="#FFFFFF" uuid="6b351ea0-26a1-4a7a-bf6d-c1104de97b7f"/>

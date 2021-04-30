@@ -276,10 +276,6 @@
 				<reportElement x="148" y="285" width="538" height="845" uuid="a4203133-6fea-49d0-b8ec-abd846a76bff"/>
 				<imageExpression><![CDATA[""]]></imageExpression>
 			</image>
-			<image>
-				<reportElement x="0" y="0" width="1753" height="1241" uuid="1153b895-9418-4560-86d1-dc9a298a6f4c"/>
-				<imageExpression><![CDATA["/src/img/PackCian.jpg"]]></imageExpression>
-			</image>
 			<rectangle>
 				<reportElement x="0" y="0" width="1680" height="260" forecolor="#FFFFFF" uuid="6b351ea0-26a1-4a7a-bf6d-c1104de97b7f"/>
 			</rectangle>
@@ -311,6 +307,10 @@
 				</textElement>
 				<text><![CDATA[P A C K   C I A N]]></text>
 			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="1753" height="1241" uuid="1153b895-9418-4560-86d1-dc9a298a6f4c"/>
+				<imageExpression><![CDATA["/src/img/PackCeleste.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</detail>
 </jasperReport>
