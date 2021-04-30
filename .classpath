@@ -4,5 +4,9 @@
 	<classpathentry kind="con" path="net.sf.jasperreports.JR_CONTAINER"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="net.sf.jasperreports.JR_DEPENDENCIES_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/sburg/eclipse-workspace/SpecterGroup/fonts/ExtraBold.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sburg/eclipse-workspace/SpecterGroup/fonts/MontSerratMedium.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sburg/eclipse-workspace/SpecterGroup/fonts/MontSerratSemiBold.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sburg/eclipse-workspace/SpecterGroup/fonts/MontserrarLigth.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Presentacion" pageWidth="1753" pageHeight="1241" orientation="Landscape" columnWidth="400" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="395a5f96-3792-43bd-8af3-035098809831">
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="texto1" class="java.lang.String"/>
+	<field name="texto2" class="java.lang.String"/>
+	<field name="texto3" class="java.lang.String"/>
+	<detail>
+		<band height="1241" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="1753" height="1241" uuid="14265274-b7ad-4f87-b14f-21f5ac189e3c"/>
+				<imageExpression><![CDATA["/src/img/GlosarioBlue.jpg"]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="80" y="110" width="1470" height="830" forecolor="#FFFFFF" uuid="b420b0a4-94ed-4a8d-8473-4d9a1993cfda"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="209" y="291" width="441" height="7" forecolor="#039998" backcolor="#039998" uuid="69fde609-0d15-4c9c-947b-92e54072440a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="208" y="169" width="382" height="90" forecolor="#039998" uuid="ea0f8624-6429-4135-855c-520b5fbc6710"/>
+				<textElement>
+					<font fontName="Montserrat SemiBold" size="52" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GLOSARIO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="366" y="402" width="1053" height="90" uuid="c80e64ee-b20b-42df-b782-bb00794d1fa9"/>
+				<textElement>
+					<font fontName="Montserrat SemiBold" size="29"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{texto1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="366" y="543" width="1053" height="90" uuid="e7c70f0e-0728-43c7-8316-4354c34fbb2f"/>
+				<textElement>
+					<font fontName="Montserrat SemiBold" size="29"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{texto2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="366" y="647" width="1053" height="213" uuid="7e3c452a-abf0-43b8-8d46-f5da4f2a3555"/>
+				<textElement>
+					<font fontName="Montserrat SemiBold" size="29"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{texto3}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

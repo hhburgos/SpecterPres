@@ -141,6 +141,9 @@ public class ControladorServicios implements ActionListener {
 		servicesPanel.chbNuevo.addActionListener(this);
 	}
 	
+	/**
+	 * Detecta el numero de click que hace el raton sobre la lista
+	 */
 	public void mouseListener () {
 		servicesPanel.listServicios.addMouseListener(new MouseAdapter() { 
 			public void mouseClicked(MouseEvent evt) { 
@@ -153,6 +156,11 @@ public class ControladorServicios implements ActionListener {
 		});
 	}
 	
+	/**
+	 * Comprubea que el TextArea que se le pasa por parametro contiene algo de texto, de ser asi devuelve true
+	 * @param ta
+	 * @return
+	 */
 	public boolean taRellenado (JTextArea ta) {
 		if (ta.getText().length() == 0) {
 			return (false);
