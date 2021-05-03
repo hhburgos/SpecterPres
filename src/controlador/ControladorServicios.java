@@ -20,8 +20,8 @@ public class ControladorServicios implements ActionListener {
 	private PanelServicios servicesPanel;
 	
 	private ArrayList<Servicios> aServicios;
-	private String archivo_activo = Servicios.getFichServiciosBlue();
-	private int sector = 0; //0:Blue  1:1824  2:Agency
+	private String archivo_activo = Servicios.getFichServicios();
+	private int sector = Servicios.getSectorBlue(); //0:Blue  1:1824  2:Agency
 	private boolean modoNuevo; //si está en false es que va a modificar los campos de un servicio existente
 	private int index = -1; //index del servicio activo en cada momento
 	
@@ -40,12 +40,11 @@ public class ControladorServicios implements ActionListener {
 			
 		}
 		else if (e.getSource() == servicesPanel.btnBlue) {
-			sector = 0;
+			sector = Servicios.getSectorBlue();
 			cargarLista();
 		}
 		else if (e.getSource() == servicesPanel.btn1824) {
-			archivo_activo = Servicios.getFichServicios1824();
-			sector = 1;
+			sector = Servicios.getSector1824();
 			cargarLista();
 		}
 	}
@@ -75,8 +74,8 @@ public class ControladorServicios implements ActionListener {
 			String descripcion = servicesPanel.taDescripcion.getText();
 			double precio = Double.valueOf(servicesPanel.tfPrecio.getText());
 			
-			Servicios nuevo_servicio = new Servicios(nombre, descripcion, precio);
-			actualizaArrayServicios();
+			Servicios nuevo_servicio = new Servicios(sector, nombre, descripcion, precio); //revisar sector
+//			actualizaArrayServicios();
 			aServicios.add(nuevo_servicio);
 			
 			actualizaFichero();
@@ -181,14 +180,14 @@ public class ControladorServicios implements ActionListener {
 		Ficheros.guardaArrayServicios(aServicios, archivo_activo);
 	}
 	
-	public void actualizaArrayServicios() {
-		switch (sector) {
-		case 0: Servicios.getFichServiciosBlue(); break;
-		case 1: Servicios.getFichServicios1824(); break;
-		case 2: Servicios.getFichServiciosAgency(); break;
-		default: //mensaje de error;
-		}
-	}
+//	public void actualizaArrayServicios() {
+//		switch (sector) {
+//		case 0: Servicios.getFichServiciosBlue(); break;
+//		case 1: Servicios.getFichServicios1824(); break;
+//		case 2: Servicios.getFichServiciosAgency(); break;
+//		default: //mensaje de error;
+//		}
+//	}
 	
 	public void modificaOCrea() {
 		if (modoNuevo) {

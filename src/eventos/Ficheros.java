@@ -18,22 +18,19 @@ import modelo.Servicios;
 
 public class Ficheros {
 	
-	private static ArrayList<Servicios> serviciosBlue;
-	private static ArrayList<Servicios> servicios1824;
+	private static ArrayList<Servicios> servicios;
 	private static ArrayList<Cliente> clientes;
 	
 	public static void main (String [] args) {
-		serviciosBlue = new ArrayList<Servicios>();
+		servicios = new ArrayList<Servicios>();
 		
-		leeFicheroServicios(serviciosBlue, Servicios.getFichServiciosBlue());
+		leeFicheroServicios(servicios, Servicios.getFichServicios());
 		
-//		serviciosBlue.add(new Servicios("Web Corporativa","Lorem ipsum", 3422));
-//		servicios1824.add(new Servicios("Redes Sociales", "Lorem Ipsum", 2342));
-//		servicios1824.add(new Servicios("SEO", "Lorem Ipsum", 142));
-//		servicios1824.add(new Servicios("Marketing", "Lorem Ipsum", 2222));
-//		System.out.println(servicios1824.get(1).toString());
+//		servicios.add(new Servicios(Servicios.getSectorBlue(),"Web Corporativa","Lorem ipsum", 3422));
+//		servicios.add(new Servicios(Servicios.getSectorBlue(),"Campaña Ads", "Lorem Ipsum", 2342));
+
 		
-		guardaArrayServicios(serviciosBlue, Servicios.getFichServiciosBlue());
+		guardaArrayServicios(servicios, Servicios.getFichServicios());
 	}
 	
 	public static void leeFicheroCliente (ArrayList<Cliente> lista, String archivo) {

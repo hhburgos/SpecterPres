@@ -15,6 +15,11 @@ public class WebCorporativa {
 		this.precio = precio;
 		this.weburl = weburl;
 	}
+	
+	public WebCorporativa () {
+		this.precio = defaultPrecio;
+		this.weburl = defaultWebUrl;
+	}
 
 	public String getPrecio() {
 		return precio;

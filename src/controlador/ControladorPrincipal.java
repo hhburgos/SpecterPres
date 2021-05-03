@@ -24,6 +24,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.view.JasperViewer;
 import reports_modelo.CampanaAds;
 import reports_modelo.Glosario;
 import reports_modelo.WebCorporativa;
@@ -35,7 +36,8 @@ public class ControladorPrincipal implements ActionListener {
 	
 	private PanelPrincipal mainPanel;
 	
-	public String archivo_activo = Servicios.getFichServiciosBlue();
+	public String fich_servicios = Servicios.getFichServicios();
+	public int sector_activo;
 	private static ArrayList<Servicios> aServicios;
 	private ArrayList<Servicios> aTableService;
 	private Cliente cliente;
@@ -62,16 +64,16 @@ public class ControladorPrincipal implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == mainPanel.btnBlue) {
-			archivo_activo = Servicios.getFichServiciosBlue();
+			sector_activo = Servicios.getSectorBlue();
 			cargaLista();
 		}
 		else if (e.getSource() == mainPanel.btn1824) {
-			archivo_activo = Servicios.getFichServicios1824();
+			sector_activo = Servicios.getSector1824();
 			cargaLista();
 		}
 		else if (e.getSource() == mainPanel.btnAgency) {
-//			archivo_activo = Servicios.getFichServiciosAgency();
-//			cargaLista();
+			sector_activo = Servicios.getSectorAgency();
+			cargaLista();
 		}
 		else if (e.getSource() == mainPanel.btnGenera) {
 			generaInforme();
@@ -102,12 +104,11 @@ public class ControladorPrincipal implements ActionListener {
 		}
 	}
 	
-	// diciembre pedir cita 
-
 	
 //METODOS PRINCIPALES
 	public void inicio () {
 		aServicios = new ArrayList<Servicios>();
+		sector_activo = Servicios.getSectorBlue();
 		
 		//JASPER REPORTS RESOURCE
 		jasperPrintList = new ArrayList<JasperPrint>();
@@ -116,6 +117,7 @@ public class ControladorPrincipal implements ActionListener {
 		
 		jpCampanaAds = null;
 		jpWebCorporativa = null;
+		//-----
 		
 		aTableService = new ArrayList<Servicios>();
 		cargaLista();
@@ -150,13 +152,15 @@ public class ControladorPrincipal implements ActionListener {
 		}
 	}
 	
-	public void cargaLista () {
+	public void cargaLista () { //aqui
 		aServicios.clear();
 		mainPanel.modeloServicios.clear();
 		
-		Ficheros.leeFicheroServicios(aServicios,archivo_activo);
+		Ficheros.leeFicheroServicios(aServicios,fich_servicios);
 		for (int i = 0; i < aServicios.size(); i++) {
-			mainPanel.modeloServicios.add(i, aServicios.get(i).getNombre());
+			if (aServicios.get(i).getSector() == sector_activo) {
+				mainPanel.modeloServicios.add(i, aServicios.get(i).getNombre());
+			}
 		}
 		mainPanel.scrollPane_1.setViewportView(mainPanel.listServicios);
 		mainPanel.listServicios.setFont(new Font("Tahoma", Font.PLAIN, 24));
@@ -249,10 +253,10 @@ public class ControladorPrincipal implements ActionListener {
 	}
 
 	public String getArchivo_activo() {
-		return archivo_activo;
+		return fich_servicios;
 	}
 	public void setArchivo_activo(String archivo_activo) {
-		this.archivo_activo = archivo_activo;
+		this.fich_servicios = archivo_activo;
 	}
 
 	public String getRuta_jasperreport() {
