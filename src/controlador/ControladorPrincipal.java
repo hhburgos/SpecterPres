@@ -129,7 +129,7 @@ public class ControladorPrincipal implements ActionListener {
 		fila[1] = ControladorPrincipal.getaServicios().get(servicio_seleccionado).getNombre();
 		fila[2] = ControladorPrincipal.getaServicios().get(servicio_seleccionado).getDescripcion();
 		fila[3] = ControladorPrincipal.getaServicios().get(servicio_seleccionado).getPrecio();
-		mainPanel.modeloTabla.addRow ( fila ); // Añade una fila al final
+		mainPanel.modeloTabla.addRow (fila); // Añade una fila al final
 		
 		aTableService.add(ControladorPrincipal.getaServicios().get(servicio_seleccionado));
 	}
@@ -148,44 +148,6 @@ public class ControladorPrincipal implements ActionListener {
 			e1.printStackTrace(); 
 //			JOptionPane.showMessageDialog( null, e1.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
 		}
-	}
-	
-	/**
-	 * Imprime el informe directamente en el directorio raiz del proyecto, por lo que hay que
-	 * hacer algo con el nombre del doc que se generará si es el mismo siempre se cargará el anterior siempre
-	 */
-	public void generaInforme2 () {
-		String nombre, descripcion;
-		Double precio;
-		List<Prueba> lista = new ArrayList<Prueba>();		
-
-		for (int i = 0; i < mainPanel.modeloTabla.getRowCount(); i++) {
-			nombre = ((Vector) mainPanel.modeloTabla.getDataVector().elementAt(i)).get(1).toString();
-			descripcion = ((Vector) mainPanel.modeloTabla.getDataVector().elementAt(i)).get(2).toString();
-			precio = (Double)((Vector) mainPanel.modeloTabla.getDataVector().elementAt(i)).get(3);
-			
-			lista.add(new Prueba(nombre,descripcion,precio));
-		}
-		
-		JasperPrint jasperPrint = null; 
-		try { 
-			jasperPrint = JasperFillManager.fillReport(ruta_jasperreport, null,new JRBeanCollectionDataSource(lista)); 
-		} catch (JRException e1) { 
-			// TODO Auto-generated catch block
-			e1.printStackTrace(); 
-			JOptionPane.showMessageDialog( null, e1.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
-		} 
-		JRPdfExporter exp = new JRPdfExporter(); 
-		exp.setExporterInput(new SimpleExporterInput(jasperPrint)); 
-		exp.setExporterOutput(new SimpleOutputStreamExporterOutput(nombre_pdf)); 
-		JOptionPane.showMessageDialog( null, "Informe generado y almacenado", "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
-		try { 
-			exp.exportReport(); 
-		} catch (JRException e1) { // TODO Auto-generated catch block
-			e1.printStackTrace(); 
-			JOptionPane.showMessageDialog( null, e1.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
-		}
- 
 	}
 	
 	public void cargaLista () {
@@ -233,8 +195,9 @@ public class ControladorPrincipal implements ActionListener {
 				JList list = (JList)evt.getSource(); 
 				if (evt.getClickCount() == 1) { 
 					int index = list.locationToIndex(evt.getPoint());
-					administraReports(index);
-					mueveServicio();
+					if (administraReports(index)) {
+						mueveServicio();
+					}
 				}
 			}
 		});
@@ -242,19 +205,20 @@ public class ControladorPrincipal implements ActionListener {
 	
 	//suponiendo que ahora solo trabajemos con blue, esto s epodria gestionar con ids
 	//tambien se debe comprobar de que no se incluyen dos veces el mismo servicio a la tabla
-	public void administraReports(int index) {
+	public boolean administraReports(int index) {
 		String nombre = aServicios.get(index).getNombre();
+		boolean dev = false;
 		if (nombre.equals("Campaña Ads")) {
 			listCampanaAds.add(new CampanaAds());
 			if (jpCampanaAds == null) {
 				try { 
 					jpCampanaAds = JasperFillManager.fillReport(Reports.jrCampanaAds, null,new JRBeanCollectionDataSource(listCampanaAds));
 					jasperPrintList.add(jpCampanaAds);
+					dev = true;
 				} catch (Exception e1) { 
-					e1.printStackTrace(); 
+					e1.printStackTrace();
 				}
-			} 
-			else {Ficheros.mensajeError(mainPanel, "El servicio ya está seleccionado", "Cuidado!");}
+			} else { Ficheros.mensajeError(mainPanel, "El servicio ya está seleccionado", "Cuidado!"); }
 		}
 		else if (nombre.equals("Web Corporativa")) {
 			listWebCorporativa.add(new WebCorporativa("*desde 1252€ + IVA","CannaMedicalBroker.com"));
@@ -262,15 +226,17 @@ public class ControladorPrincipal implements ActionListener {
 				try { 
 					jpWebCorporativa = JasperFillManager.fillReport(Reports.jrWebCorporativa, null,new JRBeanCollectionDataSource(listWebCorporativa));
 					jasperPrintList.add(jpWebCorporativa);
+					dev = true;
 				} catch (Exception e1) { 
 					e1.printStackTrace(); 
 				}
-			} 
-			else {Ficheros.mensajeError(mainPanel, "El servicio ya está seleccionado", "Cuidado!");}
+			} else {Ficheros.mensajeError(mainPanel, "El servicio ya está seleccionado", "Cuidado!");}
 		}
 		else {
 			System.out.println("No se reoconoce el servicio");
 		}
+		
+		return dev;
 	}
 	
 	
@@ -299,7 +265,6 @@ public class ControladorPrincipal implements ActionListener {
 	public String getNombre_pdf() {
 		return nombre_pdf;
 	}
-
 	public void setNombre_pdf(String nombre_pdf) {
 		this.nombre_pdf = nombre_pdf;
 	}
@@ -307,7 +272,6 @@ public class ControladorPrincipal implements ActionListener {
 	public static int getModo() {
 		return modo;
 	}
-
 	public static void setModo(int modo) {
 		ControladorPrincipal.modo = modo;
 	}
@@ -315,7 +279,6 @@ public class ControladorPrincipal implements ActionListener {
 	public Cliente getCliente() {
 		return cliente;
 	}
-
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
