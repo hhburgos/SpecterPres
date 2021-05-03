@@ -13,6 +13,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import eventos.Ficheros;
+import eventos.Reports;
 import modelo.Cliente;
 import modelo.Prueba;
 import modelo.Servicios;
@@ -23,6 +24,9 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import reports_modelo.CampanaAds;
+import reports_modelo.Glosario;
+import reports_modelo.WebCorporativa;
 import vista.PanelClientes;
 import vista.PanelPrincipal;
 import vista.PanelServicios;
@@ -36,9 +40,16 @@ public class ControladorPrincipal implements ActionListener {
 	private ArrayList<Servicios> aTableService;
 	private Cliente cliente;
 	
+	private static List<JasperPrint> jasperPrintList;
+	private List<WebCorporativa> listWebCorporativa;
+	private List<CampanaAds> listCampanaAds;
+	
+	private JasperPrint jpCampanaAds;
+	private JasperPrint jpWebCorporativa;
+	
 	private int tableColumn = 4;
 	private static int modo = 1; // 1: borrar   5: edita
-	private String nombre_pdf = "InformePresupuesto.pdf";
+	private static String nombre_pdf = "InformePresupuesto.pdf";
 	private String ruta_jasperreport = "src/vista/presupuestos.jasper";
 	
 	public ControladorPrincipal (PanelPrincipal pp) {
@@ -63,7 +74,7 @@ public class ControladorPrincipal implements ActionListener {
 //			cargaLista();
 		}
 		else if (e.getSource() == mainPanel.btnGenera) {
-			generaInforme2();
+			generaInforme();
 		}
 		else if (e.getSource() == mainPanel.btnVer) {
 //			generaInforme();
@@ -98,6 +109,14 @@ public class ControladorPrincipal implements ActionListener {
 	public void inicio () {
 		aServicios = new ArrayList<Servicios>();
 		
+		//JASPER REPORTS RESOURCE
+		jasperPrintList = new ArrayList<JasperPrint>();
+		listCampanaAds =  new ArrayList<CampanaAds>();
+		listWebCorporativa = new ArrayList<WebCorporativa>();
+		
+		jpCampanaAds = null;
+		jpWebCorporativa = null;
+		
 		aTableService = new ArrayList<Servicios>();
 		cargaLista();
 	}
@@ -113,6 +132,22 @@ public class ControladorPrincipal implements ActionListener {
 		mainPanel.modeloTabla.addRow ( fila ); // Añade una fila al final
 		
 		aTableService.add(ControladorPrincipal.getaServicios().get(servicio_seleccionado));
+	}
+	
+	/**
+	 * Genera informes en los que se involucran varios .jasper
+	 */
+	public static void generaInforme () {
+		JRPdfExporter exp = new JRPdfExporter(); 
+		exp.setExporterInput(SimpleExporterInput.getInstance(jasperPrintList)); 
+		exp.setExporterOutput(new SimpleOutputStreamExporterOutput(nombre_pdf)); 
+		JOptionPane.showMessageDialog( null, "Informe generado y almacenado", "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
+		try { 
+			exp.exportReport(); 
+		} catch (JRException e1) { // TODO Auto-generated catch block
+			e1.printStackTrace(); 
+//			JOptionPane.showMessageDialog( null, e1.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
+		}
 	}
 	
 	/**
@@ -198,10 +233,44 @@ public class ControladorPrincipal implements ActionListener {
 				JList list = (JList)evt.getSource(); 
 				if (evt.getClickCount() == 1) { 
 					int index = list.locationToIndex(evt.getPoint());
+					administraReports(index);
 					mueveServicio();
 				}
 			}
 		});
+	}
+	
+	//suponiendo que ahora solo trabajemos con blue, esto s epodria gestionar con ids
+	//tambien se debe comprobar de que no se incluyen dos veces el mismo servicio a la tabla
+	public void administraReports(int index) {
+		String nombre = aServicios.get(index).getNombre();
+		if (nombre.equals("Campaña Ads")) {
+			listCampanaAds.add(new CampanaAds());
+			if (jpCampanaAds == null) {
+				try { 
+					jpCampanaAds = JasperFillManager.fillReport(Reports.jrCampanaAds, null,new JRBeanCollectionDataSource(listCampanaAds));
+					jasperPrintList.add(jpCampanaAds);
+				} catch (Exception e1) { 
+					e1.printStackTrace(); 
+				}
+			} 
+			else {Ficheros.mensajeError(mainPanel, "El servicio ya está seleccionado", "Cuidado!");}
+		}
+		else if (nombre.equals("Web Corporativa")) {
+			listWebCorporativa.add(new WebCorporativa("*desde 1252€ + IVA","CannaMedicalBroker.com"));
+			if (jpWebCorporativa == null) {
+				try { 
+					jpWebCorporativa = JasperFillManager.fillReport(Reports.jrWebCorporativa, null,new JRBeanCollectionDataSource(listWebCorporativa));
+					jasperPrintList.add(jpWebCorporativa);
+				} catch (Exception e1) { 
+					e1.printStackTrace(); 
+				}
+			} 
+			else {Ficheros.mensajeError(mainPanel, "El servicio ya está seleccionado", "Cuidado!");}
+		}
+		else {
+			System.out.println("No se reoconoce el servicio");
+		}
 	}
 	
 	
@@ -250,7 +319,4 @@ public class ControladorPrincipal implements ActionListener {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-	
-	
-
 }

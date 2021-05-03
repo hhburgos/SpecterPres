@@ -41,4 +41,43 @@ public class Glosario {
 	public void setTexto3(String texto3) {
 		this.texto3 = texto3;
 	}
+
+	public static String getRuta() {
+		return ruta;
+	}
+
+	public static void setRuta(String ruta) {
+		Glosario.ruta = ruta;
+	}
+
+	public static String getText1Default() {
+		return text1Default;
+	}
+
+	public static void setText1Default(String text1Default) {
+		Glosario.text1Default = text1Default;
+	}
+
+	public static String getText2Default() {
+		return text2Default;
+	}
+
+	public static void setText2Default(String text2Default) {
+		Glosario.text2Default = text2Default;
+	}
+
+	public static String getText3Default() {
+		return text3Default;
+	}
+
+	public static void setText3Default(String text3Default) {
+		Glosario.text3Default = text3Default;
+	}
+
+	@Override
+	public String toString() {
+		return "Glosario [texto1=" + texto1 + ", texto2=" + texto2 + ", texto3=" + texto3 + "]";
+	}
+	
+	
 }

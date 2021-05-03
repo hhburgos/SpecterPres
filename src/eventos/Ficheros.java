@@ -23,16 +23,17 @@ public class Ficheros {
 	private static ArrayList<Cliente> clientes;
 	
 	public static void main (String [] args) {
-		servicios1824 = new ArrayList<Servicios>();
+		serviciosBlue = new ArrayList<Servicios>();
 		
-		leeFicheroServicios(servicios1824, Servicios.getFichServicios1824());
+		leeFicheroServicios(serviciosBlue, Servicios.getFichServiciosBlue());
 		
+//		serviciosBlue.add(new Servicios("Web Corporativa","Lorem ipsum", 3422));
 //		servicios1824.add(new Servicios("Redes Sociales", "Lorem Ipsum", 2342));
 //		servicios1824.add(new Servicios("SEO", "Lorem Ipsum", 142));
 //		servicios1824.add(new Servicios("Marketing", "Lorem Ipsum", 2222));
 //		System.out.println(servicios1824.get(1).toString());
 		
-		guardaArrayServicios(servicios1824, Servicios.getFichServicios1824());
+		guardaArrayServicios(serviciosBlue, Servicios.getFichServiciosBlue());
 	}
 	
 	public static void leeFicheroCliente (ArrayList<Cliente> lista, String archivo) {
