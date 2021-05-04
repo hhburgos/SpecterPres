@@ -37,7 +37,6 @@ import javax.swing.table.DefaultTableModel;
 
 import controlador.ControladorPrincipal;
 import modelo.Cliente;
-import modelo.Prueba;
 import modelo.Servicios;
 
 import net.sf.jasperreports.engine.JRException;
@@ -95,19 +94,19 @@ public class PanelPrincipal extends JFrame {
 		});
 	}
 	
-	public void imprimeTabla ()  {
-		String nombre, descripcion;
-		Double precio;
-		List<Prueba> lista = new ArrayList<Prueba>();		
-
-		for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-			nombre = ((Vector) modeloTabla.getDataVector().elementAt(i)).get(1).toString();
-			descripcion = ((Vector) modeloTabla.getDataVector().elementAt(i)).get(2).toString();
-			precio = Double.valueOf(((Vector) modeloTabla.getDataVector().elementAt(i)).get(1).toString());
-			
-			lista.add(new Prueba(nombre,descripcion,precio));
-		}
-	}
+//	public void imprimeTabla ()  {
+//		String nombre, descripcion;
+//		Double precio;
+//		List<Prueba> lista = new ArrayList<Prueba>();		
+//
+//		for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+//			nombre = ((Vector) modeloTabla.getDataVector().elementAt(i)).get(1).toString();
+//			descripcion = ((Vector) modeloTabla.getDataVector().elementAt(i)).get(2).toString();
+//			precio = Double.valueOf(((Vector) modeloTabla.getDataVector().elementAt(i)).get(1).toString());
+//			
+//			lista.add(new Prueba(nombre,descripcion,precio));
+//		}
+//	}
 	
 	
 	
@@ -115,41 +114,41 @@ public class PanelPrincipal extends JFrame {
 	 * Ejecuta el JasperReport sin necesidad de que se lean archivos obj en el dispositivo.
 	 * Sirve para comprobar que funciona El jasper en caso de que fallen las rutas de los obj
 	 */
-	public void claseRuina () {
-		String nombre, descripcion;
-		Double precio;
-		List<Prueba> lista = new ArrayList<Prueba>();
-		
-		for (int i = 0; i < 3; i++) {
-			
-			lista.add(new Prueba("hola","asas",232323.2));
-			lista.add(new Prueba("dfdfdf","sdlalalalalla",666.2));
-			lista.add(new Prueba("aaaaa","asas",723.2));
-		}
-		
-		//esto funciona, la replica de arriba aun no lose
-		//en genera informe2() está el codigo que eestaba comentado aquí
-		
-		JasperPrint jasperPrint = null; 
-		try { 
-			jasperPrint = JasperFillManager.fillReport(ruta_jasperreport, null,new JRBeanCollectionDataSource(lista)); 
-		} catch (JRException e1) { 
-			// TODO Auto-generated catch block
-			e1.printStackTrace(); 
-			JOptionPane.showMessageDialog( null, e1.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
-		} 
-		JRPdfExporter exp = new JRPdfExporter(); 
-		exp.setExporterInput(new SimpleExporterInput(jasperPrint)); 
-		exp.setExporterOutput(new
-		SimpleOutputStreamExporterOutput(nombre_pdf)); 
-		JOptionPane.showMessageDialog( null, "Informe generado y almacenado", "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
-		try { 
-			exp.exportReport(); 
-		} catch (JRException e1) { // TODO Auto-generated catch block
-			e1.printStackTrace(); 
-			JOptionPane.showMessageDialog( null, e1.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
-		}
-	}
+//	public void claseRuina () {
+//		String nombre, descripcion;
+//		Double precio;
+//		List<Prueba> lista = new ArrayList<Prueba>();
+//		
+//		for (int i = 0; i < 3; i++) {
+//			
+//			lista.add(new Prueba("hola","asas",232323.2));
+//			lista.add(new Prueba("dfdfdf","sdlalalalalla",666.2));
+//			lista.add(new Prueba("aaaaa","asas",723.2));
+//		}
+//		
+//		//esto funciona, la replica de arriba aun no lose
+//		//en genera informe2() está el codigo que eestaba comentado aquí
+//		
+//		JasperPrint jasperPrint = null; 
+//		try { 
+//			jasperPrint = JasperFillManager.fillReport(ruta_jasperreport, null,new JRBeanCollectionDataSource(lista)); 
+//		} catch (JRException e1) { 
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace(); 
+//			JOptionPane.showMessageDialog( null, e1.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
+//		} 
+//		JRPdfExporter exp = new JRPdfExporter(); 
+//		exp.setExporterInput(new SimpleExporterInput(jasperPrint)); 
+//		exp.setExporterOutput(new
+//		SimpleOutputStreamExporterOutput(nombre_pdf)); 
+//		JOptionPane.showMessageDialog( null, "Informe generado y almacenado", "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
+//		try { 
+//			exp.exportReport(); 
+//		} catch (JRException e1) { // TODO Auto-generated catch block
+//			e1.printStackTrace(); 
+//			JOptionPane.showMessageDialog( null, e1.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
+//		}
+//	}
 	
 	
 	
@@ -299,6 +298,7 @@ public class PanelPrincipal extends JFrame {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				if(e.getClickCount()== ControladorPrincipal.getModo()){
 					System.out.println("Se ha hecho click: " + table.getSelectedRow());
+					ControladorPrincipal.deletePagePDF(table.getSelectedRow());
 					quitaServicio();
 		        }
 				if(e.getClickCount()==2){
@@ -331,7 +331,6 @@ public class PanelPrincipal extends JFrame {
 		btnBlue.setBackground(new Color(135, 206, 250));
 		btnBlue.setBounds(925, 233, 145, 44);
 		getContentPane().add(btnBlue);
-//		btnBlue.addActionListener(this);
 		
 		btn1824 = new JButton("1824");
 		btn1824.setFont(new Font("Tahoma", Font.PLAIN, 17));

@@ -2,6 +2,8 @@ package modelo;
 
 import java.io.Serializable;
 
+import eventos.Ficheros;
+
 public class Servicios implements Serializable {
 	
 	/**
@@ -22,11 +24,11 @@ public class Servicios implements Serializable {
 	private double precio;
 	
 	public Servicios () {
-		this.id_servicio = ++count;
+		this.id_servicio = Ficheros.dameIDServicio();
 	}
 	
 	public Servicios (int sector, String nombre, String descripcion, double precio) {
-		this.id_servicio = ++count;
+		this.id_servicio = Ficheros.dameIDServicio();
 		this.sector = sector;
 		this.nombre = nombre;
 		this.descripcion = descripcion;

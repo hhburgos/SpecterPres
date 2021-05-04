@@ -7,7 +7,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -15,7 +14,6 @@ import javax.swing.JOptionPane;
 import eventos.Ficheros;
 import eventos.Reports;
 import modelo.Cliente;
-import modelo.Prueba;
 import modelo.Servicios;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -153,12 +151,11 @@ public class ControladorPrincipal implements ActionListener {
 		JRPdfExporter exp = new JRPdfExporter(); 
 		exp.setExporterInput(SimpleExporterInput.getInstance(jasperPrintList)); 
 		exp.setExporterOutput(new SimpleOutputStreamExporterOutput(nombre_pdf)); 
-		JOptionPane.showMessageDialog( null, "Informe generado y almacenado", "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
 		try { 
 			exp.exportReport(); 
+			JOptionPane.showMessageDialog( null, "Informe generado y almacenado", "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
 		} catch (JRException e1) { // TODO Auto-generated catch block
 			e1.printStackTrace(); 
-//			JOptionPane.showMessageDialog( null, e1.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
 		}
 	}
 	
@@ -186,7 +183,6 @@ public class ControladorPrincipal implements ActionListener {
 		mainPanel.btnBlue.addActionListener(this);
 		mainPanel.btn1824.addActionListener(this);
 		mainPanel.btnAgency.addActionListener(this);
-		mainPanel.btnGenera.addActionListener(this);
 		
 		mainPanel.btnVer.addActionListener(this);
 		mainPanel.btnGenera.addActionListener(this);
@@ -235,7 +231,7 @@ public class ControladorPrincipal implements ActionListener {
 			} else { Ficheros.mensajeError(mainPanel, "El servicio ya está seleccionado", "Cuidado!"); }
 		}
 		else if (nombre.equals("Web Corporativa")) {
-			listWebCorporativa.add(new WebCorporativa("*desde 1252€ + IVA","CannaMedicalBroker.com"));
+			listWebCorporativa.add(new WebCorporativa());
 			if (jpWebCorporativa == null) {
 				try { 
 					jpWebCorporativa = JasperFillManager.fillReport(Reports.jrWebCorporativa, null,new JRBeanCollectionDataSource(listWebCorporativa));
@@ -275,6 +271,10 @@ public class ControladorPrincipal implements ActionListener {
 		}
 		
 		return dev;
+	}
+	
+	public static void deletePagePDF (int index) {
+		jasperPrintList.remove(index);
 	}
 	
 	

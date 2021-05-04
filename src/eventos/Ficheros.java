@@ -25,12 +25,35 @@ public class Ficheros {
 		servicios = new ArrayList<Servicios>();
 		
 		leeFicheroServicios(servicios, Servicios.getFichServicios());
-		
+//		servicios.clear();
+//		
 //		servicios.add(new Servicios(Servicios.getSectorBlue(),"Landing Page","Lorem ipsussm", 902));
+//		servicios.add(new Servicios(Servicios.getSectorBlue(),"Web Corporativa", "Lorem Ipsum", 2342));
+//		servicios.add(new Servicios(Servicios.getSectorBlue(),"Contenido AudioVisual", "Lorem Ipsum", 2342));
 //		servicios.add(new Servicios(Servicios.getSectorBlue(),"Campaña Ads", "Lorem Ipsum", 2342));
-
 		
 		guardaArrayServicios(servicios, Servicios.getFichServicios());
+	}
+	
+	/**
+	 * Carga el Array Servicios si es que no lo está y comprueba cual es el id del ultimo servicio almacenado 
+	 * y retorna dicho número + 1 para que sea el id del siguiente servicio a añadir
+	 * @return
+	 */
+	public static int dameIDServicio () {
+		int dev;
+		try {
+			if (servicios == null || servicios.size() == 0) {
+				leeFicheroServicios(servicios, Servicios.getFichServicios());
+			}
+			int sizeArray = servicios.size();
+			int id = servicios.get(sizeArray - 1).get_id();
+			dev = id + 1;
+		}
+		catch (Exception e) {
+			dev = ((int) Math.random() * 99) + 1;
+		}
+		return dev;
 	}
 	
 	public static void leeFicheroCliente (ArrayList<Cliente> lista, String archivo) {
