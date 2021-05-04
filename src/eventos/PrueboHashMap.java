@@ -13,7 +13,8 @@ public class PrueboHashMap {
 		
 		servicios.put(1, 1);
 		servicios.put(2, 2);
-		servicios.remove(2);
+		servicios.put(2, 5);
+//		servicios.remove(2);
 		System.out.println(servicios.toString());
 		
 	}

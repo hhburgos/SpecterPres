@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JList;
@@ -22,10 +23,8 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-import net.sf.jasperreports.view.JasperViewer;
 import reports_modelo.CampanaAds;
 import reports_modelo.ContenidoAudioVisual;
-import reports_modelo.Glosario;
 import reports_modelo.LandingPage;
 import reports_modelo.WebCorporativa;
 import vista.PanelClientes;
@@ -48,6 +47,7 @@ public class ControladorPrincipal implements ActionListener {
 	private List<ContenidoAudioVisual> listContenidoAudioVisual;
 	private List<LandingPage> listLandingPage;
 	
+	private HashMap<Integer,Integer> tracking;
 	private JasperPrint jpCampanaAds;
 	private JasperPrint jpWebCorporativa;
 	private JasperPrint jpContenidoAudioVisual;
@@ -113,6 +113,7 @@ public class ControladorPrincipal implements ActionListener {
 	public void inicio () {
 		aServicios = new ArrayList<Servicios>();
 		sector_activo = Servicios.getSectorBlue();
+		tracking = new HashMap<Integer,Integer>();
 		
 		//JASPER REPORTS RESOURCE
 		jasperPrintList = new ArrayList<JasperPrint>();
@@ -127,6 +128,7 @@ public class ControladorPrincipal implements ActionListener {
 		jpLandingPage = null;
 		//-----
 		
+		initHashMap();
 		aTableService = new ArrayList<Servicios>();
 		cargaLista();
 	}
@@ -275,6 +277,17 @@ public class ControladorPrincipal implements ActionListener {
 	
 	public static void deletePagePDF (int index) {
 		jasperPrintList.remove(index);
+	}
+	
+	/**
+	 * HASH MAP: Se usará para el tracking de los servicios, la clave será su id y el valor el estado
+	 * Activo (introducido en el pdf) : 1
+	 * @param index
+	 */
+	public void initHashMap () {
+		for (int i = 0; i < aServicios.size(); i++) {
+			tracking.put(aServicios.get(i).get_id(), 0);
+		}
 	}
 	
 	
