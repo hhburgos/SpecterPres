@@ -26,7 +26,9 @@ import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.view.JasperViewer;
 import reports_modelo.CampanaAds;
+import reports_modelo.ContenidoAudioVisual;
 import reports_modelo.Glosario;
+import reports_modelo.LandingPage;
 import reports_modelo.WebCorporativa;
 import vista.PanelClientes;
 import vista.PanelPrincipal;
@@ -45,9 +47,13 @@ public class ControladorPrincipal implements ActionListener {
 	private static List<JasperPrint> jasperPrintList;
 	private List<WebCorporativa> listWebCorporativa;
 	private List<CampanaAds> listCampanaAds;
+	private List<ContenidoAudioVisual> listContenidoAudioVisual;
+	private List<LandingPage> listLandingPage;
 	
 	private JasperPrint jpCampanaAds;
 	private JasperPrint jpWebCorporativa;
+	private JasperPrint jpContenidoAudioVisual;
+	private JasperPrint jpLandingPage;
 	
 	private int tableColumn = 4;
 	private static int modo = 1; // 1: borrar   5: edita
@@ -114,9 +120,13 @@ public class ControladorPrincipal implements ActionListener {
 		jasperPrintList = new ArrayList<JasperPrint>();
 		listCampanaAds =  new ArrayList<CampanaAds>();
 		listWebCorporativa = new ArrayList<WebCorporativa>();
+		listContenidoAudioVisual = new ArrayList<ContenidoAudioVisual>();
+		listLandingPage = new ArrayList<LandingPage>();
 		
 		jpCampanaAds = null;
 		jpWebCorporativa = null;
+		jpContenidoAudioVisual = null;
+		jpLandingPage = null;
 		//-----
 		
 		aTableService = new ArrayList<Servicios>();
@@ -230,6 +240,30 @@ public class ControladorPrincipal implements ActionListener {
 				try { 
 					jpWebCorporativa = JasperFillManager.fillReport(Reports.jrWebCorporativa, null,new JRBeanCollectionDataSource(listWebCorporativa));
 					jasperPrintList.add(jpWebCorporativa);
+					dev = true;
+				} catch (Exception e1) { 
+					e1.printStackTrace(); 
+				}
+			} else {Ficheros.mensajeError(mainPanel, "El servicio ya está seleccionado", "Cuidado!");}
+		}
+		else if (nombre.equals("Contenido AudioVisual")) {
+			listContenidoAudioVisual.add(new ContenidoAudioVisual());
+			if (jpContenidoAudioVisual == null) {
+				try { 
+					jpContenidoAudioVisual = JasperFillManager.fillReport(Reports.jrContenidoAudioVisual, null,new JRBeanCollectionDataSource(listContenidoAudioVisual));
+					jasperPrintList.add(jpContenidoAudioVisual);
+					dev = true;
+				} catch (Exception e1) { 
+					e1.printStackTrace(); 
+				}
+			} else {Ficheros.mensajeError(mainPanel, "El servicio ya está seleccionado", "Cuidado!");}
+		}
+		else if (nombre.equals("Landing Page")) {
+			listLandingPage.add(new LandingPage());
+			if (jpLandingPage == null) {
+				try { 
+					jpLandingPage = JasperFillManager.fillReport(Reports.jrLandingPage, null,new JRBeanCollectionDataSource(listLandingPage));
+					jasperPrintList.add(jpLandingPage);
 					dev = true;
 				} catch (Exception e1) { 
 					e1.printStackTrace(); 

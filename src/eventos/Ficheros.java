@@ -26,7 +26,7 @@ public class Ficheros {
 		
 		leeFicheroServicios(servicios, Servicios.getFichServicios());
 		
-//		servicios.add(new Servicios(Servicios.getSectorBlue(),"Web Corporativa","Lorem ipsum", 3422));
+//		servicios.add(new Servicios(Servicios.getSectorBlue(),"Landing Page","Lorem ipsussm", 902));
 //		servicios.add(new Servicios(Servicios.getSectorBlue(),"Campaña Ads", "Lorem Ipsum", 2342));
 
 		

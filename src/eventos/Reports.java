@@ -21,6 +21,8 @@ public class Reports {
 	public static String jrCampanaAds = "reports/CampanaAds.jasper";
 	public static String jrBlueRedes = "reports/BlueRedes.jasper";
 	public static String jrContenidoAudioVisual = "reports/ContenidoAudioVisual.jasper";
+	public static String jrFiltrosInstagram = "reports/FiltrosInstagram.jasper";
+	public static String jrLandingPage = "reports/LandingPage.jasper";
 	
 	public static String nombre_pdf = "multipleReport.pdf";
 	
