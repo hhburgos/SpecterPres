@@ -42,16 +42,17 @@ public class ControladorPrincipal implements ActionListener {
 	private Cliente cliente;
 	
 	private static List<JasperPrint> jasperPrintList;
-	private List<WebCorporativa> listWebCorporativa;
-	private List<CampanaAds> listCampanaAds;
-	private List<ContenidoAudioVisual> listContenidoAudioVisual;
-	private List<LandingPage> listLandingPage;
+	private static List<WebCorporativa> listWebCorporativa;
+	private static List<CampanaAds> listCampanaAds;
+	private static List<ContenidoAudioVisual> listContenidoAudioVisual;
+	private static List<LandingPage> listLandingPage;
 	
 	private HashMap<Integer,Integer> tracking;
-	private JasperPrint jpCampanaAds;
-	private JasperPrint jpWebCorporativa;
-	private JasperPrint jpContenidoAudioVisual;
-	private JasperPrint jpLandingPage;
+	private HashMap<Integer,JasperPrint> jpHashMap;
+	private static JasperPrint jpCampanaAds;
+	private static JasperPrint jpWebCorporativa;
+	private static JasperPrint jpContenidoAudioVisual;
+	private static JasperPrint jpLandingPage;
 	
 	private int tableColumn = 4;
 	private static int modo = 1; // 1: borrar   5: edita
@@ -105,6 +106,9 @@ public class ControladorPrincipal implements ActionListener {
 			ControladorServicios cs = new ControladorServicios(ps);
 			
 			ps.setVisible(true);
+		}
+		else if (e.getSource() == mainPanel.btnLimpiar) {
+			resetAll();
 		}
 	}
 	
@@ -190,6 +194,7 @@ public class ControladorPrincipal implements ActionListener {
 		mainPanel.btnGenera.addActionListener(this);
 		mainPanel.btnCliente.addActionListener(this);
 		mainPanel.btnAdminServicios.addActionListener(this);
+		mainPanel.btnLimpiar.addActionListener(this);
 		
 		mainPanel.rbEditar.addActionListener(this);
 		mainPanel.rbBorrar.addActionListener(this);
@@ -275,8 +280,53 @@ public class ControladorPrincipal implements ActionListener {
 		return dev;
 	}
 	
-	public static void deletePagePDF (int index) {
+	public static void deletePagePDF (int index, int id) {
 		jasperPrintList.remove(index);
+		putNullJPrint(id);
+	}
+	
+	/**
+	 * Le pasas un id, mira a que objeto de reports_model pertence y busca su respectivo jprint para colocarlo en null
+	 * @param id
+	 */
+	public static void putNullJPrint (int id) {
+		if (id == 1) { 
+			jpLandingPage = null;
+			listLandingPage.clear();
+		}
+		else if (id == 2) {
+			jpWebCorporativa = null;
+			listWebCorporativa.clear();
+		}
+		else if (id == 3) {
+			jpContenidoAudioVisual = null;
+			listContenidoAudioVisual.clear();
+		}
+		else if (id == 4) {
+			jpCampanaAds = null;
+			listCampanaAds.clear();
+		}
+	}
+	
+	public void resetAll () {
+		jpLandingPage = null;
+		jpWebCorporativa = null;
+		jpContenidoAudioVisual = null;
+		jpCampanaAds = null;
+		
+		listLandingPage.clear();
+		listWebCorporativa.clear();
+		listContenidoAudioVisual.clear();
+		listCampanaAds.clear();
+		
+		mainPanel.limpiaTabla();
+		
+		jasperPrintList.clear();
+	}
+	
+	// HASHMAP
+	public void initJasperMap () {
+		System.out.print("");
 	}
 	
 	/**

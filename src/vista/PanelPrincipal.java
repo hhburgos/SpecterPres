@@ -69,6 +69,7 @@ public class PanelPrincipal extends JFrame {
 	public JButton btnGenera;
 	public JButton btnCliente;
 	public JButton btnAdminServicios;
+	public JButton btnLimpiar;
 	public JRadioButton rbEditar;
 	public JRadioButton rbBorrar;
 	public JTextField tfCliente;
@@ -191,7 +192,23 @@ public class PanelPrincipal extends JFrame {
 		catch (Exception e) {
 			e.printStackTrace();
 //			System.out.println("no se ha seleccionado ninguna fila");
-			JOptionPane.showMessageDialog( null, e.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
+//			JOptionPane.showMessageDialog( null, e.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
+		}
+	}
+	
+	public void limpiaTabla () {
+		try {
+			DefaultTableModel dtm = (DefaultTableModel) table.getModel(); //TableProducto es el nombre de mi tabla ;)
+			int tableSize = (int)dtm.getRowCount();
+			System.out.println("tableSize: " + tableSize);
+			if (tableSize > 0) {
+				for (int i = 0; i < tableSize ; i++) {
+					dtm.removeRow(0);
+				}
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -253,6 +270,10 @@ public class PanelPrincipal extends JFrame {
 		tfCliente.setBounds(149, 192, 145, 25);
 		getContentPane().add(tfCliente);
 		tfCliente.setColumns(10);
+		
+		btnLimpiar = new JButton("Limpiar");
+		btnLimpiar.setBounds(950, 51, 97, 25);
+		getContentPane().add(btnLimpiar);
 	}
 	
 	public void creaRadioButtons () {
@@ -297,18 +318,19 @@ public class PanelPrincipal extends JFrame {
 		table.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				if(e.getClickCount()== ControladorPrincipal.getModo()){
-					System.out.println("Se ha hecho click: " + table.getSelectedRow());
-					ControladorPrincipal.deletePagePDF(table.getSelectedRow());
+					int tableRowClick = table.getSelectedRow();
+					int idObjectClick = (int) modeloTabla.getValueAt(table.getSelectedRow(), 0);
+					
+					ControladorPrincipal.deletePagePDF(tableRowClick, idObjectClick);
 					quitaServicio();
 		        }
 				if(e.getClickCount()==2){
 					System.out.println("Se ha hecho doble click: " + table.getSelectedRow());
 //					quitaServicio();
 				}
-			}});
+		}});
 		
 		scrollPane.setViewportView(table);
-		
 	}
 	
 	public void creaBotones () {

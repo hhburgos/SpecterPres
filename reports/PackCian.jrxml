@@ -4,6 +4,17 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
+	<field name="texto1" class="java.lang.String"/>
+	<field name="texto2" class="java.lang.String"/>
+	<field name="texto3" class="java.lang.String"/>
+	<field name="texto4" class="java.lang.String"/>
+	<field name="texto5" class="java.lang.String"/>
+	<field name="texto6" class="java.lang.String"/>
+	<field name="texto7" class="java.lang.String"/>
+	<field name="texto8" class="java.lang.String"/>
+	<field name="texto9" class="java.lang.String"/>
+	<field name="precio1" class="java.lang.String"/>
+	<field name="precio2" class="java.lang.String"/>
 	<detail>
 		<band height="1241" splitType="Stretch">
 			<rectangle>
@@ -21,20 +32,6 @@
 			<rectangle>
 				<reportElement x="270" y="320" width="560" height="330" forecolor="#FFFFFF" uuid="3617d74d-9e7a-454c-be0d-9da6c3f60d45"/>
 			</rectangle>
-			<textField>
-				<reportElement x="905" y="390" width="406" height="88" forecolor="#029A9A" uuid="45f4f589-2e3b-4ba8-87f4-a2430b739d22"/>
-				<textElement>
-					<font fontName="Montserrat SemiBold" size="26"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="1052" y="638" width="571" height="76" uuid="9add8352-f89d-4523-8b82-631754b2c511"/>
-				<textElement textAlignment="Right">
-					<font fontName="Montserrat Light" size="23"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{weburl}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement x="902" y="344" width="530" height="60" forecolor="#1F1F1F" uuid="4ea37dd1-f30f-42aa-92cc-ed3808718074"/>
 				<textElement>
@@ -77,13 +74,6 @@
 					<font fontName="Montserrat SemiBold" size="29.2"/>
 				</textElement>
 				<text><![CDATA[BLOG]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="273" y="531" width="229" height="52" forecolor="#1F1F1F" uuid="7959e96c-c976-48c8-9f43-0ce2c18fde39"/>
-				<textElement>
-					<font fontName="Montserrat SemiBold" size="29.2"/>
-				</textElement>
-				<text><![CDATA[CONTACTO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="122" y="83" width="73" height="79" forecolor="#039998" uuid="9b099108-c1cf-43f4-9531-11fc385ef1cb">
@@ -273,10 +263,6 @@
 				<text><![CDATA[V]]></text>
 			</staticText>
 			<image>
-				<reportElement x="148" y="285" width="538" height="845" uuid="a4203133-6fea-49d0-b8ec-abd846a76bff"/>
-				<imageExpression><![CDATA[""]]></imageExpression>
-			</image>
-			<image>
 				<reportElement x="0" y="0" width="1753" height="1241" uuid="1153b895-9418-4560-86d1-dc9a298a6f4c"/>
 				<imageExpression><![CDATA["/src/img/PackCian.jpg"]]></imageExpression>
 			</image>
@@ -288,6 +274,13 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 			</rectangle>
+			<staticText>
+				<reportElement x="837" y="405" width="229" height="52" forecolor="#1F1F1F" uuid="7959e96c-c976-48c8-9f43-0ce2c18fde39"/>
+				<textElement>
+					<font fontName="Montserrat SemiBold" size="24.7"/>
+				</textElement>
+				<text><![CDATA[ESTRATEGIA]]></text>
+			</staticText>
 			<staticText>
 				<reportElement x="155" y="181" width="1535" height="79" forecolor="#039998" uuid="82a9a61d-91cc-41c8-ac6b-fbc8f4c77cf9"/>
 				<textElement>
@@ -311,6 +304,69 @@
 				</textElement>
 				<text><![CDATA[P A C K   C I A N]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="837" y="404" width="813" height="76" forecolor="#1F1F1F" uuid="ef455e43-4844-4f75-945e-9fe3cdb5778a"/>
+				<textElement>
+					<font fontName="Montserrat SemiBold" size="24.7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{texto1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="592" y="278" width="228" height="82" forecolor="#1F1F1F" uuid="a05f7833-e3af-476b-b792-28438ccaed4c"/>
+				<textElement>
+					<font fontName="Montserrat SemiBold" size="24.7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{texto2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="762" y="292" width="228" height="82" forecolor="#1F1F1F" uuid="f14a91ff-25cf-4af6-ab35-347e1d118dc1"/>
+				<textElement>
+					<font fontName="Montserrat SemiBold" size="24.7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{texto3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="938" y="297" width="228" height="82" forecolor="#1F1F1F" uuid="7023559d-0654-4d8d-a1be-e240a76cbbf2"/>
+				<textElement>
+					<font fontName="Montserrat SemiBold" size="24.7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{texto4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1086" y="302" width="228" height="82" forecolor="#1F1F1F" uuid="2a2e46bd-3ad5-435f-b0de-87e5035006b1"/>
+				<textElement>
+					<font fontName="Montserrat SemiBold" size="24.7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{texto5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1233" y="300" width="228" height="82" forecolor="#1F1F1F" uuid="7f2e9a33-ae99-42e5-a61f-03b1c13ba79d"/>
+				<textElement>
+					<font fontName="Montserrat SemiBold" size="24.7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{texto6}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1170" y="234" width="228" height="82" forecolor="#1F1F1F" uuid="bb9519f9-7d6c-40fb-a572-9cd6d4034053"/>
+				<textElement>
+					<font fontName="Montserrat SemiBold" size="24.7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{texto7}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1343" y="235" width="228" height="82" forecolor="#1F1F1F" uuid="72eef6e4-d434-47df-8799-439197ba2ca4"/>
+				<textElement>
+					<font fontName="Montserrat SemiBold" size="24.7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{texto8}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1585" y="238" width="228" height="82" forecolor="#1F1F1F" uuid="95324a52-9af3-483a-b7ed-f8263c0220f1"/>
+				<textElement>
+					<font fontName="Montserrat SemiBold" size="24.7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{texto9}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>

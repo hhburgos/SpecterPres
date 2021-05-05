@@ -18,6 +18,7 @@ public class Reports {
 	public static String jrWebCorporativa = "reports/WebCorporativa.jasper";
 	public static String jrGlosario = "reports/Glosario.jasper";
 	public static String jrPackCian = "reports/PackCian.jasper";
+	public static String jrPackCeleste = "reports/PackCeleste.jasper";
 	public static String jrCampanaAds = "reports/CampanaAds.jasper";
 	public static String jrBlueRedes = "reports/BlueRedes.jasper";
 	public static String jrContenidoAudioVisual = "reports/ContenidoAudioVisual.jasper";
