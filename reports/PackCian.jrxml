@@ -24,12 +24,6 @@
 				<reportElement x="1008" y="387" width="221" height="71" forecolor="#FFFFFF" uuid="6e1482a8-e0dd-44a1-96f0-809dd475540c"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="890" y="300" width="521" height="140" forecolor="#FFFFFF" uuid="ac74f81c-e255-4726-b7a8-c54199732703"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="1320" y="608" width="320" height="51" forecolor="#FFFFFF" uuid="6ae08886-956a-43a5-9e7d-988b3072f4b6"/>
-			</rectangle>
-			<rectangle>
 				<reportElement x="270" y="320" width="560" height="330" forecolor="#FFFFFF" uuid="3617d74d-9e7a-454c-be0d-9da6c3f60d45"/>
 			</rectangle>
 			<staticText>
@@ -47,21 +41,6 @@
 				<text><![CDATA[INCLUYE 4 MÓDULOS]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="198" y="83" width="74" height="79" forecolor="#039998" backcolor="#039998" uuid="1a371a6a-a52b-4577-9378-5087aac17320">
-					<property name="com.jaspersoft.studio.unit.spacingBefore" value="px"/>
-					<property name="com.jaspersoft.studio.unit.tabStopWidth" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.spacingAfter" value="px"/>
-					<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
-				</reportElement>
-				<textElement markup="none">
-					<font fontName="Montserrat ExtraBold" size="56" isBold="false"/>
-					<paragraph lineSpacing="1_1_2" lineSpacingSize="0.0" firstLineIndent="6" leftIndent="0" rightIndent="0" spacingBefore="0" spacingAfter="0"/>
-				</textElement>
-				<text><![CDATA[E]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="274" y="342" width="166" height="45" forecolor="#1F1F1F" uuid="78851d7a-5099-492d-80bb-a39ec00e97f5"/>
 				<textElement>
 					<font fontName="Montserrat SemiBold" size="29.2"/>
@@ -74,96 +53,6 @@
 					<font fontName="Montserrat SemiBold" size="29.2"/>
 				</textElement>
 				<text><![CDATA[BLOG]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="122" y="83" width="73" height="79" forecolor="#039998" uuid="9b099108-c1cf-43f4-9531-11fc385ef1cb">
-					<property name="com.jaspersoft.studio.unit.spacingBefore" value="px"/>
-					<property name="com.jaspersoft.studio.unit.tabStopWidth" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.spacingAfter" value="px"/>
-					<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
-				</reportElement>
-				<textElement markup="none">
-					<font fontName="Montserrat ExtraBold" size="56" isBold="false"/>
-					<paragraph lineSpacing="1_1_2" lineSpacingSize="0.0" firstLineIndent="6" leftIndent="0" rightIndent="0" spacingBefore="0" spacingAfter="0"/>
-				</textElement>
-				<text><![CDATA[W]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="251" y="83" width="74" height="79" forecolor="#039998" backcolor="#039998" uuid="cbba21c0-f256-4923-b1da-9f77b5cdc3fc">
-					<property name="com.jaspersoft.studio.unit.spacingBefore" value="px"/>
-					<property name="com.jaspersoft.studio.unit.tabStopWidth" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.spacingAfter" value="px"/>
-					<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
-				</reportElement>
-				<textElement markup="none">
-					<font fontName="Montserrat ExtraBold" size="56" isBold="false"/>
-					<paragraph lineSpacing="1_1_2" lineSpacingSize="0.0" firstLineIndent="6" leftIndent="0" rightIndent="0" spacingBefore="0" spacingAfter="0"/>
-				</textElement>
-				<text><![CDATA[B]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="336" y="83" width="64" height="87" forecolor="#039998" backcolor="#039998" uuid="2569a3ae-5b0e-4271-bcaf-581b6829be3a">
-					<property name="com.jaspersoft.studio.unit.spacingBefore" value="px"/>
-					<property name="com.jaspersoft.studio.unit.tabStopWidth" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.spacingAfter" value="px"/>
-					<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
-				</reportElement>
-				<textElement markup="none">
-					<font fontName="Montserrat ExtraBold" size="56" isBold="false"/>
-					<paragraph lineSpacing="1_1_2" lineSpacingSize="0.0" firstLineIndent="6" leftIndent="0" rightIndent="0" spacingBefore="0" spacingAfter="0"/>
-				</textElement>
-				<text><![CDATA[C]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="390" y="83" width="64" height="84" forecolor="#039998" backcolor="#039998" uuid="d2b99fe1-3bf9-41d7-93f0-e3d1c5f2a0e7">
-					<property name="com.jaspersoft.studio.unit.spacingBefore" value="px"/>
-					<property name="com.jaspersoft.studio.unit.tabStopWidth" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.spacingAfter" value="px"/>
-					<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
-				</reportElement>
-				<textElement markup="none">
-					<font fontName="Montserrat ExtraBold" size="56" isBold="false"/>
-					<paragraph lineSpacing="1_1_2" lineSpacingSize="0.0" firstLineIndent="6" leftIndent="0" rightIndent="0" spacingBefore="0" spacingAfter="0"/>
-				</textElement>
-				<text><![CDATA[O]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="560" y="83" width="64" height="81" forecolor="#039998" backcolor="#039998" uuid="40d44326-6c9b-46af-a55b-520af4808ce6">
-					<property name="com.jaspersoft.studio.unit.spacingBefore" value="px"/>
-					<property name="com.jaspersoft.studio.unit.tabStopWidth" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.spacingAfter" value="px"/>
-					<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
-				</reportElement>
-				<textElement markup="none">
-					<font fontName="Montserrat ExtraBold" size="56" isBold="false"/>
-					<paragraph lineSpacing="1_1_2" lineSpacingSize="0.0" firstLineIndent="6" leftIndent="0" rightIndent="0" spacingBefore="0" spacingAfter="0"/>
-				</textElement>
-				<text><![CDATA[O]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="451" y="83" width="64" height="80" forecolor="#039998" backcolor="#039998" uuid="b6f77c25-78de-40a4-8a4b-65bcb76a73a1">
-					<property name="com.jaspersoft.studio.unit.spacingBefore" value="px"/>
-					<property name="com.jaspersoft.studio.unit.tabStopWidth" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.spacingAfter" value="px"/>
-					<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
-				</reportElement>
-				<textElement markup="none">
-					<font fontName="Montserrat ExtraBold" size="56" isBold="false"/>
-					<paragraph lineSpacing="1_1_2" lineSpacingSize="0.0" firstLineIndent="6" leftIndent="0" rightIndent="0" spacingBefore="0" spacingAfter="0"/>
-				</textElement>
-				<text><![CDATA[R]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="530" y="360" width="468" height="61" forecolor="#454545" uuid="0b52fe12-531f-4f80-9c48-2f9828810c2b"/>
@@ -218,21 +107,6 @@
 				<text><![CDATA[T]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="864" y="83" width="64" height="87" forecolor="#039998" backcolor="#039998" uuid="a74ff231-5f7d-495c-a33d-a0f3ab93f26f">
-					<property name="com.jaspersoft.studio.unit.spacingBefore" value="px"/>
-					<property name="com.jaspersoft.studio.unit.tabStopWidth" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.spacingAfter" value="px"/>
-					<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
-				</reportElement>
-				<textElement markup="none">
-					<font fontName="Montserrat ExtraBold" size="56" isBold="false"/>
-					<paragraph lineSpacing="1_1_2" lineSpacingSize="0.0" firstLineIndent="6" leftIndent="0" rightIndent="0" spacingBefore="0" spacingAfter="0"/>
-				</textElement>
-				<text><![CDATA[A]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="780" y="83" width="64" height="82" forecolor="#039998" backcolor="#039998" uuid="ea542c6c-969e-4918-9695-b32edcc1b81a">
 					<property name="com.jaspersoft.studio.unit.spacingBefore" value="px"/>
 					<property name="com.jaspersoft.studio.unit.tabStopWidth" value="pixel"/>
@@ -246,6 +120,28 @@
 					<paragraph lineSpacing="1_1_2" lineSpacingSize="0.0" firstLineIndent="6" leftIndent="0" rightIndent="0" spacingBefore="0" spacingAfter="0"/>
 				</textElement>
 				<text><![CDATA[I]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="791" y="1041" width="122" height="50" forecolor="#039998" backcolor="#039998" uuid="a74ff231-5f7d-495c-a33d-a0f3ab93f26f">
+					<property name="com.jaspersoft.studio.unit.spacingBefore" value="px"/>
+					<property name="com.jaspersoft.studio.unit.tabStopWidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					<property name="com.jaspersoft.studio.unit.spacingAfter" value="px"/>
+					<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+				</reportElement>
+				<textElement markup="none">
+					<font fontName="Montserrat SemiBold" size="38" isBold="false"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="0.0" firstLineIndent="6" leftIndent="0" rightIndent="0" spacingBefore="0" spacingAfter="0"/>
+				</textElement>
+				<text><![CDATA[599€]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="810" y="280" width="196" height="42" forecolor="#1F1F1F" uuid="7959e96c-c976-48c8-9f43-0ce2c18fde39"/>
+				<textElement>
+					<font fontName="Montserrat SemiBold" size="24.7"/>
+				</textElement>
+				<text><![CDATA[MARKETING]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="811" y="83" width="64" height="87" forecolor="#039998" backcolor="#039998" uuid="079619f0-924c-4900-b36b-18c61b23065b">
@@ -270,17 +166,16 @@
 				<reportElement x="0" y="0" width="1680" height="260" forecolor="#FFFFFF" uuid="6b351ea0-26a1-4a7a-bf6d-c1104de97b7f"/>
 			</rectangle>
 			<rectangle>
+				<reportElement x="820" y="374" width="910" height="566" forecolor="#FFFFFF" uuid="ac74f81c-e255-4726-b7a8-c54199732703"/>
+			</rectangle>
+			<rectangle>
 				<reportElement x="1320" y="285" width="433" height="5" forecolor="#039998" backcolor="#039998" uuid="69fde609-0d15-4c9c-947b-92e54072440a">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 			</rectangle>
-			<staticText>
-				<reportElement x="837" y="405" width="229" height="52" forecolor="#1F1F1F" uuid="7959e96c-c976-48c8-9f43-0ce2c18fde39"/>
-				<textElement>
-					<font fontName="Montserrat SemiBold" size="24.7"/>
-				</textElement>
-				<text><![CDATA[ESTRATEGIA]]></text>
-			</staticText>
+			<rectangle>
+				<reportElement x="770" y="940" width="370" height="170" forecolor="#FFFFFF" uuid="6ae08886-956a-43a5-9e7d-988b3072f4b6"/>
+			</rectangle>
 			<staticText>
 				<reportElement x="155" y="181" width="1535" height="79" forecolor="#039998" uuid="82a9a61d-91cc-41c8-ac6b-fbc8f4c77cf9"/>
 				<textElement>
@@ -305,67 +200,81 @@
 				<text><![CDATA[P A C K   C I A N]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="837" y="404" width="813" height="76" forecolor="#1F1F1F" uuid="ef455e43-4844-4f75-945e-9fe3cdb5778a"/>
+				<reportElement x="837" y="405" width="813" height="75" forecolor="#1F1F1F" uuid="ef455e43-4844-4f75-945e-9fe3cdb5778a"/>
 				<textElement>
 					<font fontName="Montserrat SemiBold" size="24.7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{texto1}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="592" y="278" width="228" height="82" forecolor="#1F1F1F" uuid="a05f7833-e3af-476b-b792-28438ccaed4c"/>
+				<reportElement x="837" y="483" width="813" height="45" forecolor="#1F1F1F" uuid="a05f7833-e3af-476b-b792-28438ccaed4c"/>
 				<textElement>
 					<font fontName="Montserrat SemiBold" size="24.7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{texto2}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="762" y="292" width="228" height="82" forecolor="#1F1F1F" uuid="f14a91ff-25cf-4af6-ab35-347e1d118dc1"/>
+				<reportElement x="837" y="528" width="813" height="42" forecolor="#1F1F1F" uuid="f14a91ff-25cf-4af6-ab35-347e1d118dc1"/>
 				<textElement>
 					<font fontName="Montserrat SemiBold" size="24.7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{texto3}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="938" y="297" width="228" height="82" forecolor="#1F1F1F" uuid="7023559d-0654-4d8d-a1be-e240a76cbbf2"/>
+				<reportElement x="837" y="570" width="813" height="38" forecolor="#1F1F1F" uuid="7023559d-0654-4d8d-a1be-e240a76cbbf2"/>
 				<textElement>
 					<font fontName="Montserrat SemiBold" size="24.7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{texto4}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1086" y="302" width="228" height="82" forecolor="#1F1F1F" uuid="2a2e46bd-3ad5-435f-b0de-87e5035006b1"/>
+				<reportElement x="837" y="620" width="813" height="70" forecolor="#1F1F1F" uuid="2a2e46bd-3ad5-435f-b0de-87e5035006b1"/>
 				<textElement>
 					<font fontName="Montserrat SemiBold" size="24.7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{texto5}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1233" y="300" width="228" height="82" forecolor="#1F1F1F" uuid="7f2e9a33-ae99-42e5-a61f-03b1c13ba79d"/>
+				<reportElement x="837" y="699" width="813" height="42" forecolor="#1F1F1F" uuid="7f2e9a33-ae99-42e5-a61f-03b1c13ba79d"/>
 				<textElement>
 					<font fontName="Montserrat SemiBold" size="24.7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{texto6}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1170" y="234" width="228" height="82" forecolor="#1F1F1F" uuid="bb9519f9-7d6c-40fb-a572-9cd6d4034053"/>
+				<reportElement x="837" y="745" width="813" height="42" forecolor="#1F1F1F" uuid="bb9519f9-7d6c-40fb-a572-9cd6d4034053"/>
 				<textElement>
 					<font fontName="Montserrat SemiBold" size="24.7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{texto7}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1343" y="235" width="228" height="82" forecolor="#1F1F1F" uuid="72eef6e4-d434-47df-8799-439197ba2ca4"/>
+				<reportElement x="837" y="791" width="813" height="42" forecolor="#1F1F1F" uuid="72eef6e4-d434-47df-8799-439197ba2ca4"/>
 				<textElement>
 					<font fontName="Montserrat SemiBold" size="24.7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{texto8}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1585" y="238" width="228" height="82" forecolor="#1F1F1F" uuid="95324a52-9af3-483a-b7ed-f8263c0220f1"/>
+				<reportElement x="837" y="837" width="813" height="73" forecolor="#1F1F1F" uuid="95324a52-9af3-483a-b7ed-f8263c0220f1"/>
 				<textElement>
 					<font fontName="Montserrat SemiBold" size="24.7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{texto9}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="796" y="975" width="354" height="55" forecolor="#039998" uuid="a625d6d1-3daf-42af-923f-98867a12bc11"/>
+				<textElement>
+					<font fontName="Montserrat SemiBold" size="38"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{precio1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="796" y="1041" width="354" height="59" forecolor="#039998" uuid="1da21695-1aa5-443e-9e27-300382ec12a5"/>
+				<textElement>
+					<font fontName="Montserrat SemiBold" size="38"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{precio2}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
