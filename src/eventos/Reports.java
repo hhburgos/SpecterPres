@@ -19,17 +19,16 @@ public class Reports {
 	public static String jrGlosario = "reports/Glosario.jasper";
 	public static String jrPackCian = "reports/PackCian.jasper";
 	public static String jrPackCeleste = "reports/PackCeleste.jasper";
+	public static String jrPackTurquesa = "reports/PackTurquesa.jasper";
+	public static String jrPackZafiro = "reports/PackZafiro.jasper";
 	public static String jrCampanaAds = "reports/CampanaAds.jasper";
 	public static String jrBlueRedes = "reports/BlueRedes.jasper";
 	public static String jrContenidoAudioVisual = "reports/ContenidoAudioVisual.jasper";
 	public static String jrFiltrosInstagram = "reports/FiltrosInstagram.jasper";
 	public static String jrLandingPage = "reports/LandingPage.jasper";
+	public static String jrTiendaOnline = "reports/TiendaOnline.jasper";
 	
 	public static String nombre_pdf = "multipleReport.pdf";
-	
-	public static void main (String [] args) {
-		
-	}
 	
 	public static void generaPrueba () {
 		List<WebCorporativa> lista1 = new ArrayList<WebCorporativa>();
