@@ -328,7 +328,7 @@ public class PanelPrincipal extends JFrame {
 				} 
 				else {
 					int idObjectClick = (int) modeloTabla.getValueAt(table.getSelectedRow(), 0);
-					System.out.println("table idObjectClick: " + idObjectClick);
+					ControladorPrincipal.modificaServicioActual(idObjectClick);
 				}
 		}});
 		

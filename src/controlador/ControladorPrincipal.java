@@ -365,6 +365,15 @@ public class ControladorPrincipal implements ActionListener {
 		return dev;
 	}
 	
+	/**
+	 * Recibe el id del servicio seleccionado y debe pasar el jp y el arrayList correspondiente a la ventana PanelSetServices para que esta guarde los cambios 
+	 * de alguna manera.
+	 * @param id
+	 */
+	public static void modificaServicioActual (int id) {
+		//
+	}
+	
 	public static void deletePagePDF (int index, int id) {
 		jasperPrintList.remove(index);
 		putNullJPrint(id);
