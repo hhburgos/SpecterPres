@@ -81,19 +81,19 @@ public class PanelPrincipal extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PanelPrincipal frame = new PanelPrincipal();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-					JOptionPane.showMessageDialog( null, e.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					PanelPrincipal frame = new PanelPrincipal();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//					JOptionPane.showMessageDialog( null, e.getStackTrace(), "PDF Guardado", JOptionPane.PLAIN_MESSAGE ); 
+//				}
+//			}
+//		});
+//	}
 	
 //	public void imprimeTabla ()  {
 //		String nombre, descripcion;
@@ -317,16 +317,18 @@ public class PanelPrincipal extends JFrame {
 		table.setRowHeight(30);
 		table.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
-				if(e.getClickCount()== ControladorPrincipal.getModo()){
-					int tableRowClick = table.getSelectedRow();
+				if (ControladorPrincipal.getModo() != 5) {
+					if(e.getClickCount()== ControladorPrincipal.getModo()){
+						int tableRowClick = table.getSelectedRow();
+						int idObjectClick = (int) modeloTabla.getValueAt(table.getSelectedRow(), 0);
+						
+						ControladorPrincipal.deletePagePDF(tableRowClick, idObjectClick);
+						quitaServicio();
+			        }
+				} 
+				else {
 					int idObjectClick = (int) modeloTabla.getValueAt(table.getSelectedRow(), 0);
-					
-					ControladorPrincipal.deletePagePDF(tableRowClick, idObjectClick);
-					quitaServicio();
-		        }
-				if(e.getClickCount()==2){
-					System.out.println("Se ha hecho doble click: " + table.getSelectedRow());
-//					quitaServicio();
+					System.out.println("table idObjectClick: " + idObjectClick);
 				}
 		}});
 		

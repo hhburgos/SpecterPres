@@ -27,10 +27,11 @@ public class Ficheros {
 		leeFicheroServicios(servicios, Servicios.getFichServicios());
 //		servicios.clear();
 //		
-//		servicios.add(new Servicios(Servicios.getSectorBlue(),"Landing Page","Lorem ipsussm", 902));
-//		servicios.add(new Servicios(Servicios.getSectorBlue(),"Web Corporativa", "Lorem Ipsum", 2342));
-//		servicios.add(new Servicios(Servicios.getSectorBlue(),"Contenido AudioVisual", "Lorem Ipsum", 2342));
-//		servicios.add(new Servicios(Servicios.getSectorBlue(),"Campaña Ads", "Lorem Ipsum", 2342));
+//		servicios.add(new Servicios(Servicios.getSectorBlue(),"Pack Celeste","Lorem ipsussm", 902));
+//		servicios.add(new Servicios(Servicios.getSectorBlue(),"Pack Cian", "Lorem Ipsum", 2342));
+//		servicios.add(new Servicios(Servicios.getSectorBlue(),"Pack Turquesa", "Lorem Ipsum", 2342));
+//		servicios.add(new Servicios(Servicios.getSectorBlue(),"Pack Zafiro", "Lorem Ipsum", 2342));
+//		servicios.add(new Servicios(Servicios.getSectorBlue(),"Tienda Online", "Lorem Ipsum", 2342));
 		
 		guardaArrayServicios(servicios, Servicios.getFichServicios());
 	}

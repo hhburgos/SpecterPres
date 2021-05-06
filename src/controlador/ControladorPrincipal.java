@@ -26,6 +26,11 @@ import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import reports_modelo.CampanaAds;
 import reports_modelo.ContenidoAudioVisual;
 import reports_modelo.LandingPage;
+import reports_modelo.PackCeleste;
+import reports_modelo.PackCian;
+import reports_modelo.PackTurquesa;
+import reports_modelo.PackZafiro;
+import reports_modelo.TiendaOnline;
 import reports_modelo.WebCorporativa;
 import vista.PanelClientes;
 import vista.PanelPrincipal;
@@ -46,6 +51,11 @@ public class ControladorPrincipal implements ActionListener {
 	private static List<CampanaAds> listCampanaAds;
 	private static List<ContenidoAudioVisual> listContenidoAudioVisual;
 	private static List<LandingPage> listLandingPage;
+	private static List<PackCeleste> listPackCeleste;
+	private static List<PackCian> listPackCian;
+	private static List<PackTurquesa> listPackTurquesa;
+	private static List<PackZafiro> listPackZafiro;
+	private static List<TiendaOnline> listTiendaOnline;
 	
 	private HashMap<Integer,Integer> tracking;
 	private HashMap<Integer,JasperPrint> jpHashMap;
@@ -53,6 +63,11 @@ public class ControladorPrincipal implements ActionListener {
 	private static JasperPrint jpWebCorporativa;
 	private static JasperPrint jpContenidoAudioVisual;
 	private static JasperPrint jpLandingPage;
+	private static JasperPrint jpPackCeleste;
+	private static JasperPrint jpPackCian;
+	private static JasperPrint jpPackTurquesa;
+	private static JasperPrint jpPackZafiro;
+	private static JasperPrint jpTiendaOnline;
 	
 	private int tableColumn = 4;
 	private static int modo = 1; // 1: borrar   5: edita
@@ -125,12 +140,22 @@ public class ControladorPrincipal implements ActionListener {
 		listWebCorporativa = new ArrayList<WebCorporativa>();
 		listContenidoAudioVisual = new ArrayList<ContenidoAudioVisual>();
 		listLandingPage = new ArrayList<LandingPage>();
+		listPackCeleste = new ArrayList<PackCeleste>();
+		listPackCian = new ArrayList<PackCian>();
+		listPackTurquesa = new ArrayList<PackTurquesa>();
+		listPackZafiro = new ArrayList<PackZafiro>();
+		listTiendaOnline = new ArrayList<TiendaOnline>();
 		
 		jpCampanaAds = null;
 		jpWebCorporativa = null;
 		jpContenidoAudioVisual = null;
 		jpLandingPage = null;
-		//-----
+		jpPackCeleste = null;
+		jpPackCian = null;
+		jpPackTurquesa = null;
+		jpPackZafiro = null;
+		jpTiendaOnline = null;
+		// --------- //
 		
 		initHashMap();
 		aTableService = new ArrayList<Servicios>();
@@ -273,6 +298,66 @@ public class ControladorPrincipal implements ActionListener {
 				}
 			} else {Ficheros.mensajeError(mainPanel, "El servicio ya está seleccionado", "Cuidado!");}
 		}
+		else if (nombre.equals("Pack Celeste")) {
+			listPackCeleste.add(new PackCeleste());
+			if (jpPackCeleste == null) {
+				try { 
+					jpPackCeleste = JasperFillManager.fillReport(Reports.jrPackCeleste, null,new JRBeanCollectionDataSource(listPackCeleste));
+					jasperPrintList.add(jpPackCeleste);
+					dev = true;
+				} catch (Exception e1) { 
+					e1.printStackTrace(); 
+				}
+			} else {Ficheros.mensajeError(mainPanel, "El servicio ya está seleccionado", "Cuidado!");}
+		}
+		else if (nombre.equals("Pack Cian")) {
+			listPackCian.add(new PackCian());
+			if (jpLandingPage == null) {
+				try { 
+					jpPackCian = JasperFillManager.fillReport(Reports.jrPackCian, null,new JRBeanCollectionDataSource(listPackCian));
+					jasperPrintList.add(jpPackCian);
+					dev = true;
+				} catch (Exception e1) { 
+					e1.printStackTrace(); 
+				}
+			} else {Ficheros.mensajeError(mainPanel, "El servicio ya está seleccionado", "Cuidado!");}
+		}
+		else if (nombre.equals("Pack Turquesa")) {
+			listPackTurquesa.add(new PackTurquesa());
+			if (jpPackTurquesa == null) {
+				try { 
+					jpPackTurquesa = JasperFillManager.fillReport(Reports.jrPackTurquesa, null,new JRBeanCollectionDataSource(listPackTurquesa));
+					jasperPrintList.add(jpPackTurquesa);
+					dev = true;
+				} catch (Exception e1) { 
+					e1.printStackTrace(); 
+				}
+			} else {Ficheros.mensajeError(mainPanel, "El servicio ya está seleccionado", "Cuidado!");}
+		}
+		else if (nombre.equals("Pack Zafiro")) {
+			listPackZafiro.add(new PackZafiro());
+			if (jpPackZafiro == null) {
+				try { 
+					jpPackZafiro = JasperFillManager.fillReport(Reports.jrPackZafiro, null,new JRBeanCollectionDataSource(listPackZafiro));
+					jasperPrintList.add(jpPackZafiro);
+					dev = true;
+				} catch (Exception e1) { 
+					e1.printStackTrace(); 
+				}
+			} else {Ficheros.mensajeError(mainPanel, "El servicio ya está seleccionado", "Cuidado!");}
+		}
+		else if (nombre.equals("Tienda Online")) {
+			listTiendaOnline.add(new TiendaOnline());
+			if (jpTiendaOnline == null) {
+				try { 
+					jpTiendaOnline = JasperFillManager.fillReport(Reports.jrTiendaOnline, null,new JRBeanCollectionDataSource(listTiendaOnline));
+					jasperPrintList.add(jpTiendaOnline);
+					dev = true;
+				} catch (Exception e1) { 
+					e1.printStackTrace(); 
+				}
+			} else {Ficheros.mensajeError(mainPanel, "El servicio ya está seleccionado", "Cuidado!");}
+		}
 		else {
 			System.out.println("No se reoconoce el servicio");
 		}
@@ -306,6 +391,26 @@ public class ControladorPrincipal implements ActionListener {
 			jpCampanaAds = null;
 			listCampanaAds.clear();
 		}
+		else if (id == 5) {
+			jpPackCeleste = null;
+			listPackCeleste.clear();
+		}
+		else if (id == 6) {
+			jpPackCian = null;
+			listPackCian.clear();
+		}
+		else if (id == 7) {
+			jpPackTurquesa = null;
+			listPackTurquesa.clear();
+		}
+		else if (id == 8) {
+			jpPackZafiro = null;
+			listPackZafiro.clear();
+		}
+		else if (id == 9) {
+			jpTiendaOnline = null;
+			listTiendaOnline.clear();
+		}
 	}
 	
 	public void resetAll () {
@@ -313,11 +418,21 @@ public class ControladorPrincipal implements ActionListener {
 		jpWebCorporativa = null;
 		jpContenidoAudioVisual = null;
 		jpCampanaAds = null;
+		jpPackCeleste = null;
+		jpPackCian = null;
+		jpPackTurquesa = null;
+		jpPackZafiro = null;
+		jpTiendaOnline = null;
 		
 		listLandingPage.clear();
 		listWebCorporativa.clear();
 		listContenidoAudioVisual.clear();
 		listCampanaAds.clear();
+		listPackCeleste.clear();
+		listPackCian.clear();
+		listPackTurquesa.clear();
+		listPackZafiro.clear();
+		listTiendaOnline.clear();
 		
 		mainPanel.limpiaTabla();
 		

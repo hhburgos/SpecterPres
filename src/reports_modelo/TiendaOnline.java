@@ -67,5 +67,4 @@ public class TiendaOnline {
 	public String toString() {
 		return "TiendaOnline [precio1=" + precio1 + ", url=" + url + "]";
 	}
-	
 }
