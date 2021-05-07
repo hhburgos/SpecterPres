@@ -136,6 +136,7 @@ public class ControladorPrincipal implements ActionListener {
 		
 		//JASPER REPORTS RESOURCE
 		jasperPrintList = new ArrayList<JasperPrint>();
+		
 		listCampanaAds =  new ArrayList<CampanaAds>();
 		listWebCorporativa = new ArrayList<WebCorporativa>();
 		listContenidoAudioVisual = new ArrayList<ContenidoAudioVisual>();
@@ -361,7 +362,7 @@ public class ControladorPrincipal implements ActionListener {
 		else {
 			System.out.println("No se reoconoce el servicio");
 		}
-		
+			
 		return dev;
 	}
 	
@@ -507,4 +508,213 @@ public class ControladorPrincipal implements ActionListener {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+
+	public PanelPrincipal getMainPanel() {
+		return mainPanel;
+	}
+
+	public void setMainPanel(PanelPrincipal mainPanel) {
+		this.mainPanel = mainPanel;
+	}
+
+	public String getFich_servicios() {
+		return fich_servicios;
+	}
+
+	public void setFich_servicios(String fich_servicios) {
+		this.fich_servicios = fich_servicios;
+	}
+
+	public int getSector_activo() {
+		return sector_activo;
+	}
+
+	public void setSector_activo(int sector_activo) {
+		this.sector_activo = sector_activo;
+	}
+
+	public ArrayList<Servicios> getaTableService() {
+		return aTableService;
+	}
+
+	public void setaTableService(ArrayList<Servicios> aTableService) {
+		this.aTableService = aTableService;
+	}
+
+	public static List<JasperPrint> getJasperPrintList() {
+		return jasperPrintList;
+	}
+
+	public static void setJasperPrintList(List<JasperPrint> jasperPrintList) {
+		ControladorPrincipal.jasperPrintList = jasperPrintList;
+	}
+
+	public static List<WebCorporativa> getListWebCorporativa() {
+		return listWebCorporativa;
+	}
+
+	public static void setListWebCorporativa(List<WebCorporativa> listWebCorporativa) {
+		ControladorPrincipal.listWebCorporativa = listWebCorporativa;
+	}
+
+	public static List<CampanaAds> getListCampanaAds() {
+		return listCampanaAds;
+	}
+
+	public static void setListCampanaAds(List<CampanaAds> listCampanaAds) {
+		ControladorPrincipal.listCampanaAds = listCampanaAds;
+	}
+
+	public static List<ContenidoAudioVisual> getListContenidoAudioVisual() {
+		return listContenidoAudioVisual;
+	}
+
+	public static void setListContenidoAudioVisual(List<ContenidoAudioVisual> listContenidoAudioVisual) {
+		ControladorPrincipal.listContenidoAudioVisual = listContenidoAudioVisual;
+	}
+
+	public static List<LandingPage> getListLandingPage() {
+		return listLandingPage;
+	}
+
+	public static void setListLandingPage(List<LandingPage> listLandingPage) {
+		ControladorPrincipal.listLandingPage = listLandingPage;
+	}
+
+	public static List<PackCeleste> getListPackCeleste() {
+		return listPackCeleste;
+	}
+
+	public static void setListPackCeleste(List<PackCeleste> listPackCeleste) {
+		ControladorPrincipal.listPackCeleste = listPackCeleste;
+	}
+
+	public static List<PackCian> getListPackCian() {
+		return listPackCian;
+	}
+
+	public static void setListPackCian(List<PackCian> listPackCian) {
+		ControladorPrincipal.listPackCian = listPackCian;
+	}
+
+	public static List<PackTurquesa> getListPackTurquesa() {
+		return listPackTurquesa;
+	}
+
+	public static void setListPackTurquesa(List<PackTurquesa> listPackTurquesa) {
+		ControladorPrincipal.listPackTurquesa = listPackTurquesa;
+	}
+
+	public static List<PackZafiro> getListPackZafiro() {
+		return listPackZafiro;
+	}
+
+	public static void setListPackZafiro(List<PackZafiro> listPackZafiro) {
+		ControladorPrincipal.listPackZafiro = listPackZafiro;
+	}
+
+	public static List<TiendaOnline> getListTiendaOnline() {
+		return listTiendaOnline;
+	}
+
+	public static void setListTiendaOnline(List<TiendaOnline> listTiendaOnline) {
+		ControladorPrincipal.listTiendaOnline = listTiendaOnline;
+	}
+
+	public HashMap<Integer, Integer> getTracking() {
+		return tracking;
+	}
+
+	public void setTracking(HashMap<Integer, Integer> tracking) {
+		this.tracking = tracking;
+	}
+
+	public HashMap<Integer, JasperPrint> getJpHashMap() {
+		return jpHashMap;
+	}
+
+	public void setJpHashMap(HashMap<Integer, JasperPrint> jpHashMap) {
+		this.jpHashMap = jpHashMap;
+	}
+
+	public static JasperPrint getJpCampanaAds() {
+		return jpCampanaAds;
+	}
+
+	public static void setJpCampanaAds(JasperPrint jpCampanaAds) {
+		ControladorPrincipal.jpCampanaAds = jpCampanaAds;
+	}
+
+	public static JasperPrint getJpWebCorporativa() {
+		return jpWebCorporativa;
+	}
+
+	public static void setJpWebCorporativa(JasperPrint jpWebCorporativa) {
+		ControladorPrincipal.jpWebCorporativa = jpWebCorporativa;
+	}
+
+	public static JasperPrint getJpContenidoAudioVisual() {
+		return jpContenidoAudioVisual;
+	}
+
+	public static void setJpContenidoAudioVisual(JasperPrint jpContenidoAudioVisual) {
+		ControladorPrincipal.jpContenidoAudioVisual = jpContenidoAudioVisual;
+	}
+
+	public static JasperPrint getJpLandingPage() {
+		return jpLandingPage;
+	}
+
+	public static void setJpLandingPage(JasperPrint jpLandingPage) {
+		ControladorPrincipal.jpLandingPage = jpLandingPage;
+	}
+
+	public static JasperPrint getJpPackCeleste() {
+		return jpPackCeleste;
+	}
+
+	public static void setJpPackCeleste(JasperPrint jpPackCeleste) {
+		ControladorPrincipal.jpPackCeleste = jpPackCeleste;
+	}
+
+	public static JasperPrint getJpPackCian() {
+		return jpPackCian;
+	}
+
+	public static void setJpPackCian(JasperPrint jpPackCian) {
+		ControladorPrincipal.jpPackCian = jpPackCian;
+	}
+
+	public static JasperPrint getJpPackTurquesa() {
+		return jpPackTurquesa;
+	}
+
+	public static void setJpPackTurquesa(JasperPrint jpPackTurquesa) {
+		ControladorPrincipal.jpPackTurquesa = jpPackTurquesa;
+	}
+
+	public static JasperPrint getJpPackZafiro() {
+		return jpPackZafiro;
+	}
+
+	public static void setJpPackZafiro(JasperPrint jpPackZafiro) {
+		ControladorPrincipal.jpPackZafiro = jpPackZafiro;
+	}
+
+	public static JasperPrint getJpTiendaOnline() {
+		return jpTiendaOnline;
+	}
+
+	public static void setJpTiendaOnline(JasperPrint jpTiendaOnline) {
+		ControladorPrincipal.jpTiendaOnline = jpTiendaOnline;
+	}
+
+	public int getTableColumn() {
+		return tableColumn;
+	}
+
+	public void setTableColumn(int tableColumn) {
+		this.tableColumn = tableColumn;
+	}
+	
 }

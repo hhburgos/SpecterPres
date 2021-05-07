@@ -36,6 +36,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.ControladorPrincipal;
+import controlador.ControladorSetServices;
 import modelo.Cliente;
 import modelo.Servicios;
 
@@ -329,6 +330,10 @@ public class PanelPrincipal extends JFrame {
 				else {
 					int idObjectClick = (int) modeloTabla.getValueAt(table.getSelectedRow(), 0);
 					ControladorPrincipal.modificaServicioActual(idObjectClick);
+					
+					PanelSetServices pss = new PanelSetServices();
+					ControladorSetServices css = new ControladorSetServices(pss,idObjectClick);
+					pss.setVisible(true);
 				}
 		}});
 		
