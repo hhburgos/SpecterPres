@@ -481,6 +481,8 @@ public class ControladorPrincipal implements ActionListener {
 		jpPackZafiro = null;
 		jpTiendaOnline = null;
 		
+		jpContenidoAudioVisual = null;
+		
 		listLandingPage.clear();
 		listWebCorporativa.clear();
 		listContenidoAudioVisual.clear();
@@ -490,6 +492,8 @@ public class ControladorPrincipal implements ActionListener {
 		listPackTurquesa.clear();
 		listPackZafiro.clear();
 		listTiendaOnline.clear();
+		
+		listContenidoAudioVisual1824.clear();
 		
 		mainPanel.limpiaTabla();
 		
