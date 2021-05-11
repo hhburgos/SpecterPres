@@ -25,6 +25,7 @@ import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import reports_modelo.CampanaAds;
 import reports_modelo.ContenidoAudioVisual;
+import reports_modelo.ContenidoAudioVisual1824;
 import reports_modelo.LandingPage;
 import reports_modelo.PackCeleste;
 import reports_modelo.PackCian;
@@ -46,7 +47,7 @@ public class ControladorPrincipal implements ActionListener {
 	private ArrayList<Servicios> aTableService;
 	private Cliente cliente;
 	
-	private static List<JasperPrint> jasperPrintList;
+	public static List<JasperPrint> jasperPrintList;
 	private static List<WebCorporativa> listWebCorporativa;
 	private static List<CampanaAds> listCampanaAds;
 	private static List<ContenidoAudioVisual> listContenidoAudioVisual;
@@ -56,6 +57,8 @@ public class ControladorPrincipal implements ActionListener {
 	private static List<PackTurquesa> listPackTurquesa;
 	private static List<PackZafiro> listPackZafiro;
 	private static List<TiendaOnline> listTiendaOnline;
+	
+	private static List<ContenidoAudioVisual1824> listContenidoAudioVisual1824;
 	
 	private HashMap<Integer,Integer> tracking;
 	private HashMap<Integer,JasperPrint> jpHashMap;
@@ -68,6 +71,8 @@ public class ControladorPrincipal implements ActionListener {
 	private static JasperPrint jpPackTurquesa;
 	private static JasperPrint jpPackZafiro;
 	private static JasperPrint jpTiendaOnline;
+	
+	private static JasperPrint jpContenidoAudioVisual1824;
 	
 	private int tableColumn = 4;
 	private static int modo = 1; // 1: borrar   5: edita
@@ -129,6 +134,10 @@ public class ControladorPrincipal implements ActionListener {
 	
 	
 //METODOS PRINCIPALES
+	/**
+	 * Realiza las instancias iniciales correspondiente del programa para que nada pete
+	 * También llama a los métodos principales que pondrán todo en su sitio
+	 */
 	public void inicio () {
 		aServicios = new ArrayList<Servicios>();
 		sector_activo = Servicios.getSectorBlue();
@@ -147,6 +156,8 @@ public class ControladorPrincipal implements ActionListener {
 		listPackZafiro = new ArrayList<PackZafiro>();
 		listTiendaOnline = new ArrayList<TiendaOnline>();
 		
+		listContenidoAudioVisual1824 = new ArrayList<ContenidoAudioVisual1824>();
+		
 		jpCampanaAds = null;
 		jpWebCorporativa = null;
 		jpContenidoAudioVisual = null;
@@ -156,6 +167,8 @@ public class ControladorPrincipal implements ActionListener {
 		jpPackTurquesa = null;
 		jpPackZafiro = null;
 		jpTiendaOnline = null;
+		
+		jpContenidoAudioVisual1824 = null;
 		// --------- //
 		
 		initHashMap();
@@ -164,7 +177,7 @@ public class ControladorPrincipal implements ActionListener {
 	}
 	
 	public void mueveServicio () {
-		int servicio_seleccionado = mainPanel.listServicios.getSelectedIndex();
+		int servicio_seleccionado = damePosEnArray(); //mainPanel.listServicios.getSelectedIndex();
 		
 		Object [] fila = new Object[tableColumn];
 		fila[0] = ControladorPrincipal.getaServicios().get(servicio_seleccionado).get_id();
@@ -174,6 +187,19 @@ public class ControladorPrincipal implements ActionListener {
 		mainPanel.modeloTabla.addRow (fila); // Añade una fila al final
 		
 		aTableService.add(ControladorPrincipal.getaServicios().get(servicio_seleccionado));
+	}
+	//dfdf
+	public int damePosEnArray () {
+		int dev = 0;
+		String nombre = mainPanel.listServicios.getSelectedValue().toString();
+		for (int i = 0; i < aServicios.size(); i++) {
+			if (aServicios.get(i).getNombre().equals(nombre) && aServicios.get(i).getSector() == sector_activo) {
+				dev = i;
+				i = aServicios.size();
+				System.out.println("damePosArray: " + dev);
+			}
+		}
+		return dev;
 	}
 	
 	/**
@@ -191,14 +217,17 @@ public class ControladorPrincipal implements ActionListener {
 		}
 	}
 	
+
 	public void cargaLista () { //aqui
 		aServicios.clear();
 		mainPanel.modeloServicios.clear();
 		
 		Ficheros.leeFicheroServicios(aServicios,fich_servicios);
+		int indexServ = 0;
 		for (int i = 0; i < aServicios.size(); i++) {
 			if (aServicios.get(i).getSector() == sector_activo) {
-				mainPanel.modeloServicios.add(i, aServicios.get(i).getNombre());
+				mainPanel.modeloServicios.add(indexServ, aServicios.get(i).getNombre());
+				indexServ ++;
 			}
 		}
 		mainPanel.scrollPane_1.setViewportView(mainPanel.listServicios);
@@ -237,8 +266,8 @@ public class ControladorPrincipal implements ActionListener {
 			public void mouseClicked(MouseEvent evt) { 
 				JList list = (JList)evt.getSource(); 
 				if (evt.getClickCount() == 1) { 
-					int index = list.locationToIndex(evt.getPoint());
-					if (administraReports(index)) {
+					//int index = list.locationToIndex(evt.getPoint());
+					if (administraReports(/*index*/)) {
 						mueveServicio();
 					}
 				}
@@ -248,8 +277,11 @@ public class ControladorPrincipal implements ActionListener {
 	
 	//suponiendo que ahora solo trabajemos con blue, esto s epodria gestionar con ids
 	//tambien se debe comprobar de que no se incluyen dos veces el mismo servicio a la tabla
-	public boolean administraReports(int index) {
+	public boolean administraReports(/*int index*/) {
+		int index = damePosEnArray();
 		String nombre = aServicios.get(index).getNombre();
+		int sector = aServicios.get(index).getSector();
+		System.out.println("index:" + index + "  nombre:" + nombre + "  sector;"+ sector);
 		boolean dev = false;
 		if (nombre.equals("Campaña Ads")) {
 			listCampanaAds.add(new CampanaAds());
@@ -275,7 +307,7 @@ public class ControladorPrincipal implements ActionListener {
 				}
 			} else {Ficheros.mensajeError(mainPanel, "El servicio ya está seleccionado", "Cuidado!");}
 		}
-		else if (nombre.equals("Contenido AudioVisual")) {
+		else if (nombre.equals("Contenido AudioVisual") && sector == Servicios.getSectorBlue()) {
 			listContenidoAudioVisual.add(new ContenidoAudioVisual());
 			if (jpContenidoAudioVisual == null) {
 				try { 
@@ -313,7 +345,7 @@ public class ControladorPrincipal implements ActionListener {
 		}
 		else if (nombre.equals("Pack Cian")) {
 			listPackCian.add(new PackCian());
-			if (jpLandingPage == null) {
+			if (jpPackCian == null) {
 				try { 
 					jpPackCian = JasperFillManager.fillReport(Reports.jrPackCian, null,new JRBeanCollectionDataSource(listPackCian));
 					jasperPrintList.add(jpPackCian);
@@ -353,6 +385,18 @@ public class ControladorPrincipal implements ActionListener {
 				try { 
 					jpTiendaOnline = JasperFillManager.fillReport(Reports.jrTiendaOnline, null,new JRBeanCollectionDataSource(listTiendaOnline));
 					jasperPrintList.add(jpTiendaOnline);
+					dev = true;
+				} catch (Exception e1) { 
+					e1.printStackTrace(); 
+				}
+			} else {Ficheros.mensajeError(mainPanel, "El servicio ya está seleccionado", "Cuidado!");}
+		}
+		else if (nombre.equals("Contenido Audiovisual") && sector == Servicios.getSector1824()) {
+			listContenidoAudioVisual1824.add(new ContenidoAudioVisual1824());
+			if (jpContenidoAudioVisual1824 == null) {
+				try { 
+					jpContenidoAudioVisual1824 = JasperFillManager.fillReport(Reports.jrContenidoAudioVisual1824, null,new JRBeanCollectionDataSource(listContenidoAudioVisual1824));
+					jasperPrintList.add(jpContenidoAudioVisual1824);
 					dev = true;
 				} catch (Exception e1) { 
 					e1.printStackTrace(); 
@@ -423,6 +467,9 @@ public class ControladorPrincipal implements ActionListener {
 		}
 	}
 	
+	/**
+	 * Coloca los jasperPrints a null y los ArrayList son limpiados
+	 */
 	public void resetAll () {
 		jpLandingPage = null;
 		jpWebCorporativa = null;

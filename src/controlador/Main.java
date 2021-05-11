@@ -10,5 +10,4 @@ public class Main {
 		
 		pp.setVisible(true);
 	}
-	
 }

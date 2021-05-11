@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
+import java.awt.Color;
+import java.awt.Font;
 
 public class PanelSetServices extends JDialog {
 
@@ -20,29 +22,34 @@ public class PanelSetServices extends JDialog {
 	public JButton btnAceptar;
 	private JScrollPane scrollPane;
 	
-	public static void main(String[] args) {
-		try {
-			PanelSetServices dialog = new PanelSetServices();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args) {
+//		try {
+//			PanelSetServices dialog = new PanelSetServices();
+//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//			dialog.setVisible(true);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * Create the dialog.
 	 */
 	public PanelSetServices() {
+		setResizable(false);
+		getContentPane().setBackground(Color.WHITE);
 		setModal(true);
 		setBounds(100, 100, 557, 349);
 		getContentPane().setLayout(null);
 		
 		lblServicesName = new JLabel("New label");
-		lblServicesName.setBounds(28, 26, 168, 34);
+		lblServicesName.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblServicesName.setBounds(28, 13, 253, 47);
 		getContentPane().add(lblServicesName);
 		
 		cbSelectAttribute = new JComboBox();
+		cbSelectAttribute.setBackground(new Color(204, 255, 255));
+		cbSelectAttribute.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		cbSelectAttribute.setBounds(28, 73, 253, 28);
 		getContentPane().add(cbSelectAttribute);
 		

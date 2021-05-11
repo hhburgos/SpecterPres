@@ -27,7 +27,7 @@ public class Ficheros {
 		leeFicheroServicios(servicios, Servicios.getFichServicios());
 //		servicios.clear();
 //		
-//		servicios.add(new Servicios(Servicios.getSectorBlue(),"Pack Celeste","Lorem ipsussm", 902));
+//		servicios.add(new Servicios(Servicios.getSector1824(),"Contenido Audiovisual","Lorem ipsussm", 902));
 //		servicios.add(new Servicios(Servicios.getSectorBlue(),"Pack Cian", "Lorem Ipsum", 2342));
 //		servicios.add(new Servicios(Servicios.getSectorBlue(),"Pack Turquesa", "Lorem Ipsum", 2342));
 //		servicios.add(new Servicios(Servicios.getSectorBlue(),"Pack Zafiro", "Lorem Ipsum", 2342));

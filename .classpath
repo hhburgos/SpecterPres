@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="C:/Users/sburg/eclipse-workspace/SpecterGroup/fonts/MontSerratMedium.jar"/>
 	<classpathentry kind="lib" path="C:/Users/sburg/eclipse-workspace/SpecterGroup/fonts/MontSerratSemiBold.jar"/>
 	<classpathentry kind="lib" path="C:/Users/sburg/eclipse-workspace/SpecterGroup/fonts/MontserrarLigth.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sburg/eclipse-workspace/SpecterGroup/fonts/Montserrat.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

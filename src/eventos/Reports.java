@@ -15,18 +15,20 @@ import reports_modelo.WebCorporativa;
 
 public class Reports {
 	
-	public static String jrWebCorporativa = "reports/WebCorporativa.jasper";
-	public static String jrGlosario = "reports/Glosario.jasper";
-	public static String jrPackCian = "reports/PackCian.jasper";
-	public static String jrPackCeleste = "reports/PackCeleste.jasper";
-	public static String jrPackTurquesa = "reports/PackTurquesa.jasper";
-	public static String jrPackZafiro = "reports/PackZafiro.jasper";
-	public static String jrCampanaAds = "reports/CampanaAds.jasper";
-	public static String jrBlueRedes = "reports/BlueRedes.jasper";
-	public static String jrContenidoAudioVisual = "reports/ContenidoAudioVisual.jasper";
-	public static String jrFiltrosInstagram = "reports/FiltrosInstagram.jasper";
-	public static String jrLandingPage = "reports/LandingPage.jasper";
-	public static String jrTiendaOnline = "reports/TiendaOnline.jasper";
+	public static String jrWebCorporativa = "reports-blue/WebCorporativa.jasper";
+	public static String jrGlosario = "reports-blue/Glosario.jasper";
+	public static String jrPackCian = "reports-blue/PackCian.jasper";
+	public static String jrPackCeleste = "reports-blue/PackCeleste.jasper";
+	public static String jrPackTurquesa = "reports-blue/PackTurquesa.jasper";
+	public static String jrPackZafiro = "reports-blue/PackZafiro.jasper";
+	public static String jrCampanaAds = "reports-blue/CampanaAds.jasper";
+	public static String jrBlueRedes = "reports-blue/BlueRedes.jasper";
+	public static String jrContenidoAudioVisual = "reports-blue/ContenidoAudioVisual.jasper";
+	public static String jrFiltrosInstagram = "reports-blue/FiltrosInstagram.jasper";
+	public static String jrLandingPage = "reports-blue/LandingPage.jasper";
+	public static String jrTiendaOnline = "reports-blue/TiendaOnline.jasper";
+	
+	public static String jrContenidoAudioVisual1824 = "reports-1824/ContenidoAudioVisual1824.jasper";
 	
 	public static String nombre_pdf = "multipleReport.pdf";
 	

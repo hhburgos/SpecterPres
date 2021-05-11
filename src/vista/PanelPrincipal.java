@@ -75,6 +75,7 @@ public class PanelPrincipal extends JFrame {
 	public JRadioButton rbBorrar;
 	public JTextField tfCliente;
 	
+	public static int tableRowClick;
 	private JTable table;
 	public JScrollPane scrollPane_1;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
@@ -219,6 +220,7 @@ public class PanelPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public PanelPrincipal() {
+		setResizable(false);
 		ruta_jasperreport.replace('/', File.separatorChar);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -273,7 +275,7 @@ public class PanelPrincipal extends JFrame {
 		tfCliente.setColumns(10);
 		
 		btnLimpiar = new JButton("Limpiar");
-		btnLimpiar.setBounds(950, 51, 97, 25);
+		btnLimpiar.setBounds(950, 53, 97, 25);
 		getContentPane().add(btnLimpiar);
 	}
 	
@@ -320,7 +322,8 @@ public class PanelPrincipal extends JFrame {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				if (ControladorPrincipal.getModo() != 5) {
 					if(e.getClickCount()== ControladorPrincipal.getModo()){
-						int tableRowClick = table.getSelectedRow();
+						tableRowClick = table.getSelectedRow();
+//						System.out.println("tableRowClick; " + table.getSelectedRow());
 						int idObjectClick = (int) modeloTabla.getValueAt(table.getSelectedRow(), 0);
 						
 						ControladorPrincipal.deletePagePDF(tableRowClick, idObjectClick);
@@ -329,6 +332,7 @@ public class PanelPrincipal extends JFrame {
 				} 
 				else {
 					int idObjectClick = (int) modeloTabla.getValueAt(table.getSelectedRow(), 0);
+					tableRowClick = table.getSelectedRow();
 					ControladorPrincipal.modificaServicioActual(idObjectClick);
 					
 					PanelSetServices pss = new PanelSetServices();
@@ -383,6 +387,13 @@ public class PanelPrincipal extends JFrame {
 		getContentPane().add(btnAdminServicios);
 	}
 	
+	public int getTableRowClick() {
+		return tableRowClick;
+	}
+
+	public void setTableRowClick(int tableRowClick) {
+		this.tableRowClick = tableRowClick;
+	}
 
 	/**
 	 * Su método colorea las cabeceras de una jtable
