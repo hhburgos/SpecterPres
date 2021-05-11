@@ -88,10 +88,6 @@
 				</textElement>
 				<text><![CDATA[V]]></text>
 			</staticText>
-			<image>
-				<reportElement x="0" y="0" width="1753" height="1241" uuid="1153b895-9418-4560-86d1-dc9a298a6f4c"/>
-				<imageExpression><![CDATA["/src/img/ContenidoAudioVisual.jpg"]]></imageExpression>
-			</image>
 			<rectangle>
 				<reportElement x="0" y="0" width="1680" height="250" forecolor="#FFFFFF" uuid="6b351ea0-26a1-4a7a-bf6d-c1104de97b7f"/>
 			</rectangle>
@@ -145,6 +141,10 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{precio3}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="0" y="80" width="1680" height="1158" uuid="1153b895-9418-4560-86d1-dc9a298a6f4c"/>
+				<imageExpression><![CDATA["/src/img/ContenidoAudioVisualPro.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</detail>
 </jasperReport>
