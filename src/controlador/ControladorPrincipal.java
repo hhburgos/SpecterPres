@@ -26,7 +26,12 @@ import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import reports_modelo.CampanaAds;
 import reports_modelo.ContenidoAudioVisual;
 import reports_modelo.ContenidoAudioVisual1824;
+import reports_modelo.DisenoPacking1824;
+import reports_modelo.DisenoProducto1824;
 import reports_modelo.LandingPage;
+import reports_modelo.Logotipos1824;
+import reports_modelo.Modelado3D1824;
+import reports_modelo.Naming1824;
 import reports_modelo.PackCeleste;
 import reports_modelo.PackCian;
 import reports_modelo.PackTurquesa;
@@ -59,6 +64,11 @@ public class ControladorPrincipal implements ActionListener {
 	private static List<TiendaOnline> listTiendaOnline;
 	
 	private static List<ContenidoAudioVisual1824> listContenidoAudioVisual1824;
+	private static List<DisenoPacking1824> listDisenoPacking;
+	private static List<DisenoProducto1824> listDisenoProducto;
+	private static List<Logotipos1824> listLogotipos;
+	private static List<Modelado3D1824> listModelado3D;
+	private static List<Naming1824> listNaming;
 	
 	private HashMap<Integer,Integer> tracking;
 	private HashMap<Integer,JasperPrint> jpHashMap;
@@ -73,6 +83,11 @@ public class ControladorPrincipal implements ActionListener {
 	private static JasperPrint jpTiendaOnline;
 	
 	private static JasperPrint jpContenidoAudioVisual1824;
+	private static JasperPrint jpDisenoPacking;
+	private static JasperPrint jpDisenoProducto;
+	private static JasperPrint jpLogotipos;
+	private static JasperPrint jpModelado3D;
+	private static JasperPrint jpNaming;
 	
 	private int tableColumn = 4;
 	private static int modo = 1; // 1: borrar   5: edita
@@ -157,6 +172,11 @@ public class ControladorPrincipal implements ActionListener {
 		listTiendaOnline = new ArrayList<TiendaOnline>();
 		
 		listContenidoAudioVisual1824 = new ArrayList<ContenidoAudioVisual1824>();
+		listDisenoPacking = new ArrayList<DisenoPacking1824>();
+		listDisenoProducto = new ArrayList<DisenoProducto1824>();
+		listLogotipos = new ArrayList<Logotipos1824>();
+		listModelado3D = new ArrayList<Modelado3D1824>();
+		listNaming = new ArrayList<Naming1824>();
 		
 		jpCampanaAds = null;
 		jpWebCorporativa = null;
@@ -169,6 +189,11 @@ public class ControladorPrincipal implements ActionListener {
 		jpTiendaOnline = null;
 		
 		jpContenidoAudioVisual1824 = null;
+		jpDisenoPacking = null;
+		jpDisenoProducto = null;
+		jpLogotipos = null;
+		jpModelado3D = null;
+		jpNaming = null;
 		// --------- //
 		
 		initHashMap();
@@ -403,6 +428,66 @@ public class ControladorPrincipal implements ActionListener {
 				}
 			} else {Ficheros.mensajeError(mainPanel, "El servicio ya está seleccionado", "Cuidado!");}
 		}
+		else if (nombre.equals("Diseño Packing") && sector == Servicios.getSector1824()) {
+			listDisenoPacking.add(new DisenoPacking1824());
+			if (jpDisenoPacking == null) {
+				try { 
+					jpDisenoPacking = JasperFillManager.fillReport(Reports.jrDisenoPacking, null,new JRBeanCollectionDataSource(listDisenoPacking));
+					jasperPrintList.add(jpDisenoPacking);
+					dev = true;
+				} catch (Exception e1) { 
+					e1.printStackTrace(); 
+				}
+			} else {Ficheros.mensajeError(mainPanel, "El servicio ya está seleccionado", "Cuidado!");}
+		}
+		else if (nombre.equals("Diseño Producto") && sector == Servicios.getSector1824()) {
+			listDisenoProducto.add(new DisenoProducto1824());
+			if (jpDisenoProducto == null) {
+				try { 
+					jpDisenoProducto = JasperFillManager.fillReport(Reports.jrDisenoProducto2, null,new JRBeanCollectionDataSource(listDisenoProducto));
+					jasperPrintList.add(jpDisenoProducto);
+					dev = true;
+				} catch (Exception e1) { 
+					e1.printStackTrace(); 
+				}
+			} else {Ficheros.mensajeError(mainPanel, "El servicio ya está seleccionado", "Cuidado!");}
+		}
+		else if (nombre.equals("Logotipos") && sector == Servicios.getSector1824()) {
+			listLogotipos.add(new Logotipos1824());
+			if (jpLogotipos == null) {
+				try { 
+					jpLogotipos = JasperFillManager.fillReport(Reports.jrLogotipos, null,new JRBeanCollectionDataSource(listLogotipos));
+					jasperPrintList.add(jpLogotipos);
+					dev = true;
+				} catch (Exception e1) { 
+					e1.printStackTrace(); 
+				}
+			} else {Ficheros.mensajeError(mainPanel, "El servicio ya está seleccionado", "Cuidado!");}
+		}
+		else if (nombre.equals("Modelado 3D") && sector == Servicios.getSector1824()) {
+			listModelado3D.add(new Modelado3D1824());
+			if (jpModelado3D == null) {
+				try { 
+					jpModelado3D = JasperFillManager.fillReport(Reports.jrModelado3D2, null,new JRBeanCollectionDataSource(listModelado3D));
+					jasperPrintList.add(jpModelado3D);
+					dev = true;
+				} catch (Exception e1) { 
+					e1.printStackTrace(); 
+				}
+			} else {Ficheros.mensajeError(mainPanel, "El servicio ya está seleccionado", "Cuidado!");}
+		}
+		else if (nombre.equals("Naming") && sector == Servicios.getSector1824()) {
+			listNaming.add(new Naming1824());
+			if (jpNaming == null) {
+				try { 
+					jpNaming = JasperFillManager.fillReport(Reports.jrNaming, null,new JRBeanCollectionDataSource(listNaming));
+					jasperPrintList.add(jpNaming);
+					dev = true;
+				} catch (Exception e1) { 
+					e1.printStackTrace(); 
+				}
+			} else {Ficheros.mensajeError(mainPanel, "El servicio ya está seleccionado", "Cuidado!");}
+		}
 		else {
 			System.out.println("No se reoconoce el servicio");
 		}
@@ -465,6 +550,30 @@ public class ControladorPrincipal implements ActionListener {
 			jpTiendaOnline = null;
 			listTiendaOnline.clear();
 		}
+		else if (id == 10) {
+			jpContenidoAudioVisual1824 = null;
+			listContenidoAudioVisual1824.clear();
+		}
+		else if (id == 11) {
+			jpDisenoPacking = null;
+			listDisenoPacking.clear();
+		}
+		else if (id == 12) {
+			jpDisenoProducto = null;
+			listDisenoProducto.clear();
+		}
+		else if (id == 13) {
+			jpLogotipos = null;
+			listLogotipos.clear();
+		}
+		else if (id == 14) {
+			jpModelado3D = null;
+			listModelado3D.clear();
+		}
+		else if (id == 15) {
+			jpNaming = null;
+			listNaming.clear();
+		}
 	}
 	
 	/**
@@ -481,7 +590,12 @@ public class ControladorPrincipal implements ActionListener {
 		jpPackZafiro = null;
 		jpTiendaOnline = null;
 		
-		jpContenidoAudioVisual = null;
+		jpContenidoAudioVisual1824 = null;
+		jpDisenoPacking = null;
+		jpDisenoProducto = null;
+		jpLogotipos = null;
+		jpModelado3D = null;
+		jpNaming = null;
 		
 		listLandingPage.clear();
 		listWebCorporativa.clear();
@@ -494,6 +608,11 @@ public class ControladorPrincipal implements ActionListener {
 		listTiendaOnline.clear();
 		
 		listContenidoAudioVisual1824.clear();
+		listDisenoPacking.clear();
+		listDisenoProducto.clear();
+		listLogotipos.clear();
+		listModelado3D.clear();
+		listNaming.clear();
 		
 		mainPanel.limpiaTabla();
 		

@@ -29,6 +29,14 @@ public class Reports {
 	public static String jrTiendaOnline = "reports-blue/TiendaOnline.jasper";
 	
 	public static String jrContenidoAudioVisual1824 = "reports-1824/ContenidoAudioVisual1824.jasper";
+	public static String jrBranding = "reports-1824/Branding.jasper";
+	public static String jrDisenoPacking = "reports-1824/DisenoPacking.jasper";
+	public static String jrDisenoProducto = "reports-1824/DisenoProducto1.jasper"; 
+	public static String jrDisenoProducto2 = "reports-1824/DisenoProducto2.jasper";
+	public static String jrLogotipos = "reports-1824/Logotipos.jasper";
+	public static String jrModelado3D = "reports-1824/Modelado3D.jasper";
+	public static String jrModelado3D2 = "reports-1824/Modelado3D2.jasper";
+	public static String jrNaming = "reports-1824/Naming.jasper";
 	
 	public static String nombre_pdf = "multipleReport.pdf";
 	

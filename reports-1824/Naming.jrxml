@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Presentacion" pageWidth="1753" pageHeight="1241" orientation="Landscape" columnWidth="400" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="395a5f96-3792-43bd-8af3-035098809831">
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="precio1" class="java.lang.String"/>
+	<field name="precio2" class="java.lang.String"/>
+	<field name="precio3" class="java.lang.String"/>
+	<detail>
+		<band height="1241" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="1753" height="1241" forecolor="#FFFFFF" uuid="6b351ea0-26a1-4a7a-bf6d-c1104de97b7f"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="279" y="730" width="231" height="54" uuid="ffd8c03b-53a9-4e75-bba8-dc466e2118dd"/>
+				<textElement>
+					<font fontName="Montserrat SemiBold" size="38"/>
+				</textElement>
+				<text><![CDATA[400€]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="356" y="471" width="229" height="52" forecolor="#1F1F1F" uuid="7959e96c-c976-48c8-9f43-0ce2c18fde39"/>
+				<textElement>
+					<font fontName="Montserrat SemiBold" size="29.2"/>
+				</textElement>
+				<text><![CDATA[850€ + IVA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="155" y="181" width="1535" height="79" forecolor="#039998" uuid="82a9a61d-91cc-41c8-ac6b-fbc8f4c77cf9"/>
+				<textElement>
+					<font fontName="Montserrat SemiBold" size="26"/>
+					<paragraph lineSpacing="AtLeast" lineSpacingSize="1.0"/>
+				</textElement>
+				<text><![CDATA[PARA LOS QUE QUIEREN POTENCIAR SU PUBLICIDAD EN RRSS Y DAR VISIBILIDAD A SU PRODUCTO CON CAMPAÑAS DE PUBLICIDAD EN ADDS DE ALCANCE Y TRÁFICO]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="105" width="1650" height="1040" forecolor="#1F1F1F" uuid="1153b895-9418-4560-86d1-dc9a298a6f4c"/>
+				<imageExpression><![CDATA["/src/img/Naming.jpg"]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="250" y="711" width="258" height="144" forecolor="#FFFFFF" uuid="6ae08886-956a-43a5-9e7d-988b3072f4b6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="250" y="1010" width="280" height="100" forecolor="#FFFFFF" uuid="8be54310-3a10-43fb-b51d-bc387f5b413e"/>
+			</rectangle>
+			<textField>
+				<reportElement x="279" y="730" width="231" height="61" forecolor="#1F1F1F" uuid="768b3a71-02bd-4d38-a27a-460856be322e"/>
+				<textElement>
+					<font fontName="Montserrat SemiBold" size="38"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{precio1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="794" width="231" height="61" forecolor="#1F1F1F" uuid="d66242cf-2cc6-41d7-882d-e43dd3a09928"/>
+				<textElement>
+					<font fontName="Montserrat SemiBold" size="38"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{precio2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="1030" width="261" height="61" forecolor="#1F1F1F" uuid="7aa1bb5c-1441-4349-8432-f99ac07c9ade"/>
+				<textElement>
+					<font fontName="Montserrat SemiBold" size="38"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{precio3}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
